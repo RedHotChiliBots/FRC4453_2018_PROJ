@@ -95,11 +95,11 @@
         <date year="2013" month="5" date="12" type="NEUTRAL"><![CDATA[Mothers Day]]></date>
         <date year="2013" month="5" date="27" type="HOLIDAY"><![CDATA[Memorial Day]]></date>
         <date year="2013" month="6" date="16" type="NEUTRAL"><![CDATA[Fathers Day]]></date>
-        <date year="2013" month="9" date="2" type="HOLIDAY"><![CDATA[Independence Day
-        Labor Day]]></date>
-        <date year="2013" month="10" date="14" type="HOLIDAY"><![CDATA[Columbus Day]]></date>
-        <date year="2013" month="11" date="11" type="HOLIDAY"><![CDATA[Veterans Day]]></date>
-        <date year="2013" month="11" date="28" type="HOLIDAY"><![CDATA[Thanksgiving]]></date>
+        <date year="2013" month="11" date="28" type="HOLIDAY"><![CDATA[Independence Day
+        Labor Day
+        Columbus Day
+        Veterans Day
+        Thanksgiving]]></date>
         <date year="2013" month="11" date="29" type="NEUTRAL"><![CDATA[Day after Thanksgiving]]></date>
         <date year="2013" month="12" date="25" type="HOLIDAY"><![CDATA[Christmas Day]]></date>
         <date year="2014" month="1" date="1" type="HOLIDAY"><![CDATA[New Years Day]]></date>
@@ -194,32 +194,32 @@
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
             <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
-        <task id="152" name="Pre-KickOff" color="#000000" meeting="false" start="2018-01-03" duration="5" complete="12" expand="true">
-            <task id="165" name="Complete Team Roster" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="50" expand="true"/>
-            <task id="159" name="Dev/Config GIT Repo/Tasks" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="0" expand="true"/>
-            <task id="161" name="Verify CAD/Programming Installs" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="0" expand="true"/>
-            <task id="163" name="Social Updates - FB, Twitter, Web" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="0" expand="true"/>
+        <task id="152" name="Pre-KickOff" color="#000000" meeting="false" start="2018-01-03" duration="5" complete="85" expand="true">
+            <task id="165" name="Complete Team Roster" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="100" expand="true"/>
+            <task id="159" name="Dev/Config GIT Repo/Tasks" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="80" expand="true"/>
+            <task id="161" name="Verify CAD/Programming Installs" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="80" expand="true"/>
+            <task id="163" name="Social Updates - FB, Twitter, Web" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="80" expand="true"/>
         </task>
-        <task id="4" name="KickOff" meeting="false" start="2018-01-06" duration="2" complete="0" expand="true">
-            <task id="5" name="Inventory KoP" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="0" thirdDate="2018-01-06" thirdDate-constraint="1" expand="true"/>
-            <task id="13" name="Print Game Manual" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="0" expand="true"/>
-            <task id="15" name="Print Field Schematics" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="0" expand="true"/>
-            <task id="31" name="Scoring Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="0" expand="true"/>
-            <task id="49" name="Defensive Analysis" meeting="false" start="2018-01-06" duration="1" complete="0" expand="true"/>
-            <task id="32" name="Strategy" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="0" expand="true"/>
+        <task id="4" name="KickOff" meeting="false" start="2018-01-06" duration="2" complete="75" expand="true">
+            <task id="5" name="Inventory KoP" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" thirdDate="2018-01-06" thirdDate-constraint="1" expand="true"/>
+            <task id="13" name="Print Game Manual" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
+            <task id="15" name="Print Field Schematics" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
+            <task id="31" name="Initial Scoring Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
+            <task id="49" name="Initial Defensive Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="25" expand="true"/>
+            <task id="32" name="Initial Strategy" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
             <task id="37" name="Purchase Game Pieces" color="#8cb6ce" meeting="false" start="2018-01-07" duration="1" complete="0" expand="true"/>
         </task>
-        <task id="17" name="Week #1" color="#000000" meeting="false" start="2018-01-06" duration="8" complete="0" expand="true">
+        <task id="17" name="Week #1" color="#000000" meeting="false" start="2018-01-06" duration="8" complete="29" expand="true">
             <task id="62" name="Build Field Elements" color="#8cb6ce" meeting="false" start="2018-01-08" duration="6" complete="0" expand="true"/>
-            <task id="43" name="Finalize Scoring Possibilies - Why?" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="0" expand="true"/>
+            <task id="43" name="Finalize Scoring Possibilies - Why?" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="50" expand="true"/>
             <task id="50" name="Finalize Defensive Opportunities" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="0" expand="true"/>
             <task id="52" name="Understand FIRST ranking system" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="0" expand="true"/>
-            <task id="9" name="Identify Robot Objectives - What?" color="#8cb6ce" meeting="false" start="2018-01-06" duration="4" complete="0" expand="true">
+            <task id="9" name="Identify Robot Objectives - What?" color="#8cb6ce" meeting="false" start="2018-01-06" duration="4" complete="80" expand="true">
                 <notes><![CDATA[Link objectives with Score and Difficulty to accomplish]]></notes>
             </task>
             <task id="70" name="Game Strategies" color="#000000" meeting="true" start="2018-01-10" duration="0" complete="0" expand="true"/>
-            <task id="11" name="Brainstorm Robot Concepts" color="#8cb6ce" meeting="false" start="2018-01-10" duration="1" complete="0" expand="true"/>
-            <task id="59" name="Final 4-6 Robot Concepts - How?" color="#8cb6ce" meeting="false" start="2018-01-12" duration="2" complete="0" expand="true"/>
+            <task id="11" name="Brainstorm Robot Concepts" color="#8cb6ce" meeting="false" start="2018-01-10" duration="1" complete="100" expand="true"/>
+            <task id="59" name="Final 4-6 Robot Concepts - How?" color="#8cb6ce" meeting="false" start="2018-01-12" duration="2" complete="50" expand="true"/>
             <task id="68" name="SubSystem Requirements" color="#000000" meeting="true" start="2018-01-14" duration="0" complete="0" expand="true"/>
         </task>
         <task id="21" name="Week #2" color="#000000" meeting="false" start="2018-01-16" duration="6" complete="0" expand="true">
