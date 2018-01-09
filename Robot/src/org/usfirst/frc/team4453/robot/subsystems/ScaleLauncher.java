@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Launcher extends Subsystem {
+public class ScaleLauncher extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -13,6 +13,16 @@ public class Launcher extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    }
+    
+    public void launch()
+    {
+    	//TODO
+    }
+    
+    public void reset()
+    {
+    	//TODO
     }
 }
 

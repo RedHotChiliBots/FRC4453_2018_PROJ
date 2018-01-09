@@ -18,4 +18,6 @@ public class RobotMap {
 							FRONT_LEFT_MOTOR  = 1, //TODO
 							REAR_RIGHT_MOTOR  = 2, //TODO
 							REAR_LEFT_MOTOR   = 3; //TODO
+	
+	public static final int CLIMBER_MOTOR = 4; //TODO
 }

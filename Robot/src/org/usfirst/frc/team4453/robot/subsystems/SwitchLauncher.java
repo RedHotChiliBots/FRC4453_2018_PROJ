@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  *
  */
-public class Grabber extends Subsystem {
+public class SwitchLauncher extends Subsystem {
 
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -15,12 +15,12 @@ public class Grabber extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
-    public void grab()
+    public void launch()
     {
     	//TODO
     }
     
-    public void release()
+    public void reset()
     {
     	//TODO
     }

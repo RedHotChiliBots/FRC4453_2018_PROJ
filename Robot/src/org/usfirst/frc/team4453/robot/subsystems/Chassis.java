@@ -27,5 +27,10 @@ public class Chassis extends Subsystem {
     {
     	drive.driveCartesian(yspeed, xspeed, rotation);
     }
+    
+    public void stop()
+    {
+    	drive.stopMotor();
+    }
 }
 

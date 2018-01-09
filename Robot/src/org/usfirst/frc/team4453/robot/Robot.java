@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4453.robot;
 
+import org.usfirst.frc.team4453.robot.subsystems.*;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -20,8 +22,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  * project.
  */
 public class Robot extends TimedRobot {
+
+	public static Chassis chassis;
+	public static Climber climber;
+	public static Grabber grabber;
+	public static ScaleLauncher scaleLauncher;
+	public static SwitchLauncher switchLauncher;
 	
-	public static OI m_oi;
+	public static OI oi;
 
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -32,8 +40,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
-		m_oi = new OI();
-
+		chassis = new Chassis();
+		climber = new Climber();
+		grabber = new Grabber();
+		scaleLauncher = new ScaleLauncher();
+		switchLauncher = new SwitchLauncher();
+		
+		oi = new OI();
 	}
 
 	/**
