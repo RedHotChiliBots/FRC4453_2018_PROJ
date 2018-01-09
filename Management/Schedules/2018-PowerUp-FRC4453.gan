@@ -192,7 +192,7 @@
             <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
             <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
-            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessors" type="default" valuetype="text"/>
         </taskproperties>
         <task id="152" name="Pre-KickOff" color="#000000" meeting="false" start="2018-01-03" duration="5" complete="85" expand="true">
             <task id="165" name="Complete Team Roster" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="100" expand="true"/>
