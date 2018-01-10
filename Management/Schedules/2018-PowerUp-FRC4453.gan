@@ -192,7 +192,7 @@
             <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
             <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
             <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
-            <taskproperty id="tpd9" name="predecessors" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
         </taskproperties>
         <task id="152" name="Pre-KickOff" color="#000000" meeting="false" start="2018-01-03" duration="5" complete="85" expand="true">
             <task id="165" name="Complete Team Roster" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="100" expand="true"/>
@@ -200,19 +200,23 @@
             <task id="161" name="Verify CAD/Programming Installs" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="80" expand="true"/>
             <task id="163" name="Social Updates - FB, Twitter, Web" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="80" expand="true"/>
         </task>
-        <task id="4" name="KickOff" meeting="false" start="2018-01-06" duration="2" complete="75" expand="true">
+        <task id="4" name="KickOff" meeting="false" start="2018-01-06" duration="2" complete="81" expand="true">
             <task id="5" name="Inventory KoP" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" thirdDate="2018-01-06" thirdDate-constraint="1" expand="true"/>
             <task id="13" name="Print Game Manual" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
             <task id="15" name="Print Field Schematics" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
             <task id="31" name="Initial Scoring Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
             <task id="49" name="Initial Defensive Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="25" expand="true"/>
+            <task id="178" name="Initial Penalty Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="25" expand="true"/>
             <task id="32" name="Initial Strategy" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
-            <task id="37" name="Purchase Game Pieces" color="#8cb6ce" meeting="false" start="2018-01-07" duration="1" complete="0" expand="true"/>
+            <task id="37" name="Purchase Game Pieces" color="#8cb6ce" meeting="false" start="2018-01-07" duration="1" complete="100" expand="true">
+                <notes><![CDATA[We have the KoP crate plus five additional.  The additional five do not have covers.]]></notes>
+            </task>
         </task>
-        <task id="17" name="Week #1" color="#000000" meeting="false" start="2018-01-06" duration="8" complete="29" expand="true">
+        <task id="17" name="Week #1" color="#000000" meeting="false" start="2018-01-06" duration="8" complete="26" expand="true">
             <task id="62" name="Build Field Elements" color="#8cb6ce" meeting="false" start="2018-01-08" duration="6" complete="0" expand="true"/>
             <task id="43" name="Finalize Scoring Possibilities - Why?" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="50" expand="true"/>
             <task id="50" name="Finalize Defensive Opportunities" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="0" expand="true"/>
+            <task id="180" name="Finalize Penalty Analysis" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="0" expand="true"/>
             <task id="52" name="Understand FIRST ranking system" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="0" expand="true"/>
             <task id="9" name="Identify Robot Objectives - What?" color="#8cb6ce" meeting="false" start="2018-01-06" duration="4" complete="80" expand="true">
                 <notes><![CDATA[Link objectives with Score and Difficulty to accomplish]]></notes>
