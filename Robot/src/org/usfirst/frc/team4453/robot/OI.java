@@ -14,13 +14,7 @@ package org.usfirst.frc.team4453.robot;
 public class OI {
 	
 	
-	public double getXAxis()
-	{
-		//TODO
-		return 0;
-	}
-	
-	public double getYAxis()
+	public double getLAxis()
 	{
 		//TODO
 		return 0;

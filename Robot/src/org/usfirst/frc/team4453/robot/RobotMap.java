@@ -16,8 +16,10 @@ package org.usfirst.frc.team4453.robot;
 public class RobotMap {
 	public static final int FRONT_RIGHT_MOTOR = 0, //TODO
 							FRONT_LEFT_MOTOR  = 1, //TODO
-							REAR_RIGHT_MOTOR  = 2, //TODO
-							REAR_LEFT_MOTOR   = 3; //TODO
+							MID_RIGHT_MOTOR   = 2, //TODO
+							MID_LEFT_MOTOR    = 3, //TODO
+							REAR_RIGHT_MOTOR  = 4, //TODO
+							REAR_LEFT_MOTOR   = 5; //TODO
 	
-	public static final int CLIMBER_MOTOR = 4; //TODO
+	public static final int CLIMBER_MOTOR = 6; //TODO
 }
