@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4453.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -22,4 +24,10 @@ public class RobotMap {
 							REAR_LEFT_MOTOR   = 5; //TODO
 	
 	public static final int CLIMBER_MOTOR = 6; //TODO
+
+	public static final int SHIFTER_FWD = 0, //TODO
+							SHIFTER_REV = 1; //TODO
+
+	public static final DoubleSolenoid.Value  SHIFTER_HIGH_GEAR = DoubleSolenoid.Value.kForward,
+											  SHIFTER_LOW_GEAR  = DoubleSolenoid.Value.kReverse;
 }
