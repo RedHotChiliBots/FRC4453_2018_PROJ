@@ -19,7 +19,7 @@ public class TeleopDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.chassis.drive(Robot.oi.getXAxis(), Robot.oi.getYAxis(), Robot.oi.getRAxis());
+    	Robot.chassis.drive(Robot.oi.getLAxis(), Robot.oi.getRAxis());
     }
 
     // Make this return true when this Command no longer needs to run execute()
