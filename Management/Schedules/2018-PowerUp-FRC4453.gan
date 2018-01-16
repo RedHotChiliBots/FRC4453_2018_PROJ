@@ -1,17 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="FRC Power Up" company="Red Hot Chili Bots" webLink="http://" view-date="2017-12-30" view-index="0" gantt-divider-location="407" resource-divider-location="300" version="2.8.5" locale="en_US">
+<?xml version="1.0" encoding="UTF-8"?><project name="FRC Power Up" company="Red Hot Chili Bots" webLink="http://" view-date="2017-12-31" view-index="0" gantt-divider-location="407" resource-divider-location="320" version="2.8.5" locale="en_US">
     <description/>
-    <view zooming-state="default:3" id="gantt-chart">
+    <view zooming-state="default:4" id="gantt-chart">
         <field id="tpd3" name="Name" width="271" order="0"/>
         <field id="tpd4" name="Begin date" width="61" order="1"/>
         <field id="tpd5" name="End date" width="56" order="2"/>
         <option id="taskLabelUp" value=""/>
-        <option id="taskLabelLeft" value=""/>
+        <option id="taskLabelLeft" value="resources"/>
         <option id="taskLabelRight" value="name"/>
         <option id="color.recent"><![CDATA[#000000]]></option>
     </view>
     <view id="resource-table">
-        <field id="0" name="Name" width="210" order="0"/>
-        <field id="1" name="Default role" width="86" order="1"/>
+        <field id="0" name="Name" width="220" order="0"/>
+        <field id="1" name="Default role" width="96" order="1"/>
     </view>
     <!-- -->
     <calendars base-id="us.federal">
@@ -95,11 +95,11 @@
         <date year="2013" month="5" date="12" type="NEUTRAL"><![CDATA[Mothers Day]]></date>
         <date year="2013" month="5" date="27" type="HOLIDAY"><![CDATA[Memorial Day]]></date>
         <date year="2013" month="6" date="16" type="NEUTRAL"><![CDATA[Fathers Day]]></date>
-        <date year="2013" month="11" date="28" type="HOLIDAY"><![CDATA[Independence Day
-        Labor Day
-        Columbus Day
-        Veterans Day
-        Thanksgiving]]></date>
+        <date year="2013" month="7" date="4" type="HOLIDAY"><![CDATA[Independence Day]]></date>
+        <date year="2013" month="9" date="2" type="HOLIDAY"><![CDATA[Labor Day]]></date>
+        <date year="2013" month="10" date="14" type="HOLIDAY"><![CDATA[Columbus Day]]></date>
+        <date year="2013" month="11" date="11" type="HOLIDAY"><![CDATA[Veterans Day]]></date>
+        <date year="2013" month="11" date="28" type="HOLIDAY"><![CDATA[Thanksgiving]]></date>
         <date year="2013" month="11" date="29" type="NEUTRAL"><![CDATA[Day after Thanksgiving]]></date>
         <date year="2013" month="12" date="25" type="HOLIDAY"><![CDATA[Christmas Day]]></date>
         <date year="2014" month="1" date="1" type="HOLIDAY"><![CDATA[New Years Day]]></date>
@@ -164,22 +164,6 @@
         <date year="2017" month="11" date="23" type="HOLIDAY"><![CDATA[Thanksgiving]]></date>
         <date year="2017" month="11" date="24" type="NEUTRAL"><![CDATA[Day after Thanksgiving]]></date>
         <date year="2017" month="12" date="25" type="HOLIDAY"><![CDATA[Christmas Day]]></date>
-        <date year="2018" month="1" date="1" type="HOLIDAY"><![CDATA[New Years Day]]></date>
-        <date year="2018" month="1" date="2" type="HOLIDAY"><![CDATA[New Years Day (in lieu)]]></date>
-        <date year="2018" month="1" date="15" type="HOLIDAY"><![CDATA[Martin Luther King Day]]></date>
-        <date year="2018" month="2" date="2" type="NEUTRAL"><![CDATA[Groundhog Day]]></date>
-        <date year="2018" month="2" date="19" type="HOLIDAY"><![CDATA[Presidents' Day]]></date>
-        <date year="2018" month="5" date="13" type="NEUTRAL"><![CDATA[Mother's Day]]></date>
-        <date year="2018" month="5" date="28" type="HOLIDAY"><![CDATA[Memorial Day]]></date>
-        <date year="2018" month="6" date="17" type="NEUTRAL"><![CDATA[Father's Day]]></date>
-        <date year="2018" month="7" date="4" type="HOLIDAY"><![CDATA[Independence Day]]></date>
-        <date year="2018" month="9" date="3" type="HOLIDAY"><![CDATA[Labor Day]]></date>
-        <date year="2018" month="10" date="8" type="HOLIDAY"><![CDATA[Columbus Day]]></date>
-        <date year="2018" month="11" date="11" type="HOLIDAY"><![CDATA[Veterans Day]]></date>
-        <date year="2018" month="11" date="12" type="HOLIDAY"><![CDATA[Veterans Day (in lieu)]]></date>
-        <date year="2018" month="11" date="22" type="HOLIDAY"><![CDATA[Thanksgiving]]></date>
-        <date year="2018" month="11" date="23" type="NEUTRAL"><![CDATA[Day after Thanksgiving]]></date>
-        <date year="2018" month="12" date="25" type="HOLIDAY"><![CDATA[Christmas Day]]></date>
     </calendars>
     <tasks empty-milestones="true">
         <taskproperties>
@@ -200,25 +184,25 @@
             <task id="161" name="Verify CAD/Programming Installs" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="80" expand="true"/>
             <task id="163" name="Social Updates - FB, Twitter, Web" color="#8cb6ce" meeting="false" start="2018-01-03" duration="5" complete="80" expand="true"/>
         </task>
-        <task id="4" name="KickOff" meeting="false" start="2018-01-06" duration="2" complete="81" expand="true">
+        <task id="4" name="KickOff" meeting="false" start="2018-01-06" duration="2" complete="100" expand="true">
             <task id="5" name="Inventory KoP" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" thirdDate="2018-01-06" thirdDate-constraint="1" expand="true"/>
             <task id="13" name="Print Game Manual" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
             <task id="15" name="Print Field Schematics" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
             <task id="31" name="Initial Scoring Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
-            <task id="49" name="Initial Defensive Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="25" expand="true"/>
-            <task id="178" name="Initial Penalty Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="25" expand="true"/>
+            <task id="49" name="Initial Defensive Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
+            <task id="178" name="Initial Penalty Analysis" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
             <task id="32" name="Initial Strategy" color="#8cb6ce" meeting="false" start="2018-01-06" duration="1" complete="100" expand="true"/>
             <task id="37" name="Purchase Game Pieces" color="#8cb6ce" meeting="false" start="2018-01-07" duration="1" complete="100" expand="true">
                 <notes><![CDATA[We have the KoP crate plus five additional.  The additional five do not have covers.]]></notes>
             </task>
         </task>
-        <task id="17" name="Week #1" color="#000000" meeting="false" start="2018-01-06" duration="8" complete="26" expand="true">
+        <task id="17" name="Week #1" color="#000000" meeting="false" start="2018-01-06" duration="9" complete="47" expand="true">
             <task id="62" name="Build Field Elements" color="#8cb6ce" meeting="false" start="2018-01-08" duration="6" complete="0" expand="true"/>
             <task id="43" name="Finalize Scoring Possibilities - Why?" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="50" expand="true"/>
-            <task id="50" name="Finalize Defensive Opportunities" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="0" expand="true"/>
-            <task id="180" name="Finalize Penalty Analysis" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="0" expand="true"/>
-            <task id="52" name="Understand FIRST ranking system" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="0" expand="true"/>
-            <task id="9" name="Identify Robot Objectives - What?" color="#8cb6ce" meeting="false" start="2018-01-06" duration="4" complete="80" expand="true">
+            <task id="50" name="Finalize Defensive Opportunities" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="50" expand="true"/>
+            <task id="180" name="Finalize Penalty Analysis" color="#8cb6ce" meeting="false" start="2018-01-08" duration="2" complete="50" expand="true"/>
+            <task id="52" name="Understand FIRST ranking system" color="#8cb6ce" meeting="false" start="2018-01-13" duration="2" complete="100" expand="true"/>
+            <task id="9" name="Identify Robot Objectives - What?" color="#8cb6ce" meeting="false" start="2018-01-06" duration="4" complete="100" expand="true">
                 <notes><![CDATA[Link objectives with Score and Difficulty to accomplish]]></notes>
             </task>
             <task id="70" name="Game Strategies" color="#000000" meeting="true" start="2018-01-10" duration="0" complete="0" expand="true"/>
@@ -226,10 +210,10 @@
             <task id="59" name="Final 4-6 Robot Concepts - How?" color="#8cb6ce" meeting="false" start="2018-01-12" duration="2" complete="50" expand="true"/>
             <task id="68" name="SubSystem Requirements" color="#000000" meeting="true" start="2018-01-14" duration="0" complete="0" expand="true"/>
         </task>
-        <task id="21" name="Week #2" color="#000000" meeting="false" start="2018-01-16" duration="6" complete="0" expand="true">
-            <task id="66" name="SubSystem Designs" color="#8cb6ce" meeting="false" start="2018-01-16" duration="6" complete="0" expand="true"/>
-            <task id="83" name="Software - SubSystems" color="#8cb6ce" meeting="false" start="2018-01-16" duration="6" complete="0" expand="true"/>
-            <task id="111" name="Verify Design against Robot Rules" color="#8cb6ce" meeting="false" start="2018-01-16" duration="6" complete="0" expand="true"/>
+        <task id="21" name="Week #2" color="#000000" meeting="false" start="2018-01-15" duration="6" complete="0" expand="true">
+            <task id="66" name="SubSystem Designs" color="#8cb6ce" meeting="false" start="2018-01-15" duration="6" complete="0" expand="true"/>
+            <task id="83" name="Software - SubSystems" color="#8cb6ce" meeting="false" start="2018-01-15" duration="6" complete="0" expand="true"/>
+            <task id="111" name="Verify Design against Robot Rules" color="#8cb6ce" meeting="false" start="2018-01-15" duration="6" complete="0" expand="true"/>
             <task id="72" name="Design Freeze" color="#000000" meeting="true" start="2018-01-21" duration="0" complete="0" expand="true">
                 <notes><![CDATA[Know what each sub system will generally look like, what motor it will use, sensors, etc.
 ]]></notes>
@@ -271,9 +255,38 @@
         </task>
         <task id="74" name="Bag-N-Tag" color="#000000" meeting="true" start="2018-02-21" duration="0" complete="0" expand="true"/>
     </tasks>
-    <resources/>
-    <allocations/>
+    <resources>
+        <resource id="0" name="William Chadwick" function="Default:0" contacts="williamchadwick58@gmail.com" phone="269-339-4684"/>
+        <resource id="1" name="Laney DeBrabander" function="3" contacts="laneykayd@gmail.com" phone="269-339-4912"/>
+        <resource id="2" name="Grant Doolittle" function="4" contacts="ggdoolitt@gmail.com" phone=""/>
+        <resource id="3" name="Conner Ebbinghaus" function="1" contacts="connerebbinghaus@gmail.com" phone="517-206-7668"/>
+        <resource id="4" name="Kaleb Green" function="Default:0" contacts="kmgreen321@gmail.com" phone=""/>
+        <resource id="5" name="Todd Hahn" function="2" contacts="toddhahn3@gmail.com" phone="269-789-1892"/>
+        <resource id="6" name="Lydia Holbrook" function="Default:0" contacts="lydiaholbrook3@gmail.com" phone="269-832-2698"/>
+        <resource id="7" name="Rain Hubbell" function="Default:1" contacts="rain.hubbell@gmail.com" phone="269-986-3876"/>
+        <resource id="8" name="Andrew Kiessling" function="2" contacts="akiessling123@gmail.com" phone="269-224-0675"/>
+        <resource id="9" name="Kevin Lin" function="Default:0" contacts="kevin1208@mail.com" phone="269-589-9825"/>
+        <resource id="10" name="DJ Malinowski" function="2" contacts="djmalinowski3@gmail.com" phone="269-209-4317"/>
+        <resource id="11" name="Mallory Moreau" function="3" contacts="malmalm255@gmail.com" phone=""/>
+        <resource id="12" name="Larsen Morehouse" function="1" contacts="larsenmae@gmail.com" phone="989-832-6447"/>
+        <resource id="13" name="Nicholas Seawood" function="Default:0" contacts="nicholasseawood@gmail.com" phone=""/>
+        <resource id="14" name="Jacob Soward" function="Default:0" contacts="sowardjacob@gmail.com" phone="269-487-2075"/>
+        <resource id="15" name="Liliana Walker" function="5" contacts="kimballwalkers@gmail.com" phone="269-245-9253"/>
+        <resource id="16" name="Chris Weaver" function="2" contacts="awsomegamer195@gmail.com" phone=""/>
+        <resource id="17" name="Kyle Wilson" function="Default:0" contacts="kaw020403@gmail.com" phone="269-601-8176"/>
+    </resources>
+    <allocations>
+        <allocation task-id="180" resource-id="2" function="Default:0" responsible="true" load="50.0"/>
+        <allocation task-id="50" resource-id="2" function="Default:0" responsible="true" load="50.0"/>
+    </allocations>
     <vacations/>
     <previous/>
     <roles roleset-name="Default"/>
+    <roles>
+        <role id="1" name="Software"/>
+        <role id="2" name="Mechanical"/>
+        <role id="3" name="Marketing"/>
+        <role id="4" name="Strategy"/>
+        <role id="5" name="Finance"/>
+    </roles>
 </project>
