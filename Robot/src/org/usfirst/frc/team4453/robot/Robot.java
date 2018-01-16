@@ -26,8 +26,6 @@ public class Robot extends TimedRobot {
 	public static Chassis chassis;
 	public static Climber climber;
 	public static Grabber grabber;
-	public static ScaleLauncher scaleLauncher;
-	public static SwitchLauncher switchLauncher;
 	
 	public static OI oi;
 
@@ -43,8 +41,7 @@ public class Robot extends TimedRobot {
 		chassis = new Chassis();
 		climber = new Climber();
 		grabber = new Grabber();
-		scaleLauncher = new ScaleLauncher();
-		switchLauncher = new SwitchLauncher();
+		
 		
 		oi = new OI();
 	}
