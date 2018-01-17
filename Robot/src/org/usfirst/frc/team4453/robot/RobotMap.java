@@ -16,13 +16,14 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
  * floating around.
  */
 public class RobotMap {
-    public static final int FRONT_RIGHT_MOTOR = 0; // TODO
-    public static final int FRONT_LEFT_MOTOR  = 1; // TODO
-    public static final int MID_RIGHT_MOTOR   = 2; // TODO
-    public static final int MID_LEFT_MOTOR    = 3; // TODO
-    public static final int REAR_RIGHT_MOTOR  = 4; // TODO
-    public static final int REAR_LEFT_MOTOR   = 5; // TODO
-    public static final int CLIMBER_MOTOR     = 6; // TODO
+    public static final int FRONT_RIGHT_MOTOR	= 0; // TODO
+    public static final int FRONT_LEFT_MOTOR	= 1; // TODO
+    public static final int MID_RIGHT_MOTOR	= 2; // TODO
+    public static final int MID_LEFT_MOTOR	= 3; // TODO
+    public static final int REAR_RIGHT_MOTOR	= 4; // TODO
+    public static final int REAR_LEFT_MOTOR	= 5; // TODO
+    public static final int CLIMBER_MOTOR_RIGHT	= 6; // TODO
+    public static final int CLIMBER_MOTOR_LEFT	= 6; // TODO
 
     public static final int SHIFTER_FWD	= 0; // TODO
     public static final int SHIFTER_REV	= 1; // TODO
