@@ -12,6 +12,9 @@ import org.usfirst.frc.team4453.robot.subsystems.Climber;
 import org.usfirst.frc.team4453.robot.subsystems.Grabber;
 import org.usfirst.frc.team4453.robot.subsystems.Shooter;
 
+import com.kauailabs.navx.frc.AHRS;
+
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -31,11 +34,47 @@ public class Robot extends TimedRobot {
     public static Grabber grabber;
     public static Shooter shooter;
 
+    public static AHRS navx;
+
     public static OI oi;
 
     Command m_autonomousCommand;
 
     SendableChooser<Command> m_chooser = new SendableChooser<>();
+
+    /**
+     * This function is run when the robot is first started up and should be
+     * used for any initialization code.
+     */
+    @Override
+    public void robotInit() {
+	navx = new AHRS(SPI.Port.kMXP);
+
+	chassis = new Chassis();
+	climber = new Climber();
+	grabber = new Grabber();
+
+	oi = new OI();
+    }
+
+    @Override
+    public void teleopInit() {
+	// This makes sure that the autonomous stops running when
+	// teleop starts running. If you want the autonomous to
+	// continue until interrupted by another command, remove
+	// this line or comment it out.
+	if (m_autonomousCommand != null) {
+	    m_autonomousCommand.cancel();
+	}
+    }
+
+    /**
+     * This function is called periodically during operator control.
+     */
+    @Override
+    public void teleopPeriodic() {
+	Scheduler.getInstance().run();
+    }
 
     /**
      * This autonomous (along with the chooser code above) shows how to select
@@ -90,38 +129,6 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
-	Scheduler.getInstance().run();
-    }
-
-    /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
-     */
-    @Override
-    public void robotInit() {
-	chassis = new Chassis();
-	climber = new Climber();
-	grabber = new Grabber();
-
-	oi = new OI();
-    }
-
-    @Override
-    public void teleopInit() {
-	// This makes sure that the autonomous stops running when
-	// teleop starts running. If you want the autonomous to
-	// continue until interrupted by another command, remove
-	// this line or comment it out.
-	if (m_autonomousCommand != null) {
-	    m_autonomousCommand.cancel();
-	}
-    }
-
-    /**
-     * This function is called periodically during operator control.
-     */
-    @Override
-    public void teleopPeriodic() {
 	Scheduler.getInstance().run();
     }
 
