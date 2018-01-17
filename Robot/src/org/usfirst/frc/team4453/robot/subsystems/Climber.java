@@ -10,23 +10,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Climber extends Subsystem {
-	private static final double CLIMB_SPEED = 1.0; //TODO
-   
-	private WPI_TalonSRX climber = new WPI_TalonSRX(RobotMap.CLIMBER_MOTOR);
+    private static final double CLIMB_SPEED = 1.0; // TODO
 
+    private final WPI_TalonSRX climber = new WPI_TalonSRX(RobotMap.CLIMBER_MOTOR);
+
+    public void climb() {
+	climber.set(CLIMB_SPEED);
+    }
+
+    @Override
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+	// Set the default command for a subsystem here.
+	// setDefaultCommand(new MySpecialCommand());
     }
-    
-    public void climb()
-    {
-    	climber.set(CLIMB_SPEED);
-    }
-    
-    public void stop()
-    {
-    	climber.set(0);
+
+    public void stop() {
+	climber.set(0);
     }
 }
-
