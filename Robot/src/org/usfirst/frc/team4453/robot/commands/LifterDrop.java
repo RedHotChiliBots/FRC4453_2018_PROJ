@@ -1,0 +1,28 @@
+package org.usfirst.frc.team4453.robot.commands;
+
+import org.usfirst.frc.team4453.robot.Robot;
+
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.InstantCommand;
+
+/**
+ *
+ */
+public class LifterDrop extends InstantCommand {
+
+    public LifterDrop() {
+	super();
+	requires(Robot.lifter);
+    }
+
+    // Called once when the command executes
+    // protected void initialize() {
+    // }
+    @Override
+    protected void execute() {
+	if (Timer.getMatchTime() < 30) {
+	    Robot.lifter.drop();
+	}
+
+    }
+}

@@ -30,4 +30,7 @@ public class RobotMap {
 
     public static final DoubleSolenoid.Value SHIFTER_HIGH_GEAR = DoubleSolenoid.Value.kForward;
     public static final DoubleSolenoid.Value SHIFTER_LOW_GEAR  = DoubleSolenoid.Value.kReverse;
+
+    public static final int SOLENOID_LIFTER_LEFT  = 5; // TODO
+    public static final int SOLENOID_LIFTER_RIGHT = 5; // TODO
 }

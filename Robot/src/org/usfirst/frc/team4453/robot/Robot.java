@@ -7,10 +7,7 @@
 
 package org.usfirst.frc.team4453.robot;
 
-import org.usfirst.frc.team4453.robot.subsystems.Chassis;
-import org.usfirst.frc.team4453.robot.subsystems.Climber;
-import org.usfirst.frc.team4453.robot.subsystems.Grabber;
-import org.usfirst.frc.team4453.robot.subsystems.Shooter;
+import org.usfirst.frc.team4453.robot.subsystems.*;
 
 import com.kauailabs.navx.frc.AHRS;
 
@@ -33,6 +30,7 @@ public class Robot extends TimedRobot {
     public static Climber climber;
     public static Grabber grabber;
     public static Shooter shooter;
+    public static Lifter  lifter;
 
     public static AHRS navx;
 
@@ -53,6 +51,7 @@ public class Robot extends TimedRobot {
 	chassis = new Chassis();
 	climber = new Climber();
 	grabber = new Grabber();
+	lifter = new Lifter();
 
 	oi = new OI();
     }
