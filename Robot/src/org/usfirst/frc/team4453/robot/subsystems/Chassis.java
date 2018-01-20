@@ -12,14 +12,14 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  *
  */
 public class Chassis extends Subsystem {
-    private final WPI_TalonSRX leftFront  = new WPI_TalonSRX(RobotMap.FRONT_LEFT_MOTOR);
-    private final WPI_TalonSRX rightFront = new WPI_TalonSRX(RobotMap.FRONT_RIGHT_MOTOR);
-    private final WPI_TalonSRX leftMid	  = new WPI_TalonSRX(RobotMap.MID_LEFT_MOTOR);
-    private final WPI_TalonSRX rightMid	  = new WPI_TalonSRX(RobotMap.MID_RIGHT_MOTOR);
-    private final WPI_TalonSRX leftBack	  = new WPI_TalonSRX(RobotMap.REAR_LEFT_MOTOR);
-    private final WPI_TalonSRX rightBack  = new WPI_TalonSRX(RobotMap.REAR_RIGHT_MOTOR);
+    private final WPI_TalonSRX leftFront  = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_LEFT_MOTOR);
+    private final WPI_TalonSRX rightFront = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_RIGHT_MOTOR);
+    private final WPI_TalonSRX leftMid	  = new WPI_TalonSRX(RobotMap.CHASSIS_MID_LEFT_MOTOR);
+    private final WPI_TalonSRX rightMid	  = new WPI_TalonSRX(RobotMap.CHASSIS_MID_RIGHT_MOTOR);
+    private final WPI_TalonSRX leftBack	  = new WPI_TalonSRX(RobotMap.CHASSIS_REAR_LEFT_MOTOR);
+    private final WPI_TalonSRX rightBack  = new WPI_TalonSRX(RobotMap.CHASSIS_REAR_RIGHT_MOTOR);
 
-    private final DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFTER_FWD, RobotMap.SHIFTER_REV);;
+    private final DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFTER_FWD_SOLENOID, RobotMap.SHIFTER_REV_SOLENOID);;
 
     private final DifferentialDrive drive = new DifferentialDrive(leftFront, rightFront);
 
