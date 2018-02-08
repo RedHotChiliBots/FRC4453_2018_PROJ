@@ -4,6 +4,7 @@ import org.usfirst.frc.team4453.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -12,16 +13,21 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  *
  */
 public class Chassis extends Subsystem {
-    private final WPI_TalonSRX leftFront  = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_LEFT_MOTOR);
-    private final WPI_TalonSRX rightFront = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_RIGHT_MOTOR);
-    private final WPI_TalonSRX leftMid	  = new WPI_TalonSRX(RobotMap.CHASSIS_MID_LEFT_MOTOR);
-    private final WPI_TalonSRX rightMid	  = new WPI_TalonSRX(RobotMap.CHASSIS_MID_RIGHT_MOTOR);
-    private final WPI_TalonSRX leftBack	  = new WPI_TalonSRX(RobotMap.CHASSIS_REAR_LEFT_MOTOR);
-    private final WPI_TalonSRX rightBack  = new WPI_TalonSRX(RobotMap.CHASSIS_REAR_RIGHT_MOTOR);
+    private final WPI_TalonSRX	    leftFront			 = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_LEFT_MOTOR);
+    private final WPI_TalonSRX	    rightFront			 = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_RIGHT_MOTOR);
+    private final WPI_TalonSRX	    leftMid			 = new WPI_TalonSRX(RobotMap.CHASSIS_MID_LEFT_MOTOR);
+    private final WPI_TalonSRX	    rightMid			 = new WPI_TalonSRX(RobotMap.CHASSIS_MID_RIGHT_MOTOR);
+    private final WPI_TalonSRX	    leftBack			 = new WPI_TalonSRX(RobotMap.CHASSIS_REAR_LEFT_MOTOR);
+    private final WPI_TalonSRX	    rightBack			 = new WPI_TalonSRX(RobotMap.CHASSIS_REAR_RIGHT_MOTOR);
 
-    private final DoubleSolenoid shifter = new DoubleSolenoid(RobotMap.SHIFTER_FWD_SOLENOID, RobotMap.SHIFTER_REV_SOLENOID);;
+    private final DoubleSolenoid    shifter			 = new DoubleSolenoid(RobotMap.SHIFTER_FWD_SOLENOID,
+	    RobotMap.SHIFTER_REV_SOLENOID);
 
-    private final DifferentialDrive drive = new DifferentialDrive(leftFront, rightFront);
+    private final DifferentialDrive drive			 = new DifferentialDrive(leftFront, rightFront);
+
+    private final double	    PRESSURE_SENSOR_INPUTVOLTAGE = 5.0;
+    private AnalogInput		    hiPressureSensor		 = new AnalogInput(RobotMap.HI_PRESSURE_SENSOR);
+    private AnalogInput		    loPressureSensor		 = new AnalogInput(RobotMap.LO_PRESSURE_SENSOR);
 
     public Chassis() {
 	leftMid.follow(leftFront);
@@ -35,6 +41,10 @@ public class Chassis extends Subsystem {
 
     public void drive(double lspeed, double rspeed) {
 	drive.tankDrive(lspeed, rspeed);
+    }
+
+    public void arcadeDrive(double spdCmd, double rotCmd) {
+	drive.arcadeDrive(spdCmd, rotCmd, false);
     }
 
     @Override

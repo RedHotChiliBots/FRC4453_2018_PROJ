@@ -26,19 +26,19 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
  */
 public class Robot extends TimedRobot {
 
-    public static Chassis chassis;
-    public static Climber climber;
-    public static Grabber grabber;
-    public static Shooter shooter;
-    public static Lifter  lifter;
+    public static Chassis    chassis;
+    public static Climber    climber;
+    public static Grabber    grabber;
+    public static Shooter    shooter;
+    public static Lifter     lifter;
 
-    public static AHRS navx;
+    public static AHRS	     navx;
 
-    public static OI oi;
+    public static OI	     oi;
 
-    Command m_autonomousCommand;
+    Command		     m_autonomousCommand;
 
-    SendableChooser<Command> m_chooser = new SendableChooser<>();
+    SendableChooser<Command> m_chooser = new SendableChooser<Command>();
 
     /**
      * This function is run when the robot is first started up and should be
@@ -91,7 +91,8 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
 	m_autonomousCommand = m_chooser.getSelected();
 
-	// String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+	// String autoSelected = SmartDashboard.getString("Auto Selector",
+	// "Default");
 	// switch (autoSelected) {
 	// case "My Auto":
 	// autonomousCommand = new MyAutoCommand();
