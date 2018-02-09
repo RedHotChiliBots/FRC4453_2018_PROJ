@@ -91,40 +91,39 @@ int main() {
 
 	cv::VideoCapture camera(-1);
 
-	std::queue<std::future<std::tuple<double, double, cv::Mat, cv::Mat> > > futureQueue;
+	std::future<cv::Mat> frameFuture = std::async([&camera] () {
+		cv::Mat frame;
+		camera >> frame;
+		return frame;
+	});
 
 	while (camera.isOpened()) {
-		if (futureQueue.size() < 5) {
-			camera.grab();
+
+		double distance, angle;
+		cv::Mat frame = frameFuture.get(), binary;
+
+		frameFuture = std::async([&camera] () {
 			cv::Mat frame;
 			camera >> frame;
+			return frame;
+		});
 
-			std::future<std::tuple<double, double, cv::Mat, cv::Mat> > future = std::async(&process, frame);
+		std::tie(distance, angle, frame, binary) = process(frame);
 
-			futureQueue.push(std::move(future));
-		}
+		std::string distStr = std::to_string(distance);
+		std::string angleStr = std::to_string(angle);
 
-		if (futureQueue.back().wait_for(10ms) != std::future_status::timeout) {
-			double distance, angle;
-			cv::Mat frame, binary;
-			std::tie(distance, angle, frame, binary) = futureQueue.back().get();
-			futureQueue.pop();
+		mosquitto_publish(mqtt, NULL, "distance", distStr.length(), distStr.c_str(), 1, false);
+		mosquitto_publish(mqtt, NULL, "angle", angleStr.length(), angleStr.c_str(), 1, false);
 
-			std::string distStr = std::to_string(distance);
-			std::string angleStr = std::to_string(angle);
-
-			mosquitto_publish(mqtt, NULL, "distance", distStr.length(), distStr.c_str(), 1, false);
-			mosquitto_publish(mqtt, NULL, "angle", angleStr.length(), angleStr.c_str(), 1, false);
-
-#			ifndef NDEBUG
-#			ifndef RPI
-			cv::imshow("Frame", frame);
-			cv::imshow("Binary", binary);
-			cv::waitKey(1);
-			//std::cout << "d=" << distance << ", a=" << angle << std::endl;
-#			endif
-#			endif
-		}
+#		ifndef NDEBUG
+#		ifndef RPI
+		cv::imshow("Frame", frame);
+		cv::imshow("Binary", binary);
+		cv::waitKey(1);
+		//std::cout << "d=" << distance << ", a=" << angle << std::endl;
+#		endif
+#		endif
 	}
 
 	mosquitto_disconnect(mqtt);
