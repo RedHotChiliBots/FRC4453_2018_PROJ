@@ -22,7 +22,7 @@ public class TeleopDrive extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-	Robot.chassis.drive(Robot.oi.getLAxis(), Robot.oi.getRAxis());
+	Robot.chassis.arcadeDrive(Robot.oi.getSpdAxis(), Robot.oi.getTurnAxis());
     }
 
     // Called just before this Command runs the first time
