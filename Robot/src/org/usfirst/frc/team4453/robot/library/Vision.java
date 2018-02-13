@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Vision {
-    static final String HOSTNAME = "raspberrypi.local";
+    static final String	HOSTNAME = "raspberrypi.local";
 
-    AtomicLong angle	= new AtomicLong(Double.doubleToRawLongBits(Double.NaN));
-    AtomicLong distance	= new AtomicLong(Double.doubleToRawLongBits(Double.NaN));
+    AtomicLong		angle	 = new AtomicLong(Double.doubleToRawLongBits(Double.NaN));
+    AtomicLong		distance = new AtomicLong(Double.doubleToRawLongBits(Double.NaN));
 
     public Vision() {
 	SmartDashboard.putString("MQTT Status:", "DISCONNECTED");
@@ -22,22 +22,22 @@ public class Vision {
 	CallbackConnection connection = mqtt.callbackConnection();
 	connection.listener(new Listener() {
 
-	    @Override
+	    // @Override
 	    public void onConnected() {
 		SmartDashboard.putString("MQTT Status:", "CONNECTED");
 	    }
 
-	    @Override
+	    // @Override
 	    public void onDisconnected() {
 		SmartDashboard.putString("MQTT Status:", "DISCONNECTED");
 	    }
 
-	    @Override
+	    // @Override
 	    public void onFailure(Throwable e) {
 		DriverStation.reportError("MQTT: " + e.getMessage(), e.getStackTrace());
 	    }
 
-	    @Override
+	    // @Override
 	    public void onPublish(UTF8Buffer topic, Buffer payload, Runnable ack) {
 		if (topic.toString().equals("angle")) {
 		    angle.set(Double.doubleToRawLongBits(Double.parseDouble(payload.toString())));
@@ -50,23 +50,23 @@ public class Vision {
 
 	connection.connect(new Callback<Void>() {
 
-	    @Override
+	    // @Override
 	    public void onFailure(Throwable e) {
 		SmartDashboard.putString("MQTT Status:", "DISCONNECTED");
 		DriverStation.reportError("MQTT: " + e.getMessage(), e.getStackTrace());
 	    }
 
-	    @Override
+	    // @Override
 	    public void onSuccess(Void arg0) {
 		Topic[] topics = { new Topic("angle", QoS.AT_LEAST_ONCE), new Topic("distance", QoS.AT_LEAST_ONCE) };
 		connection.subscribe(topics, new Callback<byte[]>() {
 
-		    @Override
+		    // @Override
 		    public void onFailure(Throwable e) {
 			DriverStation.reportError("MQTT: " + e.getMessage(), e.getStackTrace());
 		    }
 
-		    @Override
+		    // @Override
 		    public void onSuccess(byte[] arg0) {
 		    }
 

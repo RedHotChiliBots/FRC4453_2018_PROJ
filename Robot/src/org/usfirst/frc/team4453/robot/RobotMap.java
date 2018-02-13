@@ -38,8 +38,8 @@ public class RobotMap {
 
     // Lifter
     // Solenoids
-    public static final int		     SOLENOID_LIFTER_LEFT	   = 5;				   // TODO
-    public static final int		     SOLENOID_LIFTER_RIGHT	   = 5;				   // TODO
+    public static final int		     SOLENOID_LIFTER_LEFT	   = 2;				   // TODO
+    public static final int		     SOLENOID_LIFTER_RIGHT	   = 3;				   // TODO
 
     // Grabber
     // Motor Controllers
@@ -47,8 +47,8 @@ public class RobotMap {
     public static final int		     GRABBER_RIGHT_MOTOR	   = 9;				   // TODO
     public static final int		     GRABBER_TILT_MOTOR		   = 10;			   // TODO
     // Solenoids
-    public static final int		     GRABBER_GRIP_SOLENOID_GRIP	   = 6;				   // TODO
-    public static final int		     GRABBER_GRIP_SOLENOID_RELEASE = 6;				   // TODO
+    public static final int		     GRABBER_GRIP_SOLENOID_GRIP	   = 4;				   // TODO
+    public static final int		     GRABBER_GRIP_SOLENOID_RELEASE = 5;				   // TODO
 
     // Analog Inputs
     public static final int		     HI_PRESSURE_SENSOR		   = 0;

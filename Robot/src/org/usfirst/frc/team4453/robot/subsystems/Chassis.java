@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4453.robot.subsystems;
 
 import org.usfirst.frc.team4453.robot.RobotMap;
+import org.usfirst.frc.team4453.robot.commands.TeleopDrive;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -30,9 +31,11 @@ public class Chassis extends Subsystem {
     private AnalogInput		    loPressureSensor		 = new AnalogInput(RobotMap.LO_PRESSURE_SENSOR);
 
     public Chassis() {
+	leftFront.setInverted(false);
 	leftMid.follow(leftFront);
 	leftBack.follow(leftFront);
 
+	rightFront.setInverted(true);
 	rightMid.follow(rightFront);
 	rightBack.follow(rightFront);
 
@@ -43,14 +46,13 @@ public class Chassis extends Subsystem {
 	drive.tankDrive(lspeed, rspeed);
     }
 
-    public void arcadeDrive(double spdCmd, double rotCmd) {
-	drive.arcadeDrive(spdCmd, rotCmd, false);
+    public void curveDrive(double spdCmd, double rotCmd, boolean quickTurn) {
+	drive.curvatureDrive(spdCmd, rotCmd, false);
     }
 
     @Override
     public void initDefaultCommand() {
-	// Set the default command for a subsystem here.
-	// setDefaultCommand(new MySpecialCommand());
+	setDefaultCommand(new TeleopDrive());
     }
 
     public void shift(boolean highgear) {

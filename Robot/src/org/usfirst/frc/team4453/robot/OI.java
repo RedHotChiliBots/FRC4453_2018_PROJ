@@ -15,15 +15,19 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
 
-    private Joystick controller1 = new Joystick(0);
+    private Joystick drive = new Joystick(0);
 
     public double getSpdAxis() {
 	// TODO
-	return controller1.getX();
+	return drive.getY();
     }
 
     public double getTurnAxis() {
 	// TODO
-	return controller1.getY();
+	return drive.getX();
+    }
+
+    public boolean getQuickTurn() {
+	return drive.getRawButtonPressed(4) || drive.getRawButtonPressed(5);
     }
 }
