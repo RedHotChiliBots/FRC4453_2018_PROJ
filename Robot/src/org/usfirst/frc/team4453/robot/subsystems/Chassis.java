@@ -6,6 +6,7 @@ import org.usfirst.frc.team4453.robot.commands.TeleopDrive;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -37,14 +38,16 @@ public class Chassis extends Subsystem {
     private AnalogInput		    leftDistanceSensor		 = new AnalogInput(RobotMap.LEFT_DISTANCE_SENSOR);
     private AnalogInput		    rightDistanceSensor		 = new AnalogInput(RobotMap.RIGHT_DISTANCE_SENSOR);
 
+    private Compressor		    compressor			 = new Compressor();
+
     public Chassis() {
-	leftFront.setInverted(false);
 	leftMid.follow(leftFront);
 	leftBack.follow(leftFront);
 
-	rightFront.setInverted(true);
 	rightMid.follow(rightFront);
 	rightBack.follow(rightFront);
+
+	compressor.start();
 
 	shift(false);
     }
