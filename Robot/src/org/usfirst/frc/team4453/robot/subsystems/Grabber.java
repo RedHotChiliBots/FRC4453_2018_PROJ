@@ -23,8 +23,8 @@ public class Grabber extends Subsystem {
     private WPI_TalonSRX   left	 = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
     private WPI_TalonSRX   right = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);
     private WPI_TalonSRX   tilt	 = new WPI_TalonSRX(RobotMap.GRABBER_TILT_MOTOR);
-    private DoubleSolenoid grip	 = new DoubleSolenoid(RobotMap.GRABBER_GRIP_SOLENOID_GRIP,
-	    RobotMap.GRABBER_GRIP_SOLENOID_RELEASE);
+    private DoubleSolenoid grip	 = new DoubleSolenoid(RobotMap.GRABBER_GRIP_SOLENOID,
+	    RobotMap.GRABBER_RELEASE_SOLENOID);
 
     /**
      * Command to initialize the Grabber.

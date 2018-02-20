@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  *
  */
 public class Lifter extends Subsystem {
-    private final Solenoid left	 = new Solenoid(RobotMap.SOLENOID_LIFTER_LEFT);
-    private final Solenoid right = new Solenoid(RobotMap.SOLENOID_LIFTER_RIGHT);
+    private final Solenoid left	 = new Solenoid(RobotMap.LIFTER_UP_SOLENOID);
+    private final Solenoid right = new Solenoid(RobotMap.LIFTER_DOWN_SOLENOID);
 
     public void drop() {
 	left.set(true);

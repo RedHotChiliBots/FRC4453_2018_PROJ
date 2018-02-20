@@ -21,14 +21,21 @@ public class Chassis extends Subsystem {
     private final WPI_TalonSRX	    leftBack			 = new WPI_TalonSRX(RobotMap.CHASSIS_REAR_LEFT_MOTOR);
     private final WPI_TalonSRX	    rightBack			 = new WPI_TalonSRX(RobotMap.CHASSIS_REAR_RIGHT_MOTOR);
 
-    private final DoubleSolenoid    shifter			 = new DoubleSolenoid(RobotMap.SHIFTER_FWD_SOLENOID,
-	    RobotMap.SHIFTER_REV_SOLENOID);
+    private final DoubleSolenoid    shifter			 = new DoubleSolenoid(RobotMap.SHIFTER_HI_SOLENOID,
+	    RobotMap.SHIFTER_LO_SOLENOID);
 
     private final DifferentialDrive drive			 = new DifferentialDrive(leftFront, rightFront);
 
+    // Constants
     private final double	    PRESSURE_SENSOR_INPUTVOLTAGE = 5.0;
+    private final double	    DISTANCE_SENSOR_SCALE	 = 5.0 / 512;
+
+    // Pressure sensors
     private AnalogInput		    hiPressureSensor		 = new AnalogInput(RobotMap.HI_PRESSURE_SENSOR);
     private AnalogInput		    loPressureSensor		 = new AnalogInput(RobotMap.LO_PRESSURE_SENSOR);
+    // Distance Sensors
+    private AnalogInput		    leftDistanceSensor		 = new AnalogInput(RobotMap.LEFT_DISTANCE_SENSOR);
+    private AnalogInput		    rightDistanceSensor		 = new AnalogInput(RobotMap.RIGHT_DISTANCE_SENSOR);
 
     public Chassis() {
 	leftFront.setInverted(false);
@@ -61,5 +68,21 @@ public class Chassis extends Subsystem {
 
     public void stop() {
 	drive.stopMotor();
+    }
+
+    public double getLoPressure() {
+	return 250.0 * (loPressureSensor.getVoltage() / PRESSURE_SENSOR_INPUTVOLTAGE) - 25.0; // ToDo
+    }
+
+    public double getHiPressure() {
+	return 250.0 * (hiPressureSensor.getVoltage() / PRESSURE_SENSOR_INPUTVOLTAGE) - 25.0;
+    }
+
+    public double getLeftDistance() {
+	return leftDistanceSensor.getVoltage() * DISTANCE_SENSOR_SCALE;
+    }
+
+    public double getRightDistance() {
+	return rightDistanceSensor.getVoltage() * DISTANCE_SENSOR_SCALE;
     }
 }

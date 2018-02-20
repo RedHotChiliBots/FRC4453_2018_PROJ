@@ -7,7 +7,11 @@
 
 package org.usfirst.frc.team4453.robot;
 
+import org.usfirst.frc.team4453.robot.commands.ChassisShiftHigh;
+import org.usfirst.frc.team4453.robot.commands.ChassisShiftLow;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -15,7 +19,15 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
 
-    private Joystick drive = new Joystick(0);
+    private Joystick	   drive     = new Joystick(0);
+
+    private JoystickButton shiftHigh = new JoystickButton(drive, 3);
+    private JoystickButton shiftLow  = new JoystickButton(drive, 2);
+
+    public OI() {
+	shiftHigh.whenPressed(new ChassisShiftHigh());
+	shiftLow.whenPressed(new ChassisShiftLow());
+    }
 
     public double getSpdAxis() {
 	// TODO
@@ -30,4 +42,5 @@ public class OI {
     public boolean getQuickTurn() {
 	return drive.getRawButtonPressed(4) || drive.getRawButtonPressed(5);
     }
+
 }
