@@ -20,13 +20,13 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
-    private Joystick	   drive	  = new Joystick(0);
-    private XboxController operator	  = new XboxController(1);
+    private Joystick	   drive    = new Joystick(0);
+    private XboxController operator = new XboxController(1);
 
-    private JoystickButton quickTurn1	  = new JoystickButton(drive, 5);
-    private JoystickButton quickTurn2	  = new JoystickButton(drive, 4);
-    private JoystickButton shiftHigh	  = new JoystickButton(drive, 3);
-    private JoystickButton shiftLow	  = new JoystickButton(drive, 2);
+    private JoystickButton quickTurn1 = new JoystickButton(drive, 5);
+    private JoystickButton quickTurn2 = new JoystickButton(drive, 4);
+    private JoystickButton shiftHigh  = new JoystickButton(drive, 3);
+    private JoystickButton shiftLow   = new JoystickButton(drive, 2);
 
     private JoystickButton grabberGrab	  = new JoystickButton(operator, 1);
     private JoystickButton grabberRelease = new JoystickButton(operator, 2);
@@ -53,6 +53,14 @@ public class OI {
 
     public double getTiltAxis() {
 	return operator.getY(Hand.kRight);
+    }
+
+    public double getGrabDiffAxis() {
+	return operator.getX(Hand.kLeft);
+    }
+
+    public double getGrabSpeedAxis() {
+	return operator.getY(Hand.kLeft);
     }
 
     public boolean getQuickTurn() {
