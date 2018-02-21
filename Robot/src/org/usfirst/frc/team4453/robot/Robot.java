@@ -150,6 +150,10 @@ public class Robot extends TimedRobot {
     public void telemetry() {
 	SmartDashboard.putNumber("Vision distance", vision.getDistance());
 	SmartDashboard.putNumber("Vision angle", vision.getAngle());
+	SmartDashboard.putNumber("Left Distance", chassis.getLeftDistance());
+	SmartDashboard.putNumber("Right Distance", chassis.getRightDistance());
+	SmartDashboard.putNumber("Hi Pressure", chassis.getHiPressure());
+	SmartDashboard.putNumber("Lo Pressure", chassis.getLoPressure());
 	SmartDashboard.putBoolean("Grabber Limit Hit", grabber.isLimitHit());
     }
 }

@@ -20,12 +20,14 @@ public class Grabber extends Subsystem {
     /**
      * Number of encoder ticks per one degree of tilt.
      */
-    private static final int TICKS_PER_DEGREE = 100;						  // TODO
+    private static final int COUNTS_PER_REV_MOTOR = 12;
+    private static final int GEAR_RATIO		  = 100;
+    private static final int TICKS_PER_DEGREE	  = COUNTS_PER_REV_MOTOR * GEAR_RATIO / 360;	      // TODO
 
-    private WPI_TalonSRX     left	      = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
-    private WPI_TalonSRX     right	      = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);
-    private WPI_TalonSRX     tilt	      = new WPI_TalonSRX(RobotMap.GRABBER_TILT_MOTOR);
-    private DoubleSolenoid   grip	      = new DoubleSolenoid(RobotMap.GRABBER_GRIP_SOLENOID,
+    private WPI_TalonSRX     left		  = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
+    private WPI_TalonSRX     right		  = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);
+    private WPI_TalonSRX     tilt		  = new WPI_TalonSRX(RobotMap.GRABBER_TILT_MOTOR);
+    private DoubleSolenoid   grip		  = new DoubleSolenoid(RobotMap.GRABBER_GRIP_SOLENOID,
 	    RobotMap.GRABBER_RELEASE_SOLENOID);
 
     /**
