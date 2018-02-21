@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team4453.robot;
 
+import org.usfirst.frc.team4453.robot.library.Vision;
 import org.usfirst.frc.team4453.robot.subsystems.*;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -16,6 +17,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -36,6 +38,8 @@ public class Robot extends TimedRobot {
 
     public static OI	     oi;
 
+    public Vision	     vision;
+
     Command		     m_autonomousCommand;
 
     SendableChooser<Command> m_chooser = new SendableChooser<Command>();
@@ -47,6 +51,9 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
 	navx = new AHRS(SPI.Port.kMXP);
+	navx.setSubsystem("Chassis");
+
+	vision = new Vision();
 
 	chassis = new Chassis();
 	climber = new Climber();
@@ -58,13 +65,10 @@ public class Robot extends TimedRobot {
 
     @Override
     public void teleopInit() {
-	// This makes sure that the autonomous stops running when
-	// teleop starts running. If you want the autonomous to
-	// continue until interrupted by another command, remove
-	// this line or comment it out.
 	if (m_autonomousCommand != null) {
 	    m_autonomousCommand.cancel();
 	}
+	grabber.init();
     }
 
     /**
@@ -73,6 +77,7 @@ public class Robot extends TimedRobot {
     @Override
     public void teleopPeriodic() {
 	Scheduler.getInstance().run();
+	telemetry();
     }
 
     /**
@@ -115,6 +120,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
 	Scheduler.getInstance().run();
+	telemetry();
     }
 
     /**
@@ -130,6 +136,7 @@ public class Robot extends TimedRobot {
     @Override
     public void disabledPeriodic() {
 	Scheduler.getInstance().run();
+	telemetry();
     }
 
     /**
@@ -137,5 +144,12 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void testPeriodic() {
+	telemetry();
+    }
+
+    public void telemetry() {
+	SmartDashboard.putNumber("Vision distance", vision.getDistance());
+	SmartDashboard.putNumber("Vision angle", vision.getAngle());
+	SmartDashboard.putBoolean("Grabber Limit Hit", grabber.isLimitHit());
     }
 }

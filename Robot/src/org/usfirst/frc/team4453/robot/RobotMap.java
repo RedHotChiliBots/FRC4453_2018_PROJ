@@ -65,4 +65,11 @@ public class RobotMap {
     // Distance Sensor
     public static final int		     LEFT_DISTANCE_SENSOR      = 2;
     public static final int		     RIGHT_DISTANCE_SENSOR     = 3;
+
+    // ====== Digital Inputs ======
+    public static final int		     SHOOTER_LIMIT_SWITCH      = 0;
+
+    // ====== Relays ======
+    public static final int		     SHOOTER_CLUTCH_RELAY      = 0;
+
 }

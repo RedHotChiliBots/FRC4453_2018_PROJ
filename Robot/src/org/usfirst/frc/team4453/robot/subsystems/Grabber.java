@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4453.robot.subsystems;
 
 import org.usfirst.frc.team4453.robot.RobotMap;
+import org.usfirst.frc.team4453.robot.commands.GrabberTeleop;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -9,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -18,20 +20,27 @@ public class Grabber extends Subsystem {
     /**
      * Number of encoder ticks per one degree of tilt.
      */
-    private static final int TICKS_PER_DEGREE = 100; // TODO
+    private static final int TICKS_PER_DEGREE = 100;						  // TODO
 
-    private WPI_TalonSRX   left	 = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
-    private WPI_TalonSRX   right = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);
-    private WPI_TalonSRX   tilt	 = new WPI_TalonSRX(RobotMap.GRABBER_TILT_MOTOR);
-    private DoubleSolenoid grip	 = new DoubleSolenoid(RobotMap.GRABBER_GRIP_SOLENOID,
+    private WPI_TalonSRX     left	      = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
+    private WPI_TalonSRX     right	      = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);
+    private WPI_TalonSRX     tilt	      = new WPI_TalonSRX(RobotMap.GRABBER_TILT_MOTOR);
+    private DoubleSolenoid   grip	      = new DoubleSolenoid(RobotMap.GRABBER_GRIP_SOLENOID,
 	    RobotMap.GRABBER_RELEASE_SOLENOID);
 
     /**
      * Command to initialize the Grabber.
      * Sets subsystem to default state and resets encoder zeros.
      */
-    private class InitCommand extends Command {
-	public InitCommand() {
+
+    private class Init extends CommandGroup {
+	public Init() {
+	    addSequential(new ResetCommand());
+	}
+    }
+
+    private class ResetCommand extends Command {
+	public ResetCommand() {
 	    setInterruptible(false);
 	    requires(Grabber.this);
 	}
@@ -46,12 +55,15 @@ public class Grabber extends Subsystem {
 	    grip.set(Value.kReverse);
 
 	    tilt.setNeutralMode(NeutralMode.Brake);
-	    tilt.set(ControlMode.PercentOutput, -1); // TODO: Correct direction?
+	    tilt.set(ControlMode.PercentOutput, -.2); // TODO: Correct
+						      // direction?
 	}
 
 	@Override
 	protected boolean isFinished() {
-	    return !tilt.getSensorCollection().isRevLimitSwitchClosed(); // TODO: Correct direction?
+	    return tilt.getSensorCollection().isRevLimitSwitchClosed(); // TODO:
+									// Correct
+									// direction?
 	}
 
 	@Override
@@ -59,17 +71,33 @@ public class Grabber extends Subsystem {
 	    tilt.neutralOutput();
 	    tilt.getSensorCollection().setQuadraturePosition(0, 100);
 	    tilt.set(ControlMode.Position, 0);
+
+	}
+    }
+
+    private class NoOp extends Command {
+	public NoOp() {
+	    requires(Grabber.this);
+	}
+
+	@Override
+	protected boolean isFinished() {
+	    return false;
 	}
     }
 
     @Override
     public void initDefaultCommand() {
-	setDefaultCommand(new InitCommand());
+	setDefaultCommand(new GrabberTeleop());
+    }
+
+    public void init() {
+	new Init().start();
     }
 
     public void grab() {
-	left.set(ControlMode.PercentOutput, -1); // TODO: Correct direction?
-	right.set(ControlMode.PercentOutput, 1); // TODO: Correct direction?
+	left.set(ControlMode.PercentOutput, .5);
+	right.set(ControlMode.PercentOutput, -.5);
 	grip.set(Value.kForward);
     }
 
@@ -80,8 +108,8 @@ public class Grabber extends Subsystem {
     }
 
     public void toss() {
-	left.set(ControlMode.PercentOutput, 1); // TODO: Correct direction?
-	right.set(ControlMode.PercentOutput, -1); // TODO: Correct direction?
+	left.set(ControlMode.PercentOutput, -1);
+	right.set(ControlMode.PercentOutput, 1);
     }
 
     public void hold() {
@@ -92,5 +120,9 @@ public class Grabber extends Subsystem {
 
     public void tilt(double angle) {
 	tilt.set(ControlMode.Position, angle * TICKS_PER_DEGREE);
+    }
+
+    public boolean isLimitHit() {
+	return tilt.getSensorCollection().isRevLimitSwitchClosed();
     }
 }

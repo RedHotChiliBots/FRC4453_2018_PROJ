@@ -7,10 +7,11 @@
 
 package org.usfirst.frc.team4453.robot;
 
-import org.usfirst.frc.team4453.robot.commands.ChassisShiftHigh;
-import org.usfirst.frc.team4453.robot.commands.ChassisShiftLow;
+import org.usfirst.frc.team4453.robot.commands.*;
 
+import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
@@ -19,28 +20,43 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
-    private Joystick	   drive     = new Joystick(0);
+    private Joystick	   drive	  = new Joystick(0);
+    private XboxController operator	  = new XboxController(1);
 
-    private JoystickButton shiftHigh = new JoystickButton(drive, 3);
-    private JoystickButton shiftLow  = new JoystickButton(drive, 2);
+    private JoystickButton quickTurn1	  = new JoystickButton(drive, 5);
+    private JoystickButton quickTurn2	  = new JoystickButton(drive, 4);
+    private JoystickButton shiftHigh	  = new JoystickButton(drive, 3);
+    private JoystickButton shiftLow	  = new JoystickButton(drive, 2);
+
+    private JoystickButton grabberGrab	  = new JoystickButton(operator, 1);
+    private JoystickButton grabberRelease = new JoystickButton(operator, 2);
+    private JoystickButton grabberThrow	  = new JoystickButton(operator, 3);
 
     public OI() {
 	shiftHigh.whenPressed(new ChassisShiftHigh());
 	shiftLow.whenPressed(new ChassisShiftLow());
+
+	grabberGrab.whileHeld(new GrabberGrab());
+	grabberGrab.whenReleased(new GrabberHold());
+	grabberRelease.whileHeld(new GrabberRelease());
+	grabberThrow.whileHeld(new GrabberThrow());
+	grabberThrow.whenReleased(new GrabberHold());
     }
 
     public double getSpdAxis() {
-	// TODO
 	return drive.getY();
     }
 
     public double getTurnAxis() {
-	// TODO
-	return drive.getX();
+	return -drive.getX();
+    }
+
+    public double getTiltAxis() {
+	return operator.getY(Hand.kRight);
     }
 
     public boolean getQuickTurn() {
-	return drive.getRawButtonPressed(4) || drive.getRawButtonPressed(5);
+	return quickTurn1.get() || quickTurn2.get();
     }
 
 }

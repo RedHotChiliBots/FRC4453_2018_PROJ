@@ -41,13 +41,30 @@ public class Chassis extends Subsystem {
     private Compressor		    compressor			 = new Compressor();
 
     public Chassis() {
+	super("Chassis");
+	leftFront.setSubsystem("Chassis");
 	leftMid.follow(leftFront);
+	leftMid.setSubsystem("Chassis");
 	leftBack.follow(leftFront);
+	leftBack.setSubsystem("Chassis");
 
+	rightFront.setSubsystem("Chassis");
 	rightMid.follow(rightFront);
+	rightMid.setSubsystem("Chassis");
 	rightBack.follow(rightFront);
+	rightBack.setSubsystem("Chassis");
 
+	compressor.setSubsystem("Chassis");
 	compressor.start();
+
+	hiPressureSensor.setSubsystem("Chassis");
+	loPressureSensor.setSubsystem("Chassis");
+	leftDistanceSensor.setSubsystem("Chassis");
+	rightDistanceSensor.setSubsystem("Chassis");
+
+	drive.setSubsystem("Chassis");
+
+	shifter.setSubsystem("Chassis");
 
 	shift(false);
     }
@@ -57,7 +74,7 @@ public class Chassis extends Subsystem {
     }
 
     public void curveDrive(double spdCmd, double rotCmd, boolean quickTurn) {
-	drive.curvatureDrive(spdCmd, rotCmd, false);
+	drive.curvatureDrive(spdCmd, rotCmd, quickTurn);
     }
 
     @Override
@@ -87,5 +104,10 @@ public class Chassis extends Subsystem {
 
     public double getRightDistance() {
 	return rightDistanceSensor.getVoltage() * DISTANCE_SENSOR_SCALE;
+    }
+
+    public void arcadeDrive(double spdAxis, double turnAxis) {
+	// TODO Auto-generated method stub
+
     }
 }
