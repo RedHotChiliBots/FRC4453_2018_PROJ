@@ -8,9 +8,9 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 /**
  *
  */
-public class LifterDrop extends InstantCommand {
+public class WingsDrop extends InstantCommand {
 
-    public LifterDrop() {
+    public WingsDrop() {
 	super();
 	requires(Robot.wings);
     }

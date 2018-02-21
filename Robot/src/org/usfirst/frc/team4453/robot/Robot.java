@@ -33,6 +33,7 @@ public class Robot extends TimedRobot {
     public static Grabber grabber;
     public static Shooter shooter;
     public static Wings	  wings;
+    public static Hook	  hook;
 
     public static AHRS ahrs;
 
@@ -59,6 +60,7 @@ public class Robot extends TimedRobot {
 	climber = new Climber();
 	grabber = new Grabber();
 	wings = new Wings();
+	hook = new Hook();
 
 	oi = new OI();
 

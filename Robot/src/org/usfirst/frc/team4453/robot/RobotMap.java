@@ -80,7 +80,7 @@ public class RobotMap {
     public static final int CHASSIS_REAR_RIGHT_MOTOR  = 4; // TODO
     public static final int CHASSIS_REAR_LEFT_MOTOR   = 5; // TODO
     // Climber
-    public static final int CLIMBER_MOTOR_RIGHT	= 6; // TODO
+    public static final int CLIMBER_RIGHT_MOTOR	= 6; // TODO
     public static final int CLIMBER_LEFT_MOTOR	= 7; // TODO
     public static final int CLIMBER_HOOK_MOTOR	= 12;
     // Grabber
