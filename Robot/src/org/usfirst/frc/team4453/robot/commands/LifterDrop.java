@@ -12,7 +12,7 @@ public class LifterDrop extends InstantCommand {
 
     public LifterDrop() {
 	super();
-	requires(Robot.lifter);
+	requires(Robot.wings);
     }
 
     // Called once when the command executes
@@ -21,7 +21,7 @@ public class LifterDrop extends InstantCommand {
     @Override
     protected void execute() {
 	if (Timer.getMatchTime() < 30) {
-	    Robot.lifter.drop();
+	    Robot.wings.drop();
 	}
 
     }

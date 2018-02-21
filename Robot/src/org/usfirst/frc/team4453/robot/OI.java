@@ -20,17 +20,20 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
-    private Joystick	   drive    = new Joystick(0);
-    private XboxController operator = new XboxController(1);
+    private Joystick	   drive    = new Joystick(RobotMap.FIRST_CONTROLLER);
+    private XboxController operator = new XboxController(RobotMap.SECOND_CONTROLLER);
 
-    private JoystickButton quickTurn1 = new JoystickButton(drive, 5);
-    private JoystickButton quickTurn2 = new JoystickButton(drive, 4);
-    private JoystickButton shiftHigh  = new JoystickButton(drive, 3);
-    private JoystickButton shiftLow   = new JoystickButton(drive, 2);
+    private JoystickButton quickTurn1 = new JoystickButton(drive, RobotMap.BUTTON_5);
+    private JoystickButton quickTurn2 = new JoystickButton(drive, RobotMap.BUTTON_4);
+    private JoystickButton shiftHigh  = new JoystickButton(drive, RobotMap.BUTTON_3);
+    private JoystickButton shiftLow   = new JoystickButton(drive, RobotMap.BUTTON_2);
 
-    private JoystickButton grabberGrab	  = new JoystickButton(operator, 1);
-    private JoystickButton grabberRelease = new JoystickButton(operator, 2);
-    private JoystickButton grabberThrow	  = new JoystickButton(operator, 3);
+    private JoystickButton grabberGrab	  = new JoystickButton(operator, RobotMap.A_BUTTON);
+    private JoystickButton grabberRelease = new JoystickButton(operator, RobotMap.B_BUTTON);
+    private JoystickButton grabberThrow	  = new JoystickButton(operator, RobotMap.X_BUTTON);
+
+    private JoystickButton wingsLift = new JoystickButton(operator, RobotMap.LEFT_BUMPER);
+    private JoystickButton wingsDrop = new JoystickButton(operator, RobotMap.RIGHT_BUMPER);
 
     public OI() {
 	shiftHigh.whenPressed(new ChassisShiftHigh());
@@ -41,6 +44,9 @@ public class OI {
 	grabberRelease.whileHeld(new GrabberRelease());
 	grabberThrow.whileHeld(new GrabberThrow());
 	grabberThrow.whenReleased(new GrabberHold());
+
+	wingsLift.whenPressed(new WingsLift());
+	wingsDrop.whenPressed(new WingsDrop());
     }
 
     public double getSpdAxis() {
@@ -67,4 +73,11 @@ public class OI {
 	return quickTurn1.get() || quickTurn2.get();
     }
 
+    public boolean getWingsLift() {
+	return operator.getBumper(Hand.kLeft);
+    }
+
+    public boolean getWingsDrop() {
+	return operator.getBumper(Hand.kRight);
+    }
 }

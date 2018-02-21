@@ -26,7 +26,7 @@ public class ClimberClimb extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-	final double roll = Robot.navx.getRoll(); // TODO: Pitch/Roll/Yaw?
+	final double roll = Robot.ahrs.getRoll(); // TODO: Pitch/Roll/Yaw?
 	if (roll > ANGLE_THRESHHOLD) {
 	    Robot.climber.setRightPower(Math.sin(Math.toRadians(roll) / 2 + .5));
 	}

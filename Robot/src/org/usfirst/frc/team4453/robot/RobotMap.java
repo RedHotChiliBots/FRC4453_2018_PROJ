@@ -17,59 +17,105 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
  */
 public class RobotMap {
 
-    // ====== Constants ======
-    public static final DoubleSolenoid.Value SHIFTER_HIGH_GEAR	       = DoubleSolenoid.Value.kForward;
-    public static final DoubleSolenoid.Value SHIFTER_LOW_GEAR	       = DoubleSolenoid.Value.kReverse;
+    // USB Controller Ports
+    public static final int FIRST_CONTROLLER  = 0;
+    public static final int SECOND_CONTROLLER = 1;
 
-    public static final boolean		     HIGH_GEAR		       = true;
-    public static final boolean		     LOW_GEAR		       = false;
+    // XBox Controller Axis
+    public static final int LEFT_X_AXIS	       = 0;
+    public static final int LEFT_Y_AXIS	       = 1;
+    public static final int LEFT_TRIGGER_AXIS  = 2;
+    public static final int RIGHT_TRIGGER_AXIS = 3;
+    public static final int RIGHT_X_AXIS       = 4;
+    public static final int RIGHT_Y_AXIS       = 5;
+    public static final int DPAD_X_AXIS	       = 6;
+    public static final int DPAD_Y_AXIS	       = 7;
+
+    // XBox Controller Buttons
+    public static final int A_BUTTON	 = 1;
+    public static final int B_BUTTON	 = 2;
+    public static final int X_BUTTON	 = 3;
+    public static final int Y_BUTTON	 = 4;
+    public static final int LEFT_BUMPER	 = 5;
+    public static final int RIGHT_BUMPER = 6;
+    public static final int BACK	 = 7;
+    public static final int START	 = 8;
+    public static final int LEFT_STICK	 = 9;
+    public static final int RIGHT_STICK	 = 10;
+
+    // Attack 3 Axis
+    public static final int X_AXIS	  = 0;
+    public static final int Y_AXIS	  = 1;
+    public static final int THROTTLE_AXIS = 2;
+
+    // Attack 3 Buttons
+    public static final int TRIGGER_1 = 1;
+    public static final int BUTTON_2  = 2;
+    public static final int BUTTON_3  = 3;
+    public static final int BUTTON_4  = 4;
+    public static final int BUTTON_5  = 5;
+    public static final int BUTTON_6  = 6;
+    public static final int BUTTON_7  = 7;
+    public static final int BUTTON_8  = 8;
+    public static final int BUTTON_9  = 9;
+    public static final int BUTTON_10 = 10;
+    public static final int BUTTON_11 = 11;
+
+    // ====== Constants ======
+    public static final DoubleSolenoid.Value LIFTER_UP	 = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value LIFTER_DOWN = DoubleSolenoid.Value.kReverse;
+
+    public static final DoubleSolenoid.Value SHIFTER_HIGH_GEAR = DoubleSolenoid.Value.kForward;
+    public static final DoubleSolenoid.Value SHIFTER_LOW_GEAR  = DoubleSolenoid.Value.kReverse;
+
+    public static final boolean	HIGH_GEAR = true;
+    public static final boolean	LOW_GEAR  = false;
 
     // ====== Motor Controllers ======
     // Chassis
-    public static final int		     CHASSIS_FRONT_RIGHT_MOTOR = 0;			       // TODO
-    public static final int		     CHASSIS_FRONT_LEFT_MOTOR  = 1;			       // TODO
-    public static final int		     CHASSIS_MID_RIGHT_MOTOR   = 2;			       // TODO
-    public static final int		     CHASSIS_MID_LEFT_MOTOR    = 3;			       // TODO
-    public static final int		     CHASSIS_REAR_RIGHT_MOTOR  = 4;			       // TODO
-    public static final int		     CHASSIS_REAR_LEFT_MOTOR   = 5;			       // TODO
+    public static final int CHASSIS_FRONT_RIGHT_MOTOR = 0; // TODO
+    public static final int CHASSIS_FRONT_LEFT_MOTOR  = 1; // TODO
+    public static final int CHASSIS_MID_RIGHT_MOTOR   = 2; // TODO
+    public static final int CHASSIS_MID_LEFT_MOTOR    = 3; // TODO
+    public static final int CHASSIS_REAR_RIGHT_MOTOR  = 4; // TODO
+    public static final int CHASSIS_REAR_LEFT_MOTOR   = 5; // TODO
     // Climber
-    public static final int		     CLIMBER_MOTOR_RIGHT       = 6;			       // TODO
-    public static final int		     CLIMBER_LEFT_MOTOR	       = 7;			       // TODO
-    public static final int		     CLIMBER_HOOK_MOTOR	       = 12;
+    public static final int CLIMBER_MOTOR_RIGHT	= 6; // TODO
+    public static final int CLIMBER_LEFT_MOTOR	= 7; // TODO
+    public static final int CLIMBER_HOOK_MOTOR	= 12;
     // Grabber
-    public static final int		     GRABBER_LEFT_MOTOR	       = 8;			       // TODO
-    public static final int		     GRABBER_RIGHT_MOTOR       = 9;			       // TODO
-    public static final int		     GRABBER_TILT_MOTOR	       = 10;			       // TODO
+    public static final int GRABBER_LEFT_MOTOR	= 8;  // TODO
+    public static final int GRABBER_RIGHT_MOTOR	= 9;  // TODO
+    public static final int GRABBER_TILT_MOTOR	= 10; // TODO
     // Shooter
-    public static final int		     SHOOTER_WIND_MOTOR	       = 11;
-    //
+    public static final int SHOOTER_WIND_MOTOR = 11;
 
     // ====== Solenoids ======
     // Chassis
-    public static final int		     SHIFTER_HI_SOLENOID       = 0;			       // TODO
-    public static final int		     SHIFTER_LO_SOLENOID       = 1;			       // TODO
+    public static final int SHIFTER_HI_SOLENOID	= 0; // TODO
+    public static final int SHIFTER_LO_SOLENOID	= 1; // TODO
     // Lifter
-    public static final int		     LIFTER_UP_SOLENOID	       = 2;			       // TODO
-    public static final int		     LIFTER_DOWN_SOLENOID      = 3;			       // TODO
+    public static final int LIFTER_UP_SOLENOID	 = 2; // TODO
+    public static final int LIFTER_DOWN_SOLENOID = 3; // TODO
     // Grabber
-    public static final int		     GRABBER_GRIP_SOLENOID     = 4;			       // TODO
-    public static final int		     GRABBER_RELEASE_SOLENOID  = 5;			       // TODO
+    public static final int GRABBER_GRIP_SOLENOID    = 4; // TODO
+    public static final int GRABBER_RELEASE_SOLENOID = 5; // TODO
     // Shooter
-    public static final int		     SHOOTER_LATCH_SOLENOID    = 6;			       // TODO
-    public static final int		     SHOOTER_RELEASE_SOLENOID  = 7;			       // TODO
+    public static final int SHOOTER_LATCH_SOLENOID   = 6; // TODO
+    public static final int SHOOTER_RELEASE_SOLENOID = 7; // TODO
 
     // ====== Analog Inputs ======
     // Pressure Sensor
-    public static final int		     HI_PRESSURE_SENSOR	       = 0;
-    public static final int		     LO_PRESSURE_SENSOR	       = 1;
+    public static final int HI_PRESSURE_SENSOR = 0;
+    public static final int LO_PRESSURE_SENSOR = 1;
     // Distance Sensor
-    public static final int		     LEFT_DISTANCE_SENSOR      = 2;
-    public static final int		     RIGHT_DISTANCE_SENSOR     = 3;
+    public static final int LEFT_DISTANCE_SENSOR  = 2;
+    public static final int RIGHT_DISTANCE_SENSOR = 3;
 
     // ====== Digital Inputs ======
-    public static final int		     SHOOTER_LIMIT_SWITCH      = 0;
+    public static final int SHOOTER_LIMIT_SWITCH = 0;
 
     // ====== Relays ======
-    public static final int		     SHOOTER_CLUTCH_RELAY      = 0;
+    public static final int SHOOTER_CLUTCH_RELAY = 0;
 
 }
