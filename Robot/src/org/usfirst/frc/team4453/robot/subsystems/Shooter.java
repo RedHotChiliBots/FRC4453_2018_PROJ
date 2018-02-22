@@ -26,6 +26,12 @@ public class Shooter extends Subsystem {
 	public PrepareCommand() {
 	    addSequential(new PrepareCommand1());
 	    addSequential(new PrepareCommand2());
+	    addSequential(new Command() { // Wait for Interrupt
+		@Override
+		protected boolean isFinished() {
+		    return false;
+		};
+	    });
 	}
     }
 
@@ -33,6 +39,7 @@ public class Shooter extends Subsystem {
 
 	public PrepareCommand1() {
 	    requires(Shooter.this);
+	    setInterruptible(false);
 	}
 
 	@Override
@@ -60,6 +67,7 @@ public class Shooter extends Subsystem {
 	public PrepareCommand2() {
 	    super(0.5);
 	    requires(Shooter.this);
+	    setInterruptible(false);
 	}
 
 	@Override
@@ -80,6 +88,6 @@ public class Shooter extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-
+	setDefaultCommand(new PrepareCommand());
     }
 }

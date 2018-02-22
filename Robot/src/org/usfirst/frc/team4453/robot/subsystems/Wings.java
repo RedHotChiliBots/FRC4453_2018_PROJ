@@ -2,19 +2,26 @@ package org.usfirst.frc.team4453.robot.subsystems;
 
 import org.usfirst.frc.team4453.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  *
  */
-public class Lifter extends Subsystem {
-    private final Solenoid left	 = new Solenoid(RobotMap.LIFTER_UP_SOLENOID);
-    private final Solenoid right = new Solenoid(RobotMap.LIFTER_DOWN_SOLENOID);
+public class Wings extends Subsystem {
+    private final DoubleSolenoid lift = new DoubleSolenoid(RobotMap.LIFTER_UP_SOLENOID, RobotMap.LIFTER_DOWN_SOLENOID);
+
+    public Wings() {
+	lift(); // Initialize Lifter to Up position
+    }
+
+    public void lift() {
+	lift.set(Value.kReverse);
+    }
 
     public void drop() {
-	left.set(true);
-	right.set(true);
+	lift.set(Value.kForward);
     }
 
     // Put methods for controlling this subsystem

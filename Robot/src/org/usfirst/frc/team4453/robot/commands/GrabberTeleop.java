@@ -10,7 +10,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class GrabberTeleop extends Command {
 
-    private double angle = 0;
+    private double angle  = 0;
+    private double speed  = 0;
+    private double diff	  = 0;
+    private double lMotor = 0;
+    private double rMotor = 0;
 
     public GrabberTeleop() {
 	requires(Robot.grabber);
@@ -27,6 +31,13 @@ public class GrabberTeleop extends Command {
 	angle += Robot.oi.getTiltAxis() * .25;
 	SmartDashboard.putNumber("Tilt Angle", angle);
 	Robot.grabber.tilt(angle);
+
+	speed = Robot.oi.getGrabSpeedAxis();
+	diff = Robot.oi.getGrabDiffAxis();
+	lMotor = speed * -diff;
+	rMotor = speed * diff;
+
+	Robot.grabber.diff(lMotor, rMotor);
     }
 
     // Make this return true when this Command no longer needs to run execute()

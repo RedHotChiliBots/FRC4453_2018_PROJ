@@ -28,21 +28,22 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
 
-    public static Chassis    chassis;
-    public static Climber    climber;
-    public static Grabber    grabber;
-    public static Shooter    shooter;
-    public static Lifter     lifter;
+    public static Chassis chassis;
+    public static Climber climber;
+    public static Grabber grabber;
+    public static Shooter shooter;
+    public static Wings	  wings;
+    public static Hook	  hook;
 
-    public static AHRS	     navx;
+    public static AHRS ahrs;
 
-    public static OI	     oi;
+    public static OI oi;
 
-    public Vision	     vision;
+    public Vision vision;
 
-    Command		     m_autonomousCommand;
+    Command m_autonomousCommand;
 
-    SendableChooser<Command> m_chooser = new SendableChooser<Command>();
+    SendableChooser<Command> m_chooser = new SendableChooser<>();
 
     /**
      * This function is run when the robot is first started up and should be
@@ -50,17 +51,20 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
-	navx = new AHRS(SPI.Port.kMXP);
-	navx.setSubsystem("Chassis");
+	ahrs = new AHRS(SPI.Port.kMXP);
+	ahrs.setSubsystem("Chassis");
 
 	vision = new Vision();
 
 	chassis = new Chassis();
 	climber = new Climber();
 	grabber = new Grabber();
-	lifter = new Lifter();
+	wings = new Wings();
+	hook = new Hook();
 
 	oi = new OI();
+
+	ahrs.zeroYaw();
     }
 
     @Override
@@ -94,6 +98,7 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void autonomousInit() {
+	ahrs.zeroYaw();
 	m_autonomousCommand = m_chooser.getSelected();
 
 	// String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -154,6 +159,8 @@ public class Robot extends TimedRobot {
 	SmartDashboard.putNumber("Right Distance", chassis.getRightDistance());
 	SmartDashboard.putNumber("Hi Pressure", chassis.getHiPressure());
 	SmartDashboard.putNumber("Lo Pressure", chassis.getLoPressure());
+	SmartDashboard.putNumber("Heading", Robot.ahrs.getAngle());
+	SmartDashboard.putNumber("Turn Rate", Robot.ahrs.getRate());
 	SmartDashboard.putBoolean("Grabber Limit Hit", grabber.isLimitHit());
     }
 }

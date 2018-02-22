@@ -78,17 +78,6 @@ public class Grabber extends Subsystem {
 	}
     }
 
-    private class NoOp extends Command {
-	public NoOp() {
-	    requires(Grabber.this);
-	}
-
-	@Override
-	protected boolean isFinished() {
-	    return false;
-	}
-    }
-
     @Override
     public void initDefaultCommand() {
 	setDefaultCommand(new GrabberTeleop());
@@ -119,6 +108,11 @@ public class Grabber extends Subsystem {
 	grip.set(Value.kForward);
 	left.neutralOutput();
 	right.neutralOutput();
+    }
+
+    public void diff(double lMotor, double rMotor) {
+	left.set(ControlMode.PercentOutput, lMotor);
+	right.set(ControlMode.PercentOutput, rMotor);
     }
 
     public void tilt(double angle) {
