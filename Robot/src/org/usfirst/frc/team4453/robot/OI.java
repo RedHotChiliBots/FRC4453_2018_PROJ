@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -35,8 +36,18 @@ public class OI {
     private JoystickButton wingsLift = new JoystickButton(operator, RobotMap.LEFT_BUMPER);
     private JoystickButton wingsDrop = new JoystickButton(operator, RobotMap.RIGHT_BUMPER);
 
-    private JoystickButton hookRaise = new JoystickButton(operator, RobotMap.LEFT_TRIGGER_AXIS);
-    private JoystickButton hookLower = new JoystickButton(operator, RobotMap.RIGHT_TRIGGER_AXIS);
+    private Trigger hookRaise = new Trigger() {
+	@Override
+	public boolean get() {
+	    return Math.abs(operator.getTriggerAxis(Hand.kLeft)) > 0.1;
+	}
+    };
+    private Trigger hookLower = new Trigger() {
+	@Override
+	public boolean get() {
+	    return Math.abs(operator.getTriggerAxis(Hand.kRight)) > 0.1;
+	}
+    };
 
     public OI() {
 	shiftHigh.whenPressed(new ChassisShiftHigh());
@@ -51,8 +62,8 @@ public class OI {
 	wingsLift.whenPressed(new WingsLift());
 	wingsDrop.whenPressed(new WingsDrop());
 
-	hookRaise.whileHeld(new HookRaise());
-	hookLower.whileHeld(new HookLower());
+	hookRaise.whileActive(new HookRaise());
+	hookLower.whileActive(new HookLower());
     }
 
     public double getSpdAxis() {
@@ -90,4 +101,4 @@ public class OI {
     public double getHookSpeed() {
 	return operator.getTriggerAxis(Hand.kLeft) + operator.getTriggerAxis(Hand.kRight);
     }
-}
+};
