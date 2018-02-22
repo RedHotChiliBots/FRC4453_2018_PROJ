@@ -27,16 +27,16 @@ public class Hook extends Subsystem {
 	setDefaultCommand(new HookStop());
     }
 
-    public void raise() {
-	hookLift.set(0.5);
+    public void raise(double spd) {
+	hookLift.set(spd);
     }
 
     public void stop() {
 	hookLift.neutralOutput();
     }
 
-    public void lower() {
-	hookLift.set(-0.5);
+    public void lower(double spd) {
+	hookLift.set(spd);
     }
 
     public void resetEncoder() {

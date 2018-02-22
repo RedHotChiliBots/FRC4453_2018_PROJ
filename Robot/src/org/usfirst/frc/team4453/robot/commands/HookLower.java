@@ -17,8 +17,8 @@ public class HookLower extends InstantCommand {
 
     // Called just before this Command runs the first time
     @Override
-    protected void initialize() {
-	Robot.hook.lower();
+    protected void execute() {
+	Robot.hook.lower(Robot.oi.getHookSpeed());
     }
 
 }

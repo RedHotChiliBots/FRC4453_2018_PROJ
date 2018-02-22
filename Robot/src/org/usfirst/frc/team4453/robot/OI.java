@@ -35,6 +35,9 @@ public class OI {
     private JoystickButton wingsLift = new JoystickButton(operator, RobotMap.LEFT_BUMPER);
     private JoystickButton wingsDrop = new JoystickButton(operator, RobotMap.RIGHT_BUMPER);
 
+    private JoystickButton hookRaise = new JoystickButton(operator, RobotMap.LEFT_TRIGGER_AXIS);
+    private JoystickButton hookLower = new JoystickButton(operator, RobotMap.RIGHT_TRIGGER_AXIS);
+
     public OI() {
 	shiftHigh.whenPressed(new ChassisShiftHigh());
 	shiftLow.whenPressed(new ChassisShiftLow());
@@ -47,6 +50,9 @@ public class OI {
 
 	wingsLift.whenPressed(new WingsLift());
 	wingsDrop.whenPressed(new WingsDrop());
+
+	hookRaise.whileHeld(new HookRaise());
+	hookLower.whileHeld(new HookLower());
     }
 
     public double getSpdAxis() {
@@ -79,5 +85,9 @@ public class OI {
 
     public boolean isWingsDrop() {
 	return operator.getBumper(Hand.kRight);
+    }
+
+    public double getHookSpeed() {
+	return operator.getTriggerAxis(Hand.kLeft) + operator.getTriggerAxis(Hand.kRight);
     }
 }
