@@ -77,17 +77,6 @@ public class Grabber extends Subsystem {
 	}
     }
 
-    private class NoOp extends Command {
-	public NoOp() {
-	    requires(Grabber.this);
-	}
-
-	@Override
-	protected boolean isFinished() {
-	    return false;
-	}
-    }
-
     @Override
     public void initDefaultCommand() {
 	setDefaultCommand(new GrabberTeleop());

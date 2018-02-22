@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4453.robot.subsystems;
 
+import org.usfirst.frc.team4453.robot.Robot;
 import org.usfirst.frc.team4453.robot.RobotMap;
 import org.usfirst.frc.team4453.robot.commands.TeleopDrive;
 
@@ -8,13 +9,13 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
 /**
  *
  */
-public class Chassis extends Subsystem {
+public class Chassis extends PIDSubsystem {
     private final WPI_TalonSRX	    leftFront			 = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_LEFT_MOTOR);
     private final WPI_TalonSRX	    rightFront			 = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_RIGHT_MOTOR);
     private final WPI_TalonSRX	    leftMid			 = new WPI_TalonSRX(RobotMap.CHASSIS_MID_LEFT_MOTOR);
@@ -40,8 +41,12 @@ public class Chassis extends Subsystem {
 
     private Compressor		    compressor			 = new Compressor();
 
+    private double PIDSpeed = 0;
+    
     public Chassis() {
-	super("Chassis");
+	super("Chassis", 1, 0, 0); // TODO: PID Values
+	getPIDController().setInputRange(0, 360);
+	getPIDController().setContinuous();
 	leftFront.setSubsystem("Chassis");
 	leftMid.follow(leftFront);
 	leftMid.setSubsystem("Chassis");
@@ -65,15 +70,18 @@ public class Chassis extends Subsystem {
 	drive.setSubsystem("Chassis");
 
 	shifter.setSubsystem("Chassis");
-
+	
+	getPIDController().disable();
+	
 	shift(false);
     }
-
+    
     public void drive(double lspeed, double rspeed) {
 	drive.tankDrive(lspeed, rspeed);
     }
 
     public void curveDrive(double spdCmd, double rotCmd, boolean quickTurn) {
+	getPIDController().disable();
 	drive.curvatureDrive(spdCmd, rotCmd, quickTurn);
     }
 
@@ -87,6 +95,7 @@ public class Chassis extends Subsystem {
     }
 
     public void stop() {
+	getPIDController().disable();
 	drive.stopMotor();
     }
 
@@ -107,7 +116,27 @@ public class Chassis extends Subsystem {
     }
 
     public void arcadeDrive(double spdAxis, double turnAxis) {
-	// TODO Auto-generated method stub
+	getPIDController().disable();
+	drive.arcadeDrive(spdAxis, turnAxis);
+    }
 
+    public void turn(double angle) {
+	driveWithHeading(0, angle);
+    }
+    
+    public void driveWithHeading(double speed, double angle) {
+	getPIDController().enable();
+	setSetpoint(angle);
+	PIDSpeed = speed;
+    }
+    
+    @Override
+    protected double returnPIDInput() {
+	return Robot.ahrs.getYaw() % 360;
+    }
+
+    @Override
+    protected void usePIDOutput(double output) {
+	arcadeDrive(PIDSpeed, output);
     }
 }
