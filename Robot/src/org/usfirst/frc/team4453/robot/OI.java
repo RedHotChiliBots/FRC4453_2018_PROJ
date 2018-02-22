@@ -69,15 +69,15 @@ public class OI {
 	return operator.getY(Hand.kLeft);
     }
 
-    public boolean getQuickTurn() {
+    public boolean isQuickTurn() {
 	return quickTurn1.get() || quickTurn2.get();
     }
 
-    public boolean getWingsLift() {
+    public boolean isWingsLift() {
 	return operator.getBumper(Hand.kLeft);
     }
 
-    public boolean getWingsDrop() {
+    public boolean isWingsDrop() {
 	return operator.getBumper(Hand.kRight);
     }
 }
