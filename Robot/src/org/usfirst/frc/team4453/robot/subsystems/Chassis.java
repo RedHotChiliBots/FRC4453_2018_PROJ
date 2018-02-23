@@ -6,9 +6,7 @@ import org.usfirst.frc.team4453.robot.commands.TeleopDrive;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.Compressor;
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -43,10 +41,39 @@ public class Chassis extends PIDSubsystem {
 
     private double PIDSpeed = 0;
     
+    private PIDSource distancePIDInput = new PIDSource() {
+
+	@Override
+	public void setPIDSourceType(PIDSourceType pidSource) {
+	}
+
+	@Override
+	public PIDSourceType getPIDSourceType() {
+	    return PIDSourceType.kDisplacement;
+	}
+
+	@Override
+	public double pidGet() {
+	    return (leftFront.getSensorCollection().getQuadraturePosition() + rightFront.getSensorCollection().getQuadraturePosition()) / 2.0;
+	}
+	
+    };
+    
+    private PIDOutput distancePIDOutput = new PIDOutput() {
+	@Override
+	public void pidWrite(double output) {
+	    PIDSpeed = output;
+	}
+    };
+    
+    private PIDController distancePID = new PIDController(1, 0, 0, distancePIDInput, distancePIDOutput); // TODO: PID Values
+    
     public Chassis() {
 	super("Chassis", 1, 0, 0); // TODO: PID Values
 	getPIDController().setInputRange(0, 360);
 	getPIDController().setContinuous();
+	getPIDController().setAbsoluteTolerance(0.5); // TODO
+	distancePID.setAbsoluteTolerance(50); // TODO
 	leftFront.setSubsystem("Chassis");
 	leftMid.follow(leftFront);
 	leftMid.setSubsystem("Chassis");
@@ -72,6 +99,7 @@ public class Chassis extends PIDSubsystem {
 	shifter.setSubsystem("Chassis");
 	
 	getPIDController().disable();
+	distancePID.disable();
 	
 	shift(false);
     }
@@ -128,6 +156,34 @@ public class Chassis extends PIDSubsystem {
 	getPIDController().enable();
 	setSetpoint(angle);
 	PIDSpeed = speed;
+    }
+    
+    public void driveDistanceWithHeading(double distance, double angle)
+    {
+	leftFront.getSensorCollection().setPulseWidthPosition(0, 100);
+	rightFront.getSensorCollection().setPulseWidthPosition(0, 100);
+	distancePID.setSetpoint(distance);
+	setSetpoint(angle);
+	getPIDController().enable();
+	distancePID.enable();
+    }
+    
+    public void driveDistance(double distance)
+    {
+	leftFront.getSensorCollection().setPulseWidthPosition(0, 100);
+	rightFront.getSensorCollection().setPulseWidthPosition(0, 100);
+	distancePID.setSetpoint(distance);
+	setSetpoint(Robot.ahrs.getYaw());
+	getPIDController().enable();
+	distancePID.enable();
+    }
+    
+    public boolean distanceOnTarget() {
+	return distancePID.onTarget();
+    }
+    
+    public boolean angleOnTarget() {
+	return getPIDController().onTarget();
     }
     
     @Override
