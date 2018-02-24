@@ -28,8 +28,8 @@ public class OI {
     private JoystickButton quickTurn2 = new JoystickButton(drive, RobotMap.BUTTON_4);
     private JoystickButton shiftHigh  = new JoystickButton(drive, RobotMap.BUTTON_3);
     private JoystickButton shiftLow   = new JoystickButton(drive, RobotMap.BUTTON_2);
-    
-    private JoystickButton shooterShoot	  = new JoystickButton(operator, RobotMap.Y_BUTTON);
+
+    private JoystickButton shooterShoot = new JoystickButton(operator, RobotMap.Y_BUTTON);
 
     private JoystickButton grabberGrab	  = new JoystickButton(operator, RobotMap.A_BUTTON);
     private JoystickButton grabberRelease = new JoystickButton(operator, RobotMap.B_BUTTON);
@@ -39,17 +39,18 @@ public class OI {
     private JoystickButton wingsDrop = new JoystickButton(operator, RobotMap.RIGHT_BUMPER);
 
     private Trigger hookRaise = new Trigger() {
-	@Override
-	public boolean get() {
-	    return Math.abs(operator.getTriggerAxis(Hand.kLeft)) > 0.1;
-	}
-    };
+				  @Override
+				  public boolean get() {
+				      return Math.abs(operator.getTriggerAxis(Hand.kLeft)) > 0.1;
+				  }
+			      };
+			      
     private Trigger hookLower = new Trigger() {
-	@Override
-	public boolean get() {
-	    return Math.abs(operator.getTriggerAxis(Hand.kRight)) > 0.1;
-	}
-    };
+				  @Override
+				  public boolean get() {
+				      return Math.abs(operator.getTriggerAxis(Hand.kRight)) > 0.1;
+				  }
+			      };
 
     public OI() {
 	shiftHigh.whenPressed(new ChassisShiftHigh());
@@ -66,7 +67,7 @@ public class OI {
 
 	hookRaise.whileActive(new HookRaise());
 	hookLower.whileActive(new HookLower());
-	
+
 	shooterShoot.whenPressed(new ShooterFire());
     }
 

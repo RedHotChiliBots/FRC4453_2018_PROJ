@@ -20,10 +20,10 @@ public class Grabber extends Subsystem {
     /**
      * Number of encoder ticks per one degree of tilt.
      */
-    private static final int COUNTS_PER_REV_MOTOR   = 12;
+    private static final int COUNTS_PER_REV_MOTOR   = 48;
     private static final int GEAR_RATIO		    = 100;
     private static final int COUNTS_PER_REV_GEARBOX = COUNTS_PER_REV_MOTOR * GEAR_RATIO;
-    private static final int TICKS_PER_DEGREE	    = COUNTS_PER_REV_GEARBOX / 360;
+    private static final double TICKS_PER_DEGREE    = COUNTS_PER_REV_GEARBOX / 360;
 
     private WPI_TalonSRX     left		    = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
     private WPI_TalonSRX     right		    = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);
