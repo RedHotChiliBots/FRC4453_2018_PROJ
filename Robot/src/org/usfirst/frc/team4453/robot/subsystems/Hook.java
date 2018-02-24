@@ -26,11 +26,11 @@ public class Hook extends Subsystem {
 
     // Encoder Resolution
     //
-    public final int	COUNTS_PER_REV_MOTOR   = 12;					 // TODO
+    public final int	COUNTS_PER_REV_MOTOR   = 48;	// 12 cpr quadrature - RS7 Encoder from Armabot
     public final int	GEARBOX_RATIO	       = 20;
     public final double	SHAFT_DIAMETER	       = 1.0;
-    public final int	COUNTS_PER_REV_GEARBOX = COUNTS_PER_REV_MOTOR * GEARBOX_RATIO;	 // TODO
-    public final double	INCHES_PER_REV	       = SHAFT_DIAMETER * Math.PI;		 // TODO
+    public final int	COUNTS_PER_REV_GEARBOX = COUNTS_PER_REV_MOTOR * GEARBOX_RATIO;
+    public final double	INCHES_PER_REV	       = SHAFT_DIAMETER * Math.PI;
     public final double	COUNTS_PER_INCH	       = COUNTS_PER_REV_GEARBOX / INCHES_PER_REV;
 
     // Motor
@@ -73,7 +73,7 @@ public class Hook extends Subsystem {
 	stop();
     }
 
-    public double getDistanceLifted() {
+    public double getDistance() {
 	return Math.min(hookLift.getSensorCollection().getQuadraturePosition(),
 		hookLift.getSensorCollection().getQuadraturePosition()) / COUNTS_PER_INCH;
     }
