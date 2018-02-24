@@ -30,7 +30,7 @@ public class Grabber extends Subsystem {
     private WPI_TalonSRX     tilt		    = new WPI_TalonSRX(RobotMap.GRABBER_TILT_MOTOR);
     private DoubleSolenoid   grip		    = new DoubleSolenoid(RobotMap.GRABBER_GRIP_SOLENOID,
 	    RobotMap.GRABBER_RELEASE_SOLENOID);
-
+ 
     /**
      * Command to initialize the Grabber.
      * Sets subsystem to default state and resets encoder zeros.
