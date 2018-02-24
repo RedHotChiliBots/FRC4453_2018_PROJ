@@ -14,6 +14,12 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  *
  */
 public class Chassis extends PIDSubsystem {
+    private static final double CHASSIS_GEAR_RATIO = 5; // Encoder revs per wheel revs. TODO
+    private static final double CHASSIS_ENCODER_TICKS_PER_REVOLUTION = 500; // TODO
+    private static final double CHASSIS_WHEEL_DIAMETER = 8; // inches TODO
+    private static final double CHASSIS_TICKS_PER_INCH = (CHASSIS_GEAR_RATIO * CHASSIS_ENCODER_TICKS_PER_REVOLUTION) / CHASSIS_WHEEL_DIAMETER;
+    
+    
     private final WPI_TalonSRX	    leftFront			 = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_LEFT_MOTOR);
     private final WPI_TalonSRX	    rightFront			 = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_RIGHT_MOTOR);
     private final WPI_TalonSRX	    leftMid			 = new WPI_TalonSRX(RobotMap.CHASSIS_MID_LEFT_MOTOR);
@@ -162,7 +168,7 @@ public class Chassis extends PIDSubsystem {
     {
 	leftFront.getSensorCollection().setPulseWidthPosition(0, 100);
 	rightFront.getSensorCollection().setPulseWidthPosition(0, 100);
-	distancePID.setSetpoint(distance);
+	distancePID.setSetpoint(distance * CHASSIS_TICKS_PER_INCH);
 	setSetpoint(angle);
 	getPIDController().enable();
 	distancePID.enable();
@@ -172,7 +178,7 @@ public class Chassis extends PIDSubsystem {
     {
 	leftFront.getSensorCollection().setPulseWidthPosition(0, 100);
 	rightFront.getSensorCollection().setPulseWidthPosition(0, 100);
-	distancePID.setSetpoint(distance);
+	distancePID.setSetpoint(distance * CHASSIS_TICKS_PER_INCH);
 	setSetpoint(Robot.ahrs.getYaw());
 	getPIDController().enable();
 	distancePID.enable();
