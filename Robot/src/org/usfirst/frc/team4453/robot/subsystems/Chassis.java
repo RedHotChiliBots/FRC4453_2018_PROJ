@@ -4,6 +4,7 @@ import org.usfirst.frc.team4453.robot.Robot;
 import org.usfirst.frc.team4453.robot.RobotMap;
 import org.usfirst.frc.team4453.robot.commands.TeleopDrive;
 
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.*;
@@ -15,10 +16,9 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  */
 public class Chassis extends PIDSubsystem {
     private static final double CHASSIS_GEAR_RATIO = 5; // Encoder revs per wheel revs. TODO
-    private static final double CHASSIS_ENCODER_TICKS_PER_REVOLUTION = 500; // TODO
-    private static final double CHASSIS_WHEEL_DIAMETER = 8; // inches TODO
-    private static final double CHASSIS_TICKS_PER_INCH = (CHASSIS_GEAR_RATIO * CHASSIS_ENCODER_TICKS_PER_REVOLUTION) / CHASSIS_WHEEL_DIAMETER;
-    
+    private static final double CHASSIS_ENCODER_TICKS_PER_REVOLUTION = 4096;
+    private static final double CHASSIS_WHEEL_DIAMETER = 6; // inches
+    private static final double CHASSIS_TICKS_PER_INCH = (CHASSIS_GEAR_RATIO * CHASSIS_ENCODER_TICKS_PER_REVOLUTION) / (CHASSIS_WHEEL_DIAMETER * Math.PI);
     
     private final WPI_TalonSRX	    leftFront			 = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_LEFT_MOTOR);
     private final WPI_TalonSRX	    rightFront			 = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_RIGHT_MOTOR);
@@ -80,13 +80,16 @@ public class Chassis extends PIDSubsystem {
 	getPIDController().setContinuous();
 	getPIDController().setAbsoluteTolerance(0.5); // TODO
 	distancePID.setAbsoluteTolerance(50); // TODO
+	
 	leftFront.setSubsystem("Chassis");
+	leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
 	leftMid.follow(leftFront);
 	leftMid.setSubsystem("Chassis");
 	leftBack.follow(leftFront);
 	leftBack.setSubsystem("Chassis");
 
 	rightFront.setSubsystem("Chassis");
+	rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
 	rightMid.follow(rightFront);
 	rightMid.setSubsystem("Chassis");
 	rightBack.follow(rightFront);
