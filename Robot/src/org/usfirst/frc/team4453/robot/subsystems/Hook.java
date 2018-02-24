@@ -26,10 +26,12 @@ public class Hook extends Subsystem {
 
     // Encoder Resolution
     //
-    public final int	COUNTS_PER_REV	= 240;				  // TODO
-    public final double	SHAFT_DIAMETER	= 1.0;
-    public final double	INCHES_PER_REV	= SHAFT_DIAMETER * Math.PI;	  // TODO
-    public final double	COUNTS_PER_INCH	= COUNTS_PER_REV / INCHES_PER_REV;
+    public final int	COUNTS_PER_REV_MOTOR   = 12;					 // TODO
+    public final int	GEARBOX_RATIO	       = 20;
+    public final double	SHAFT_DIAMETER	       = 1.0;
+    public final int	COUNTS_PER_REV_GEARBOX = COUNTS_PER_REV_MOTOR * GEARBOX_RATIO;	 // TODO
+    public final double	INCHES_PER_REV	       = SHAFT_DIAMETER * Math.PI;		 // TODO
+    public final double	COUNTS_PER_INCH	       = COUNTS_PER_REV_GEARBOX / INCHES_PER_REV;
 
     // Motor
     private final WPI_TalonSRX hookLift = new WPI_TalonSRX(RobotMap.CLIMBER_HOOK_MOTOR);
