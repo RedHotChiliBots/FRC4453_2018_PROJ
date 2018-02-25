@@ -159,8 +159,9 @@ public class Robot extends TimedRobot {
 	SmartDashboard.putNumber("Right Distance", chassis.getRightDistance());
 	SmartDashboard.putNumber("Hi Pressure", chassis.getHiPressure());
 	SmartDashboard.putNumber("Lo Pressure", chassis.getLoPressure());
-	SmartDashboard.putNumber("Heading", Robot.ahrs.getAngle());
+	SmartDashboard.putNumber("Heading", Robot.ahrs.getYaw());
 	SmartDashboard.putNumber("Turn Rate", Robot.ahrs.getRate());
 	SmartDashboard.putBoolean("Grabber Limit Hit", grabber.isLimitHit());
+	SmartDashboard.putBoolean("Shooter Limit Hit", shooter.isLimitHit());
     }
 }
