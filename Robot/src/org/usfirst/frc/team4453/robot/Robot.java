@@ -73,6 +73,7 @@ public class Robot extends TimedRobot {
 	    m_autonomousCommand.cancel();
 	}
 	grabber.init();
+	hook.init();
     }
 
     /**
@@ -99,6 +100,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
 	ahrs.zeroYaw();
+	grabber.init();
+	hook.init();
 	m_autonomousCommand = m_chooser.getSelected();
 
 	// String autoSelected = SmartDashboard.getString("Auto Selector",

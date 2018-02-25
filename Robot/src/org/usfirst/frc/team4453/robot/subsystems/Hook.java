@@ -3,9 +3,11 @@ package org.usfirst.frc.team4453.robot.subsystems;
 import org.usfirst.frc.team4453.robot.RobotMap;
 import org.usfirst.frc.team4453.robot.commands.HookStop;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -36,7 +38,29 @@ public class Hook extends Subsystem {
     // Motor
     private final WPI_TalonSRX hookLift = new WPI_TalonSRX(RobotMap.CLIMBER_HOOK_MOTOR);
 
-    
+    private class InitCommand extends Command {
+
+	public InitCommand()
+	{
+	    requires(Hook.this);
+	    setInterruptible(false);
+	}
+	
+	protected void initialize() {
+	    hookLift.set(ControlMode.PercentOutput, -.3);
+	}
+	
+	@Override
+	protected boolean isFinished() {
+	    return hookLift.getSensorCollection().isRevLimitSwitchClosed();
+	}
+	
+	protected void end() {
+	    hookLift.neutralOutput();
+	    hookLift.setSelectedSensorPosition(pidLoopIdx, 0, timeOutMs);
+	}
+	
+    }
     
     public Hook() {
 	// choose the sensor
@@ -69,6 +93,10 @@ public class Hook extends Subsystem {
     @Override
     public void initDefaultCommand() {
 	setDefaultCommand(new HookStop());
+    }
+    
+    public void init() {
+	new InitCommand().start();
     }
 
     public void set(double setPoint) {
