@@ -36,6 +36,8 @@ public class Hook extends Subsystem {
     // Motor
     private final WPI_TalonSRX hookLift = new WPI_TalonSRX(RobotMap.CLIMBER_HOOK_MOTOR);
 
+    
+    
     public Hook() {
 	// choose the sensor
 	hookLift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, pidLoopIdx, timeOutMs);
@@ -57,25 +59,11 @@ public class Hook extends Subsystem {
 	hookLift.config_kI(pidLoopIdx, kI, timeOutMs);
 	hookLift.config_kD(pidLoopIdx, kD, timeOutMs);
 
-	// set relative sensor to match absolute position
-	int absolutePosition = hookLift.getSensorCollection().getPulseWidthPosition();
-	/* mask out overflows, keep bottom 12 bits */
-	absolutePosition &= 0xFFF;
-	if (sensorPhase) {
-	    absolutePosition *= -1;
-	}
-	if (motorInvert) {
-	    absolutePosition *= -1;
-	}
-	/* set the quadrature (relative) sensor to match absolute */
-	hookLift.setSelectedSensorPosition(absolutePosition, pidLoopIdx, timeOutMs);
-
 	stop();
     }
 
     public double getDistance() {
-	return Math.min(hookLift.getSensorCollection().getQuadraturePosition(),
-		hookLift.getSensorCollection().getQuadraturePosition()) / COUNTS_PER_INCH;
+	return hookLift.getSensorCollection().getQuadraturePosition() / COUNTS_PER_INCH;
     }
 
     @Override
@@ -83,16 +71,12 @@ public class Hook extends Subsystem {
 	setDefaultCommand(new HookStop());
     }
 
-    public void raise(double setPoint) {
-	hookLift.set(setPoint);
+    public void set(double setPoint) {
+	hookLift.set(setPoint * COUNTS_PER_INCH);
     }
 
     public void stop() {
 	hookLift.neutralOutput();
-    }
-
-    public void lower(double spd) {
-	hookLift.set(spd);
     }
 
     public void resetEncoder() {

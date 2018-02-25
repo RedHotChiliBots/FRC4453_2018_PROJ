@@ -41,16 +41,10 @@ public class OI {
     private Trigger hookRaise = new Trigger() {
 				  @Override
 				  public boolean get() {
-				      return Math.abs(operator.getTriggerAxis(Hand.kLeft)) > 0.1;
+				      return Math.abs(operator.getTriggerAxis(Hand.kLeft) + operator.getTriggerAxis(Hand.kRight)) > 0.1;
 				  }
 			      };
 			      
-    private Trigger hookLower = new Trigger() {
-				  @Override
-				  public boolean get() {
-				      return Math.abs(operator.getTriggerAxis(Hand.kRight)) > 0.1;
-				  }
-			      };
 
     public OI() {
 	shiftHigh.whenPressed(new ChassisShiftHigh());
@@ -65,8 +59,7 @@ public class OI {
 	wingsLift.whenPressed(new WingsLift());
 	wingsDrop.whenPressed(new WingsDrop());
 
-	hookRaise.whileActive(new HookRaise());
-	hookLower.whileActive(new HookLower());
+	hookRaise.whileActive(new HookTeleop());
 
 	shooterShoot.whenPressed(new ShooterFire());
     }
