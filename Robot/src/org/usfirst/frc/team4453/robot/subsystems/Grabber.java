@@ -25,6 +25,10 @@ public class Grabber extends Subsystem {
     private static final int COUNTS_PER_REV_GEARBOX = COUNTS_PER_REV_MOTOR * GEAR_RATIO;
     private static final double TICKS_PER_DEGREE    = COUNTS_PER_REV_GEARBOX / 360;
 
+    private static final double MAX_ANGLE = 120; // TODO: Determine mechanically
+    
+    private static final double kF = 0, kP = 1, kI= 0, kD = 0;
+    
     private WPI_TalonSRX     left		    = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
     private WPI_TalonSRX     right		    = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);
     private WPI_TalonSRX     tilt		    = new WPI_TalonSRX(RobotMap.GRABBER_TILT_MOTOR);
@@ -78,6 +82,15 @@ public class Grabber extends Subsystem {
 	}
     }
 
+    public Grabber() {
+	tilt.configForwardSoftLimitThreshold((int) (MAX_ANGLE * TICKS_PER_DEGREE), 100);
+	tilt.configForwardSoftLimitEnable(true, 100);
+	tilt.config_kF(0, kF, 100);
+	tilt.config_kP(0, kP, 100);
+	tilt.config_kI(0, kI, 100);
+	tilt.config_kD(0, kD, 100);
+    }
+    
     @Override
     public void initDefaultCommand() {
 	setDefaultCommand(new GrabberTeleop());
