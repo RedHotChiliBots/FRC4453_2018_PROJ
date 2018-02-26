@@ -3,9 +3,11 @@ package org.usfirst.frc.team4453.robot.subsystems;
 import org.usfirst.frc.team4453.robot.RobotMap;
 import org.usfirst.frc.team4453.robot.commands.HookStop;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -36,6 +38,30 @@ public class Hook extends Subsystem {
     // Motor
     private final WPI_TalonSRX hookLift = new WPI_TalonSRX(RobotMap.CLIMBER_HOOK_MOTOR);
 
+    private class InitCommand extends Command {
+
+	public InitCommand()
+	{
+	    requires(Hook.this);
+	    setInterruptible(false);
+	}
+	
+	protected void initialize() {
+	    hookLift.set(ControlMode.PercentOutput, -.3);
+	}
+	
+	@Override
+	protected boolean isFinished() {
+	    return hookLift.getSensorCollection().isRevLimitSwitchClosed();
+	}
+	
+	protected void end() {
+	    hookLift.neutralOutput();
+	    hookLift.setSelectedSensorPosition(pidLoopIdx, 0, timeOutMs);
+	}
+	
+    }
+    
     public Hook() {
 	// choose the sensor
 	hookLift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, pidLoopIdx, timeOutMs);
@@ -57,42 +83,28 @@ public class Hook extends Subsystem {
 	hookLift.config_kI(pidLoopIdx, kI, timeOutMs);
 	hookLift.config_kD(pidLoopIdx, kD, timeOutMs);
 
-	// set relative sensor to match absolute position
-	int absolutePosition = hookLift.getSensorCollection().getPulseWidthPosition();
-	/* mask out overflows, keep bottom 12 bits */
-	absolutePosition &= 0xFFF;
-	if (sensorPhase) {
-	    absolutePosition *= -1;
-	}
-	if (motorInvert) {
-	    absolutePosition *= -1;
-	}
-	/* set the quadrature (relative) sensor to match absolute */
-	hookLift.setSelectedSensorPosition(absolutePosition, pidLoopIdx, timeOutMs);
-
 	stop();
     }
 
     public double getDistance() {
-	return Math.min(hookLift.getSensorCollection().getQuadraturePosition(),
-		hookLift.getSensorCollection().getQuadraturePosition()) / COUNTS_PER_INCH;
+	return hookLift.getSensorCollection().getQuadraturePosition() / COUNTS_PER_INCH;
     }
 
     @Override
     public void initDefaultCommand() {
 	setDefaultCommand(new HookStop());
     }
+    
+    public void init() {
+	new InitCommand().start();
+    }
 
-    public void raise(double setPoint) {
-	hookLift.set(setPoint);
+    public void set(double setPoint) {
+	hookLift.set(setPoint * COUNTS_PER_INCH);
     }
 
     public void stop() {
 	hookLift.neutralOutput();
-    }
-
-    public void lower(double spd) {
-	hookLift.set(spd);
     }
 
     public void resetEncoder() {

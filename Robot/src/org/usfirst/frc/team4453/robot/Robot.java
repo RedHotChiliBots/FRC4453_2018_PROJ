@@ -51,20 +51,32 @@ public class Robot extends TimedRobot {
      */
     @Override
     public void robotInit() {
+	System.out.println("Robot Starting...");
 	ahrs = new AHRS(SPI.Port.kMXP);
 	ahrs.setSubsystem("Chassis");
-
+	System.out.println("AHRS Started!");
+	
 	vision = new Vision();
-
+	System.out.println("Vision Started!");
+	
 	chassis = new Chassis();
+	System.out.println("Chassis constructed!");
 	climber = new Climber();
+	System.out.println("Climber constructed!");
 	grabber = new Grabber();
+	System.out.println("Grabber constructed!");
 	wings = new Wings();
+	System.out.println("Wings constructed!");
 	hook = new Hook();
+	System.out.println("Hook constructed!");
+	shooter = new Shooter();
 
 	oi = new OI();
+	System.out.println("OI constructed!");
 
 	ahrs.zeroYaw();
+	System.out.println("Yaw reset!");
+	System.out.println("Robot started!");
     }
 
     @Override
@@ -73,6 +85,7 @@ public class Robot extends TimedRobot {
 	    m_autonomousCommand.cancel();
 	}
 	grabber.init();
+	hook.init();
     }
 
     /**
@@ -99,6 +112,8 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
 	ahrs.zeroYaw();
+	grabber.init();
+	hook.init();
 	m_autonomousCommand = m_chooser.getSelected();
 
 	// String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -163,5 +178,6 @@ public class Robot extends TimedRobot {
 	SmartDashboard.putNumber("Turn Rate", Robot.ahrs.getRate());
 	SmartDashboard.putBoolean("Grabber Limit Hit", grabber.isLimitHit());
 	SmartDashboard.putBoolean("Shooter Limit Hit", shooter.isLimitHit());
+	SmartDashboard.putBoolean("Hook Limit Hit", hook.isLimitHit());
     }
 }

@@ -7,9 +7,11 @@ import edu.wpi.first.wpilibj.command.InstantCommand;
 /**
  *
  */
-public class HookLower extends InstantCommand {
+public class HookTeleop extends InstantCommand {
 
-    public HookLower() {
+    private static final double SCALE = 0.1;
+    
+    public HookTeleop() {
 	// Use requires() here to declare subsystem dependencies
 	// eg. requires(chassis);
 	requires(Robot.hook);
@@ -18,7 +20,7 @@ public class HookLower extends InstantCommand {
     // Called just before this Command runs the first time
     @Override
     protected void execute() {
-	Robot.hook.lower(Robot.oi.getHookSpeed());
+	Robot.hook.set(Robot.hook.getDistance() + Robot.oi.getHookSpeed() * SCALE);
     }
 
 }

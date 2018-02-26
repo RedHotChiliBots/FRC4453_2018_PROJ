@@ -4,6 +4,7 @@ import org.usfirst.frc.team4453.robot.RobotMap;
 import org.usfirst.frc.team4453.robot.commands.GrabberTeleop;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -20,11 +21,15 @@ public class Grabber extends Subsystem {
     /**
      * Number of encoder ticks per one degree of tilt.
      */
-    private static final int COUNTS_PER_REV_MOTOR   = 48;
+    private static final int COUNTS_PER_REV_MOTOR   = 12;
     private static final int GEAR_RATIO		    = 100;
     private static final int COUNTS_PER_REV_GEARBOX = COUNTS_PER_REV_MOTOR * GEAR_RATIO;
-    private static final double TICKS_PER_DEGREE    = COUNTS_PER_REV_GEARBOX / 360;
+    private static final double TICKS_PER_DEGREE    = COUNTS_PER_REV_GEARBOX / 360.0;
 
+    private static final double MAX_ANGLE = 120; // TODO: Determine mechanically
+    
+    private static final double kF = 0, kP = 10, kI= 0, kD = 0;
+    
     private WPI_TalonSRX     left		    = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
     private WPI_TalonSRX     right		    = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);
     private WPI_TalonSRX     tilt		    = new WPI_TalonSRX(RobotMap.GRABBER_TILT_MOTOR);
@@ -78,6 +83,20 @@ public class Grabber extends Subsystem {
 	}
     }
 
+    public Grabber() {
+	tilt.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 100);
+	tilt.setSensorPhase(true);
+	tilt.configForwardSoftLimitThreshold((int) (MAX_ANGLE * TICKS_PER_DEGREE), 100);
+	tilt.configForwardSoftLimitEnable(true, 100);
+	tilt.configReverseSoftLimitThreshold(0, 100);
+	tilt.configReverseSoftLimitEnable(true, 100);
+	tilt.config_kF(0, kF, 100);
+	tilt.config_kP(0, kP, 100);
+	tilt.config_kI(0, kI, 100);
+	tilt.config_kD(0, kD, 100);
+	tilt.selectProfileSlot(0, 0);
+    }
+    
     @Override
     public void initDefaultCommand() {
 	setDefaultCommand(new GrabberTeleop());
@@ -88,8 +107,8 @@ public class Grabber extends Subsystem {
     }
 
     public void grab() {
-	left.set(ControlMode.PercentOutput, .5);
-	right.set(ControlMode.PercentOutput, -.5);
+	left.set(ControlMode.PercentOutput, -.5);
+	right.set(ControlMode.PercentOutput, .5);
 	grip.set(Value.kForward);
     }
 
@@ -100,8 +119,9 @@ public class Grabber extends Subsystem {
     }
 
     public void toss() {
-	left.set(ControlMode.PercentOutput, -1);
-	right.set(ControlMode.PercentOutput, 1);
+	left.set(ControlMode.PercentOutput, 1);
+	right.set(ControlMode.PercentOutput, -1);
+	grip.set(Value.kForward);
     }
 
     public void hold() {
@@ -117,6 +137,10 @@ public class Grabber extends Subsystem {
 
     public void tilt(double angle) {
 	tilt.set(ControlMode.Position, angle * TICKS_PER_DEGREE);
+    }
+    
+    public double getTilt() {
+	return tilt.getSelectedSensorPosition(0) / TICKS_PER_DEGREE;
     }
 
     public boolean isLimitHit() {

@@ -17,11 +17,11 @@ public class Wings extends Subsystem {
     }
 
     public void lift() {
-	lift.set(Value.kReverse);
+	lift.set(Value.kForward);
     }
 
     public void drop() {
-	lift.set(Value.kForward);
+	lift.set(Value.kReverse);
     }
 
     // Put methods for controlling this subsystem

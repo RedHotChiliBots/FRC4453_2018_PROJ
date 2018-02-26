@@ -2,6 +2,7 @@ package org.usfirst.frc.team4453.robot.subsystems;
 
 import org.usfirst.frc.team4453.robot.RobotMap;
 
+import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
@@ -44,8 +45,14 @@ public class Shooter extends Subsystem {
 
 	@Override
 	protected void initialize() {
+	    System.out.println("Winding shooter...");
 	    clutch.set(Relay.Value.kOn);
-	    motor.set(1);
+	    motor.set(ControlMode.PercentOutput, 1);
+	}
+	
+	protected void execute()
+	{
+	    motor.set(ControlMode.PercentOutput, 1);
 	}
 
 	@Override
@@ -58,6 +65,11 @@ public class Shooter extends Subsystem {
 	protected void end() {
 	    latch.set(DoubleSolenoid.Value.kForward);
 	    motor.neutralOutput();
+	    System.out.println("Shooter Latched!");
+	}
+	
+	protected void interrupted() {
+	    System.out.println("Winding interrupted!");
 	}
 
     }
@@ -78,6 +90,7 @@ public class Shooter extends Subsystem {
 	@Override
 	protected void end() {
 	    clutch.set(Relay.Value.kOff);
+	    System.out.println("Clutch released!!");
 	}
 
     }
@@ -89,5 +102,9 @@ public class Shooter extends Subsystem {
     @Override
     public void initDefaultCommand() {
 	setDefaultCommand(new PrepareCommand());
+    }
+    
+    public boolean isLimitHit() {
+	return limitswitch.get();
     }
 }
