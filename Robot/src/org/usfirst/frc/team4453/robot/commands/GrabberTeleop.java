@@ -28,7 +28,7 @@ public class GrabberTeleop extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-	angle += Robot.oi.getTiltAxis() * .25;
+	angle = Robot.grabber.getTilt() + Robot.oi.getTiltAxis() * 4;
 	SmartDashboard.putNumber("Tilt Angle", angle);
 	Robot.grabber.tilt(angle);
 

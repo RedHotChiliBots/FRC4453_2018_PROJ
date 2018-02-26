@@ -76,28 +76,39 @@ public class Chassis extends PIDSubsystem {
     
     public Chassis() {
 	super("Chassis", 1, 0, 0); // TODO: PID Values
+	System.out.println("Entering Chassis...");
+	
+	System.out.println("Configuring Distance PID...");
 	getPIDController().setInputRange(0, 360);
 	getPIDController().setContinuous();
 	getPIDController().setAbsoluteTolerance(0.5); // TODO
 	distancePID.setAbsoluteTolerance(50); // TODO
+	System.out.println("Distance PID configured!");
 	
+	System.out.println("Configuring left motors...");
 	leftFront.setSubsystem("Chassis");
 	leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
 	leftMid.follow(leftFront);
 	leftMid.setSubsystem("Chassis");
 	leftBack.follow(leftFront);
 	leftBack.setSubsystem("Chassis");
+	System.out.println("Left motors configured!");
 
+	System.out.println("Configuring right motors...");
 	rightFront.setSubsystem("Chassis");
 	rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
 	rightMid.follow(rightFront);
 	rightMid.setSubsystem("Chassis");
 	rightBack.follow(rightFront);
 	rightBack.setSubsystem("Chassis");
+	System.out.println("Right motors configured!");
 
+	System.out.println("Enabling compressor...");
 	compressor.setSubsystem("Chassis");
 	compressor.start();
+	System.out.println("Compressor enabled!");
 
+	System.out.println("Misc. config starting...");
 	hiPressureSensor.setSubsystem("Chassis");
 	loPressureSensor.setSubsystem("Chassis");
 	leftDistanceSensor.setSubsystem("Chassis");
@@ -106,11 +117,19 @@ public class Chassis extends PIDSubsystem {
 	drive.setSubsystem("Chassis");
 
 	shifter.setSubsystem("Chassis");
+	System.out.println("Misc. config finished!");
 	
-	getPIDController().disable();
+	System.out.println("Disabling angle PID...");
+	disable();
+	System.out.println("Disabled angle PID!");
+	System.out.println("Disabling distance PID...");
 	distancePID.disable();
-	
+	System.out.println("Disabled distance PID!");
+
+	System.out.println("Shifting low...");
 	shift(false);
+	System.out.println("Shifted low!");
+	System.out.println("Exiting Chassis...");
     }
     
     public void drive(double lspeed, double rspeed) {
@@ -202,6 +221,6 @@ public class Chassis extends PIDSubsystem {
 
     @Override
     protected void usePIDOutput(double output) {
-	arcadeDrive(PIDSpeed, output);
+	drive.arcadeDrive(PIDSpeed, output);
     }
 }

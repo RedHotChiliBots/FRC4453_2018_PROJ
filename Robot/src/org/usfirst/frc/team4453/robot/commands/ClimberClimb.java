@@ -34,10 +34,10 @@ public class ClimberClimb extends Command {
 	    Robot.climber.setRightPower(0.5);
 	}
 	if (roll < -ANGLE_THRESHHOLD) {
-	    Robot.climber.setLeftPower(-Math.sin(Math.toRadians(roll) / 2 + -0.5));
+	    Robot.climber.setLeftPower(Math.sin(Math.toRadians(roll) / 2 + -0.5));
 	}
 	else {
-	    Robot.climber.setLeftPower(0.5);
+	    Robot.climber.setLeftPower(-0.5);
 	}
     }
 

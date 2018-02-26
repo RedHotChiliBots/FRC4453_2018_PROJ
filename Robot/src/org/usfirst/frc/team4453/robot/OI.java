@@ -38,6 +38,8 @@ public class OI {
     private JoystickButton wingsLift = new JoystickButton(operator, RobotMap.LEFT_BUMPER);
     private JoystickButton wingsDrop = new JoystickButton(operator, RobotMap.RIGHT_BUMPER);
 
+    private JoystickButton climberClimb = new JoystickButton(operator, RobotMap.START);
+    
     private Trigger hookRaise = new Trigger() {
 				  @Override
 				  public boolean get() {
@@ -62,6 +64,8 @@ public class OI {
 	hookRaise.whileActive(new HookTeleop());
 
 	shooterShoot.whenPressed(new ShooterFire());
+	
+	climberClimb.whileHeld(new ClimberClimb());
     }
 
     public double getSpdAxis() {
