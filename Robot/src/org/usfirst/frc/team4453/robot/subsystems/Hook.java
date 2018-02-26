@@ -110,4 +110,8 @@ public class Hook extends Subsystem {
     public void resetEncoder() {
 	hookLift.getSensorCollection().setQuadraturePosition(0, 100);
     }
+    
+    public boolean isLimitHit() {
+	return hookLift.getSensorCollection().isRevLimitSwitchClosed();
+    }
 }
