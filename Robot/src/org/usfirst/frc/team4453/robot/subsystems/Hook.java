@@ -28,7 +28,7 @@ public class Hook extends Subsystem {
 
     // Encoder Resolution
     //
-    public final int	COUNTS_PER_REV_MOTOR   = 48;	// 12 cpr quadrature - RS7 Encoder from Armabot
+    public final int	COUNTS_PER_REV_MOTOR   = 12;	// 12 cpr quadrature - RS7 Encoder from Armabot
     public final int	GEARBOX_RATIO	       = 20;
     public final double	SHAFT_DIAMETER	       = 1.0;
     public final int	COUNTS_PER_REV_GEARBOX = COUNTS_PER_REV_MOTOR * GEARBOX_RATIO;
@@ -64,7 +64,7 @@ public class Hook extends Subsystem {
     
     public Hook() {
 	// choose the sensor
-	hookLift.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, pidLoopIdx, timeOutMs);
+	hookLift.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, pidLoopIdx, timeOutMs);
 	hookLift.setSensorPhase(sensorPhase);
 	hookLift.setInverted(motorInvert);
 
@@ -75,15 +75,13 @@ public class Hook extends Subsystem {
 	hookLift.configPeakOutputReverse(-1, timeOutMs);
 
 	// set allowable close-loop error
-	hookLift.configAllowableClosedloopError(0, pidLoopIdx, timeOutMs);
+	hookLift.configAllowableClosedloopError(pidLoopIdx, 0, timeOutMs);
 
 	// set closed loop gains in slot0
 	hookLift.config_kF(pidLoopIdx, kF, timeOutMs);
 	hookLift.config_kP(pidLoopIdx, kP, timeOutMs);
 	hookLift.config_kI(pidLoopIdx, kI, timeOutMs);
 	hookLift.config_kD(pidLoopIdx, kD, timeOutMs);
-
-	stop();
     }
 
     public double getDistance() {
