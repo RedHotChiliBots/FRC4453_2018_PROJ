@@ -40,6 +40,8 @@ public class OI {
 
     private JoystickButton climberClimb = new JoystickButton(operator, RobotMap.START);
     
+    private JoystickButton climberControl = new JoystickButton(operator, RobotMap.BACK);
+    
     private Trigger hookRaise = new Trigger() {
 				  @Override
 				  public boolean get() {
@@ -66,6 +68,8 @@ public class OI {
 	shooterShoot.whenPressed(new ShooterFire());
 	
 	climberClimb.whileHeld(new ClimberClimb());
+	
+	climberControl.whileHeld(new ClimberControl());
     }
 
     public double getSpdAxis() {
@@ -87,6 +91,11 @@ public class OI {
     public double getGrabSpeedAxis() {
 	return operator.getY(Hand.kLeft);
     }
+    
+    public double getClimbControl()
+    {
+	return operator.getX(Hand.kRight);
+    }
 
     public boolean isQuickTurn() {
 	return quickTurn1.get() || quickTurn2.get();
@@ -102,5 +111,9 @@ public class OI {
 
     public double getHookSpeed() {
 	return operator.getTriggerAxis(Hand.kLeft) + operator.getTriggerAxis(Hand.kRight);
+    }
+    
+    public int getDPad() {
+	return operator.getPOV();
     }
 };
