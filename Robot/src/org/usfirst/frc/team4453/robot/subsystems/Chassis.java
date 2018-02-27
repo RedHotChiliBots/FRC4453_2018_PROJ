@@ -164,11 +164,11 @@ public class Chassis extends PIDSubsystem {
     }
 
     public double getLeftDistance() {
-	return leftDistanceSensor.getVoltage() * DISTANCE_SENSOR_SCALE;
+	return leftDistanceSensor.getVoltage() / DISTANCE_SENSOR_SCALE;
     }
 
     public double getRightDistance() {
-	return rightDistanceSensor.getVoltage() * DISTANCE_SENSOR_SCALE;
+	return rightDistanceSensor.getVoltage() / DISTANCE_SENSOR_SCALE;
     }
 
     public void arcadeDrive(double spdAxis, double turnAxis) {
