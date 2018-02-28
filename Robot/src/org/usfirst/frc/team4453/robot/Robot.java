@@ -7,6 +7,9 @@
 
 package org.usfirst.frc.team4453.robot;
 
+import java.util.HashMap;
+
+import org.usfirst.frc.team4453.robot.commands.autonomous.ApproachAndPlaceCube;
 import org.usfirst.frc.team4453.robot.commands.autonomous.CrossAutoLine;
 import org.usfirst.frc.team4453.robot.commands.autonomous.NoOp;
 import org.usfirst.frc.team4453.robot.library.Vision;
@@ -43,7 +46,29 @@ public class Robot extends TimedRobot {
 
     public Vision vision;
 
-    private SendableChooser<Command> autoChooser = new SendableChooser<>();
+    public enum RobotPosition {
+	LEFT,
+	CENTER, 
+	RIGHT
+    }
+    
+    private SendableChooser<HashMap<RobotPosition, Command>> autoChooser = new SendableChooser<>();
+    
+    private HashMap<RobotPosition, Command> makeAutoChooserEntry(Command l, Command c, Command r)
+    {
+	HashMap<RobotPosition, Command> ret = new HashMap<RobotPosition, Command>();
+	ret.put(RobotPosition.LEFT, l);
+	ret.put(RobotPosition.RIGHT, r);
+	ret.put(RobotPosition.CENTER, c);
+	return ret;
+    }
+    
+    private SendableChooser<RobotPosition> positionChooser = new SendableChooser<>();
+    public RobotPosition getRobotStartingPosition()
+    {
+	return positionChooser.getSelected();
+    }
+    
     private Command autoCommand = null;
     /**
      * This function is run when the robot is first started up and should be
@@ -78,9 +103,17 @@ public class Robot extends TimedRobot {
 	System.out.println("Yaw reset!");
 	System.out.println("Robot started!");
 
-	autoChooser.addDefault("No-Op", new NoOp());
-	autoChooser.addObject("Cross Auto Line", new CrossAutoLine());
-	autoChooser.setName("Auto Chooser");
+	
+	autoChooser.addDefault("No-Op", makeAutoChooserEntry(new NoOp(), new NoOp(), new NoOp()));
+	autoChooser.addObject("Cross Auto Line", makeAutoChooserEntry(new CrossAutoLine(), new CrossAutoLine(), new CrossAutoLine()));
+	autoChooser.addObject("Place Cube (Simple)", makeAutoChooserEntry(new ApproachAndPlaceCube(RobotPosition.LEFT), new CrossAutoLine(), new ApproachAndPlaceCube(RobotPosition.RIGHT)));
+	autoChooser.setName("Auto Command");
+	
+	positionChooser.addDefault("Center", RobotPosition.CENTER);
+	positionChooser.addObject("Right", RobotPosition.RIGHT);
+	positionChooser.addDefault("Left", RobotPosition.LEFT);
+	autoChooser.setName("Robot Starting Position");
+
     }
 
     @Override
@@ -118,7 +151,7 @@ public class Robot extends TimedRobot {
 	ahrs.zeroYaw();
 	grabber.init();
 	hook.init();
-	autoCommand = autoChooser.getSelected();
+	autoCommand = autoChooser.getSelected().get(getRobotStartingPosition());
 
 	// String autoSelected = SmartDashboard.getString("Auto Selector",
 	// "Default");
