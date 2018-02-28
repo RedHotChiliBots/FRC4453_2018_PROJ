@@ -10,6 +10,7 @@ package org.usfirst.frc.team4453.robot;
 import java.util.HashMap;
 
 import org.usfirst.frc.team4453.robot.commands.autonomous.ApproachAndPlaceCube;
+import org.usfirst.frc.team4453.robot.commands.autonomous.AutoAnyPosition;
 import org.usfirst.frc.team4453.robot.commands.autonomous.CrossAutoLine;
 import org.usfirst.frc.team4453.robot.commands.autonomous.NoOp;
 import org.usfirst.frc.team4453.robot.library.Vision;
@@ -48,18 +49,16 @@ public class Robot extends TimedRobot {
 
     public enum RobotPosition {
 	LEFT,
-	CENTER, 
 	RIGHT
     }
     
     private SendableChooser<HashMap<RobotPosition, Command>> autoChooser = new SendableChooser<>();
     
-    private HashMap<RobotPosition, Command> makeAutoChooserEntry(Command l, Command c, Command r)
+    private HashMap<RobotPosition, Command> makeAutoChooserEntry(Command l, Command r)
     {
 	HashMap<RobotPosition, Command> ret = new HashMap<RobotPosition, Command>();
 	ret.put(RobotPosition.LEFT, l);
 	ret.put(RobotPosition.RIGHT, r);
-	ret.put(RobotPosition.CENTER, c);
 	return ret;
     }
     
@@ -104,12 +103,12 @@ public class Robot extends TimedRobot {
 	System.out.println("Robot started!");
 
 	
-	autoChooser.addDefault("No-Op", makeAutoChooserEntry(new NoOp(), new NoOp(), new NoOp()));
-	autoChooser.addObject("Cross Auto Line", makeAutoChooserEntry(new CrossAutoLine(), new CrossAutoLine(), new CrossAutoLine()));
-	autoChooser.addObject("Place Cube (Simple)", makeAutoChooserEntry(new ApproachAndPlaceCube(RobotPosition.LEFT), new CrossAutoLine(), new ApproachAndPlaceCube(RobotPosition.RIGHT)));
+	autoChooser.addDefault("No-Op", makeAutoChooserEntry(new NoOp(), new NoOp()));
+	autoChooser.addObject("Cross Auto Line", makeAutoChooserEntry(new CrossAutoLine(), new CrossAutoLine()));
+	autoChooser.addObject("Place Cube (Simple)", makeAutoChooserEntry(new ApproachAndPlaceCube(RobotPosition.LEFT), new ApproachAndPlaceCube(RobotPosition.RIGHT)));
+	autoChooser.addObject("Any-positions Auto", makeAutoChooserEntry(new AutoAnyPosition(RobotPosition.LEFT), new AutoAnyPosition(RobotPosition.RIGHT)));
 	autoChooser.setName("Auto Command");
 	
-	positionChooser.addDefault("Center", RobotPosition.CENTER);
 	positionChooser.addObject("Right", RobotPosition.RIGHT);
 	positionChooser.addDefault("Left", RobotPosition.LEFT);
 	positionChooser.setName("Robot Starting Position");
