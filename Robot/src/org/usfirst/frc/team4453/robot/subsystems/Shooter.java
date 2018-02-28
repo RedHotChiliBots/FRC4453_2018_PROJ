@@ -46,6 +46,7 @@ public class Shooter extends Subsystem {
 	@Override
 	protected void initialize() {
 	    System.out.println("Winding shooter...");
+	    latch.set(DoubleSolenoid.Value.kReverse);
 	    clutch.set(Relay.Value.kOn);
 	    motor.set(ControlMode.PercentOutput, 1);
 	}
