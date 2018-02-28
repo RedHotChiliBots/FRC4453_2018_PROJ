@@ -20,9 +20,9 @@ public class Hook extends Subsystem {
     public final int	 pidLoopIdx  = 0;
     public final int	 timeOutMs   = 10;
     public final boolean sensorPhase = true;
-    public final boolean motorInvert = false;
+    public final boolean motorInvert = true;
     public final double	 kF	     = 0.0;
-    public final double	 kP	     = 1.0;
+    public final double	 kP	     = 2.0;
     public final double	 kI	     = 0.0;
     public final double	 kD	     = 0.0;
 
@@ -35,6 +35,8 @@ public class Hook extends Subsystem {
     public final double	INCHES_PER_REV	       = SHAFT_DIAMETER * Math.PI;
     public final double	COUNTS_PER_INCH	       = COUNTS_PER_REV_GEARBOX / INCHES_PER_REV;
 
+    public final static double MAX_HEIGHT = 6.5*12;
+    
     // Motor
     private final WPI_TalonSRX hookLift = new WPI_TalonSRX(RobotMap.CLIMBER_HOOK_MOTOR);
 
@@ -71,12 +73,20 @@ public class Hook extends Subsystem {
 	// set the peak, nominal outputs
 	hookLift.configNominalOutputForward(0, timeOutMs);
 	hookLift.configNominalOutputReverse(0, timeOutMs);
-	hookLift.configPeakOutputForward(1, timeOutMs);
-	hookLift.configPeakOutputReverse(-1, timeOutMs);
+	hookLift.configPeakOutputForward(.5, timeOutMs);
+	hookLift.configPeakOutputReverse(-.5, timeOutMs);
+	
+	hookLift.configClosedloopRamp(0, timeOutMs);
 
 	// set allowable close-loop error
 	hookLift.configAllowableClosedloopError(pidLoopIdx, 0, timeOutMs);
-
+	
+	hookLift.configForwardSoftLimitThreshold((int) (MAX_HEIGHT * COUNTS_PER_INCH), timeOutMs);
+	hookLift.configReverseSoftLimitThreshold(0, timeOutMs);
+	hookLift.configForwardSoftLimitEnable(true, timeOutMs);
+	hookLift.configReverseSoftLimitEnable(true, timeOutMs);
+	
+	
 	// set closed loop gains in slot0
 	hookLift.config_kF(pidLoopIdx, kF, timeOutMs);
 	hookLift.config_kP(pidLoopIdx, kP, timeOutMs);
@@ -98,7 +108,7 @@ public class Hook extends Subsystem {
     }
 
     public void set(double setPoint) {
-	hookLift.set(setPoint * COUNTS_PER_INCH);
+	hookLift.set(ControlMode.Position, setPoint * COUNTS_PER_INCH);
     }
 
     public void stop() {

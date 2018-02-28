@@ -110,7 +110,7 @@ public class OI {
     }
 
     public double getHookSpeed() {
-	return operator.getTriggerAxis(Hand.kLeft) + operator.getTriggerAxis(Hand.kRight);
+	return operator.getTriggerAxis(Hand.kLeft) - operator.getTriggerAxis(Hand.kRight);
     }
     
     public int getDPad() {

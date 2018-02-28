@@ -26,9 +26,9 @@ public class Grabber extends Subsystem {
     private static final int COUNTS_PER_REV_GEARBOX = COUNTS_PER_REV_MOTOR * GEAR_RATIO;
     private static final double TICKS_PER_DEGREE    = COUNTS_PER_REV_GEARBOX / 360.0;
 
-    private static final double MAX_ANGLE = 120; // TODO: Determine mechanically
+    private static final double MAX_ANGLE = 175; // TODO: Determine mechanically
     
-    private static final double kF = 0, kP = 10, kI= 0, kD = 0;
+    private static final double kF = 0, kP = 30, kI= 0, kD = 0;
     
     private WPI_TalonSRX     left		    = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
     private WPI_TalonSRX     right		    = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);

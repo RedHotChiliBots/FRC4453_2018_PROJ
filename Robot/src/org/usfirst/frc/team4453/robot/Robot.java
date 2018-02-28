@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team4453.robot;
 
+import org.usfirst.frc.team4453.robot.commands.autonomous.CrossAutoLine;
+import org.usfirst.frc.team4453.robot.commands.autonomous.NoOp;
 import org.usfirst.frc.team4453.robot.library.Vision;
 import org.usfirst.frc.team4453.robot.subsystems.*;
 
@@ -16,6 +18,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -41,10 +44,8 @@ public class Robot extends TimedRobot {
 
     public Vision vision;
 
-    Command m_autonomousCommand;
-
-    SendableChooser<Command> m_chooser = new SendableChooser<>();
-
+    private SendableChooser<Command> autoChooser = new SendableChooser<>();
+    private Command autoCommand = null;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -77,12 +78,16 @@ public class Robot extends TimedRobot {
 	ahrs.zeroYaw();
 	System.out.println("Yaw reset!");
 	System.out.println("Robot started!");
+
+	autoChooser.addDefault("No-Op", new NoOp());
+	autoChooser.addObject("Cross Auto Line", new CrossAutoLine());
+	autoChooser.setName("Auto Chooser");
     }
 
     @Override
     public void teleopInit() {
-	if (m_autonomousCommand != null) {
-	    m_autonomousCommand.cancel();
+	if (autoCommand != null) {
+	    autoCommand.cancel();
 	}
 	grabber.init();
 	hook.init();
@@ -114,7 +119,7 @@ public class Robot extends TimedRobot {
 	ahrs.zeroYaw();
 	grabber.init();
 	hook.init();
-	m_autonomousCommand = m_chooser.getSelected();
+	autoCommand = autoChooser.getSelected();
 
 	// String autoSelected = SmartDashboard.getString("Auto Selector",
 	// "Default");
@@ -129,8 +134,8 @@ public class Robot extends TimedRobot {
 	// }
 
 	// schedule the autonomous command (example)
-	if (m_autonomousCommand != null) {
-	    m_autonomousCommand.start();
+	if (autoCommand != null) {
+	    autoCommand.start();
 	}
     }
 
@@ -179,5 +184,7 @@ public class Robot extends TimedRobot {
 	SmartDashboard.putBoolean("Grabber Limit Hit", grabber.isLimitHit());
 	SmartDashboard.putBoolean("Shooter Limit Hit", shooter.isLimitHit());
 	SmartDashboard.putBoolean("Hook Limit Hit", hook.isLimitHit());
+	SmartDashboard.putNumber("Tilt Angle", grabber.getTilt());
+	SmartDashboard.putNumber("Hook Height", hook.getDistance());
     }
 }
