@@ -112,7 +112,7 @@ public class Robot extends TimedRobot {
 	positionChooser.addDefault("Center", RobotPosition.CENTER);
 	positionChooser.addObject("Right", RobotPosition.RIGHT);
 	positionChooser.addDefault("Left", RobotPosition.LEFT);
-	autoChooser.setName("Robot Starting Position");
+	positionChooser.setName("Robot Starting Position");
 
     }
 
