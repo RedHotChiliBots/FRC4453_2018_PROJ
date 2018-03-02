@@ -210,7 +210,7 @@ public class Chassis extends PIDSubsystem {
     }
     
     public boolean distanceOnTarget() {
-	return Math.abs(distancePID.getSetpoint() - distancePIDInput.pidGet()) < 1.0;
+	return Math.abs(distancePID.getSetpoint() - distancePIDInput.pidGet()) < 1.0*CHASSIS_TICKS_PER_INCH;
     }
     
     public boolean angleOnTarget() {
