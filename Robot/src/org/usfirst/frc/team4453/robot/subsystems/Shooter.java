@@ -25,8 +25,9 @@ public class Shooter extends Subsystem {
 
     public class PrepareCommand extends CommandGroup {
 	public PrepareCommand() {
-	    addSequential(new PrepareCommand1());
-	    addSequential(new PrepareCommand2());
+	    requires(Shooter.this);
+	    //addSequential(new PrepareCommand1());
+	    //addSequential(new PrepareCommand2());
 	    addSequential(new Command() { // Wait for Interrupt
 		@Override
 		protected boolean isFinished() {

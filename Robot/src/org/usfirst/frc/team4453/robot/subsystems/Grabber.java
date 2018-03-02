@@ -28,7 +28,7 @@ public class Grabber extends Subsystem {
 
     private static final double MAX_ANGLE = 175; // TODO: Determine mechanically
     
-    private static final double kF = 0, kP = 30, kI= 0, kD = 0;
+    private static final double kF = 0, kP = 40, kI= 0, kD = 0;
     
     private WPI_TalonSRX     left		    = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
     private WPI_TalonSRX     right		    = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);
