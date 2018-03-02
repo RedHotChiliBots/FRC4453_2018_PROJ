@@ -83,11 +83,13 @@ public class Chassis extends PIDSubsystem {
 	getPIDController().setContinuous();
 	getPIDController().setAbsoluteTolerance(0.5); // TODO
 	distancePID.setAbsoluteTolerance(50); // TODO
+	distancePID.setOutputRange(-.5, .5);
 	System.out.println("Distance PID configured!");
 	
 	System.out.println("Configuring left motors...");
 	leftFront.setSubsystem("Chassis");
 	leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
+	leftFront.setSensorPhase(true);
 	leftMid.follow(leftFront);
 	leftMid.setSubsystem("Chassis");
 	leftBack.follow(leftFront);
@@ -97,6 +99,7 @@ public class Chassis extends PIDSubsystem {
 	System.out.println("Configuring right motors...");
 	rightFront.setSubsystem("Chassis");
 	rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
+	rightFront.setSensorPhase(true);
 	rightMid.follow(rightFront);
 	rightMid.setSubsystem("Chassis");
 	rightBack.follow(rightFront);
@@ -207,7 +210,7 @@ public class Chassis extends PIDSubsystem {
     }
     
     public boolean distanceOnTarget() {
-	return distancePID.onTarget();
+	return Math.abs(distancePID.getSetpoint() - distancePIDInput.pidGet()) < 1.0;
     }
     
     public boolean angleOnTarget() {
