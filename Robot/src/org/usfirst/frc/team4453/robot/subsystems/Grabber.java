@@ -35,6 +35,8 @@ public class Grabber extends Subsystem {
     private WPI_TalonSRX     tilt		    = new WPI_TalonSRX(RobotMap.GRABBER_TILT_MOTOR);
     private DoubleSolenoid   grip		    = new DoubleSolenoid(RobotMap.GRABBER_GRIP_SOLENOID,
 	    RobotMap.GRABBER_RELEASE_SOLENOID);
+    
+    private boolean isInitialized = false;
  
     /**
      * Command to initialize the Grabber.
@@ -55,6 +57,7 @@ public class Grabber extends Subsystem {
 
 	@Override
 	protected void initialize() {
+	    isInitialized=false;
 	    left.setNeutralMode(NeutralMode.Brake);
 	    right.setNeutralMode(NeutralMode.Brake);
 	    left.neutralOutput();
@@ -63,7 +66,7 @@ public class Grabber extends Subsystem {
 	    grip.set(Value.kReverse);
 
 	    tilt.setNeutralMode(NeutralMode.Brake);
-	    tilt.set(ControlMode.PercentOutput, -.2); // TODO: Correct
+	    tilt.set(ControlMode.PercentOutput, -.3); // TODO: Correct
 						      // direction?
 	}
 
@@ -79,7 +82,7 @@ public class Grabber extends Subsystem {
 	    tilt.neutralOutput();
 	    tilt.getSensorCollection().setQuadraturePosition(0, 100);
 	    tilt.set(ControlMode.Position, 0);
-
+	    isInitialized=true;
 	}
     }
 
@@ -89,7 +92,7 @@ public class Grabber extends Subsystem {
 	tilt.configForwardSoftLimitThreshold((int) (MAX_ANGLE * TICKS_PER_DEGREE), 100);
 	tilt.configForwardSoftLimitEnable(true, 100);
 	tilt.configReverseSoftLimitThreshold(0, 100);
-	tilt.configReverseSoftLimitEnable(true, 100);
+	tilt.configReverseSoftLimitEnable(false, 100);
 	tilt.config_kF(0, kF, 100);
 	tilt.config_kP(0, kP, 100);
 	tilt.config_kI(0, kI, 100);
@@ -145,5 +148,10 @@ public class Grabber extends Subsystem {
 
     public boolean isLimitHit() {
 	return tilt.getSensorCollection().isRevLimitSwitchClosed();
+    }
+    
+    public boolean isInitialized()
+    {
+	return isInitialized;
     }
 }

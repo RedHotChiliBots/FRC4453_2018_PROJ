@@ -217,5 +217,7 @@ public class Robot extends TimedRobot {
 	SmartDashboard.putBoolean("Hook Limit Hit", hook.isLimitHit());
 	SmartDashboard.putNumber("Tilt Angle", grabber.getTilt());
 	SmartDashboard.putNumber("Hook Height", hook.getDistance());
+	SmartDashboard.putNumber("Left Chassis encoder", chassis.getLeftEncoder());
+	SmartDashboard.putNumber("Right Chassis encoder", chassis.getRightEncoder());
     }
 }

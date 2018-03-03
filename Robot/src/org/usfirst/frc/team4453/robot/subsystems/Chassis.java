@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
  *
  */
 public class Chassis extends PIDSubsystem {
-    private static final double CHASSIS_GEAR_RATIO = 5; // Encoder revs per wheel revs. TODO
+    private static final double CHASSIS_GEAR_RATIO = 7.5; // Encoder revs per wheel revs. TODO
     private static final double CHASSIS_ENCODER_TICKS_PER_REVOLUTION = 4096;
     private static final double CHASSIS_WHEEL_DIAMETER = 6; // inches
     private static final double CHASSIS_TICKS_PER_INCH = (CHASSIS_GEAR_RATIO * CHASSIS_ENCODER_TICKS_PER_REVOLUTION) / (CHASSIS_WHEEL_DIAMETER * Math.PI);
@@ -68,7 +68,7 @@ public class Chassis extends PIDSubsystem {
     private PIDOutput distancePIDOutput = new PIDOutput() {
 	@Override
 	public void pidWrite(double output) {
-	    PIDSpeed = output;
+	    PIDSpeed = -output;
 	}
     };
     
@@ -89,7 +89,7 @@ public class Chassis extends PIDSubsystem {
 	System.out.println("Configuring left motors...");
 	leftFront.setSubsystem("Chassis");
 	leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
-	leftFront.setSensorPhase(true);
+	leftFront.setSensorPhase(false);
 	leftMid.follow(leftFront);
 	leftMid.setSubsystem("Chassis");
 	leftBack.follow(leftFront);
@@ -99,7 +99,7 @@ public class Chassis extends PIDSubsystem {
 	System.out.println("Configuring right motors...");
 	rightFront.setSubsystem("Chassis");
 	rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
-	rightFront.setSensorPhase(true);
+	rightFront.setSensorPhase(false);
 	rightMid.follow(rightFront);
 	rightMid.setSubsystem("Chassis");
 	rightBack.follow(rightFront);
@@ -211,6 +211,16 @@ public class Chassis extends PIDSubsystem {
     
     public boolean distanceOnTarget() {
 	return Math.abs(distancePID.getSetpoint() - distancePIDInput.pidGet()) < 1.0*CHASSIS_TICKS_PER_INCH;
+    }
+    
+    public int getLeftEncoder()
+    {
+	return leftFront.getSelectedSensorPosition(0);
+    }
+    
+    public int getRightEncoder()
+    {
+	return rightFront.getSelectedSensorPosition(0);
     }
     
     public boolean angleOnTarget() {
