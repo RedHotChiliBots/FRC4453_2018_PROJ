@@ -73,12 +73,12 @@ public class RobotMap {
 
     // ====== Motor Controllers ======
     // Chassis
-    public static final int CHASSIS_FRONT_RIGHT_MOTOR = 0; // TODO
-    public static final int CHASSIS_FRONT_LEFT_MOTOR  = 1; // TODO
-    public static final int CHASSIS_MID_RIGHT_MOTOR   = 2; // TODO
-    public static final int CHASSIS_MID_LEFT_MOTOR    = 3; // TODO
-    public static final int CHASSIS_REAR_RIGHT_MOTOR  = 4; // TODO
-    public static final int CHASSIS_REAR_LEFT_MOTOR   = 5; // TODO
+    public static final int CHASSIS_FRONT_RIGHT_MOTOR = 1; // TODO
+    public static final int CHASSIS_FRONT_LEFT_MOTOR  = 0; // TODO
+    public static final int CHASSIS_MID_RIGHT_MOTOR   = 3; // TODO
+    public static final int CHASSIS_MID_LEFT_MOTOR    = 2; // TODO
+    public static final int CHASSIS_REAR_RIGHT_MOTOR  = 5; // TODO
+    public static final int CHASSIS_REAR_LEFT_MOTOR   = 4; // TODO
     // Climber
     public static final int CLIMBER_RIGHT_MOTOR	= 6; // TODO
     public static final int CLIMBER_LEFT_MOTOR	= 7; // TODO
