@@ -43,7 +43,7 @@ public class Grabber extends Subsystem {
      * Sets subsystem to default state and resets encoder zeros.
      */
 
-    private class Init extends CommandGroup {
+    public class Init extends CommandGroup {
 	public Init() {
 	    addSequential(new ResetCommand());
 	}
@@ -91,8 +91,9 @@ public class Grabber extends Subsystem {
 	tilt.setSensorPhase(true);
 	tilt.configForwardSoftLimitThreshold((int) (MAX_ANGLE * TICKS_PER_DEGREE), 100);
 	tilt.configForwardSoftLimitEnable(true, 100);
-	tilt.configReverseSoftLimitThreshold(0, 100);
-	tilt.configReverseSoftLimitEnable(false, 100);
+	tilt.configClosedloopRamp(0.1, 100);
+	tilt.configPeakOutputForward(0.5, 100);
+	tilt.configPeakOutputReverse(0.5, 100);
 	tilt.config_kF(0, kF, 100);
 	tilt.config_kP(0, kP, 100);
 	tilt.config_kI(0, kI, 100);
@@ -153,5 +154,9 @@ public class Grabber extends Subsystem {
     public boolean isInitialized()
     {
 	return isInitialized;
+    }
+    
+    public double getTiltSpeed() {
+	return (tilt.getSelectedSensorVelocity(0) * 10.0) / TICKS_PER_DEGREE;
     }
 }

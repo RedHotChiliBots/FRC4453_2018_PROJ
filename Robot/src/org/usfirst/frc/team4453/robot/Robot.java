@@ -148,7 +148,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
 	ahrs.zeroYaw();
-	grabber.init();
+	//grabber.init();
 	hook.init();
 	autoCommand = autoChooser.getSelected().get(getRobotStartingPosition());
 

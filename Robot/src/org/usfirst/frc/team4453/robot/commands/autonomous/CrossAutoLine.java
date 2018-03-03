@@ -1,5 +1,8 @@
 package org.usfirst.frc.team4453.robot.commands.autonomous;
 
+import org.usfirst.frc.team4453.robot.Robot;
+import org.usfirst.frc.team4453.robot.subsystems.Grabber;
+
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
@@ -8,7 +11,8 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class CrossAutoLine extends CommandGroup {
     
     public CrossAutoLine() {
+//		addSequential(Robot.grabber.new Init());
 //	       addSequential(new RobotDriveDistance(FieldConstants.AUTO_LINE_DIST));	// 5 inches
-	       addSequential(new RobotDriveTime(0.5, 5));
+	       addSequential(new RobotDriveTime(-0.5, 6));
     }
 }
