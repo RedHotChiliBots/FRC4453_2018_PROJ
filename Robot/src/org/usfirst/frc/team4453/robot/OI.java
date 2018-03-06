@@ -77,7 +77,7 @@ public class OI {
     }
 
     public double getTurnAxis() {
-	return -drive.getX();
+	return drive.getX();
     }
 
     public double getTiltAxis() {
