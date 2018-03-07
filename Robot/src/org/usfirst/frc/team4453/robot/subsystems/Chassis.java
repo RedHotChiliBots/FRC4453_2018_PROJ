@@ -83,8 +83,8 @@ public class Chassis extends PIDSubsystem {
 	System.out.println("Configuring Distance PID...");
 	getPIDController().setInputRange(0, 360);
 	getPIDController().setContinuous();
-	getPIDController().setAbsoluteTolerance(0.5); // TODO
-	distancePID.setAbsoluteTolerance(50); // TODO
+	getPIDController().setAbsoluteTolerance(0.5); // TODO Verify tolerance
+	distancePID.setAbsoluteTolerance(50); // TODO Verify tolerance
 	distancePID.setOutputRange(-.5, .5);
 	System.out.println("Distance PID configured!");
 	

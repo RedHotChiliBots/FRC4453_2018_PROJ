@@ -66,15 +66,12 @@ public class Grabber extends Subsystem {
 	    grip.set(Value.kReverse);
 
 	    tilt.setNeutralMode(NeutralMode.Brake);
-	    tilt.set(ControlMode.PercentOutput, -.3); // TODO: Correct
-						      // direction?
+	    tilt.set(ControlMode.PercentOutput, -.3); // TODO: Verify correct direction?
 	}
 
 	@Override
 	protected boolean isFinished() {
-	    return tilt.getSensorCollection().isRevLimitSwitchClosed(); // TODO:
-									// Correct
-									// direction?
+	    return tilt.getSensorCollection().isRevLimitSwitchClosed(); // TODO Verify correct direction?
 	}
 
 	@Override

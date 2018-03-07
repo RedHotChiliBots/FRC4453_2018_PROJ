@@ -59,7 +59,6 @@ public class Shooter extends Subsystem {
 
 	@Override
 	protected boolean isFinished() {
-	    // TODO Auto-generated method stub
 	    return limitswitch.get();
 	}
 
