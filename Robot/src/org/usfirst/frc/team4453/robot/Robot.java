@@ -9,10 +9,7 @@ package org.usfirst.frc.team4453.robot;
 
 import java.util.HashMap;
 
-import org.usfirst.frc.team4453.robot.commands.autonomous.ApproachAndPlaceCube;
-import org.usfirst.frc.team4453.robot.commands.autonomous.AutoAnyPosition;
-import org.usfirst.frc.team4453.robot.commands.autonomous.CrossAutoLine;
-import org.usfirst.frc.team4453.robot.commands.autonomous.NoOp;
+import org.usfirst.frc.team4453.robot.commands.autonomous.*;
 import org.usfirst.frc.team4453.robot.library.Vision;
 import org.usfirst.frc.team4453.robot.subsystems.*;
 
@@ -77,6 +74,7 @@ public class Robot extends TimedRobot {
     public void robotInit() {
 	System.out.println("Robot Starting...");
 	ahrs = new AHRS(SPI.Port.kMXP);
+	ahrs.getBoardYawAxis();
 	ahrs.setSubsystem("Chassis");
 	System.out.println("AHRS Started!");
 	
@@ -107,6 +105,7 @@ public class Robot extends TimedRobot {
 	autoChooser.addObject("Cross Auto Line", makeAutoChooserEntry(new CrossAutoLine(), new CrossAutoLine()));
 	autoChooser.addObject("Place Cube (Simple)", makeAutoChooserEntry(new ApproachAndPlaceCube(RobotPosition.LEFT), new ApproachAndPlaceCube(RobotPosition.RIGHT)));
 	autoChooser.addObject("Any-positions Auto", makeAutoChooserEntry(new AutoAnyPosition(RobotPosition.LEFT), new AutoAnyPosition(RobotPosition.RIGHT)));
+	autoChooser.addObject("Test", makeAutoChooserEntry(new AutoTest(), new AutoTest()));
 	autoChooser.setName("Auto Command");
 	
 	positionChooser.addObject("Right", RobotPosition.RIGHT);
@@ -210,7 +209,7 @@ public class Robot extends TimedRobot {
 	SmartDashboard.putNumber("Right Distance", chassis.getRightDistance());
 	SmartDashboard.putNumber("Hi Pressure", chassis.getHiPressure());
 	SmartDashboard.putNumber("Lo Pressure", chassis.getLoPressure());
-	SmartDashboard.putNumber("Heading", Robot.ahrs.getYaw());
+	SmartDashboard.putNumber("Heading", Robot.ahrs.getAngle());
 	SmartDashboard.putNumber("Turn Rate", Robot.ahrs.getRate());
 	SmartDashboard.putBoolean("Grabber Limit Hit", grabber.isLimitHit());
 	SmartDashboard.putBoolean("Shooter Limit Hit", shooter.isLimitHit());

@@ -68,20 +68,21 @@ public class Chassis extends PIDSubsystem {
     private PIDOutput distancePIDOutput = new PIDOutput() {
 	@Override
 	public void pidWrite(double output) {
-	    PIDSpeed = -output;
+	    PIDSpeed = output;
 	}
     };
     
     private PIDController distancePID = new PIDController(1, 0, 0, distancePIDInput, distancePIDOutput); // TODO: PID Values
     
     public Chassis() {
-	super("Chassis", 1, 0, 0); // TODO: PID Values
+	super("Chassis", 0.075, 0.1, 0.5); // TODO: PID Values
 	System.out.println("Entering Chassis...");
 	
 	System.out.println("Configuring Distance PID...");
 	getPIDController().setInputRange(0, 360);
 	getPIDController().setContinuous();
-	getPIDController().setAbsoluteTolerance(0.5); // TODO
+	getPIDController().setAbsoluteTolerance(0.2); // TODO
+	getPIDController().setOutputRange(-.5, .5);
 	distancePID.setAbsoluteTolerance(50); // TODO
 	distancePID.setOutputRange(-.5, .5);
 	System.out.println("Distance PID configured!");
@@ -141,7 +142,7 @@ public class Chassis extends PIDSubsystem {
 
     public void curveDrive(double spdCmd, double rotCmd, boolean quickTurn) {
 	getPIDController().disable();
-	drive.curvatureDrive(spdCmd, rotCmd, quickTurn);
+	drive.curvatureDrive(-spdCmd, rotCmd, quickTurn);
     }
 
     @Override
@@ -154,7 +155,8 @@ public class Chassis extends PIDSubsystem {
     }
 
     public void stop() {
-	getPIDController().disable();
+	PIDSpeed = 0;
+	getPIDController().reset();
 	drive.stopMotor();
     }
 
@@ -184,6 +186,7 @@ public class Chassis extends PIDSubsystem {
     }
     
     public void driveWithHeading(double speed, double angle) {
+	getPIDController().reset();
 	getPIDController().enable();
 	setSetpoint(angle);
 	PIDSpeed = speed;
@@ -195,6 +198,7 @@ public class Chassis extends PIDSubsystem {
 	rightFront.getSensorCollection().setPulseWidthPosition(0, 100);
 	distancePID.setSetpoint(distance * CHASSIS_TICKS_PER_INCH);
 	setSetpoint(angle);
+	getPIDController().reset();
 	getPIDController().enable();
 	distancePID.enable();
     }
@@ -205,6 +209,7 @@ public class Chassis extends PIDSubsystem {
 	rightFront.getSensorCollection().setPulseWidthPosition(0, 100);
 	distancePID.setSetpoint(distance * CHASSIS_TICKS_PER_INCH);
 	setSetpoint(Robot.ahrs.getYaw());
+	getPIDController().reset();
 	getPIDController().enable();
 	distancePID.enable();
     }
@@ -224,7 +229,7 @@ public class Chassis extends PIDSubsystem {
     }
     
     public boolean angleOnTarget() {
-	return getPIDController().onTarget();
+	return getPIDController().onTarget() && Math.abs(Robot.ahrs.getRate()) < .5;
     }
     
     @Override
