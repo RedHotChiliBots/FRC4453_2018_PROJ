@@ -19,7 +19,7 @@ public class ApproachAndPlaceCube extends CommandGroup {
         //addSequential(new RobotDriveDistance(FieldConstants.AUTO_LINE_DIST + FieldConstants.ROBOT_LENGTH));
        	addSequential(new GrabberTilt(130));
 	addSequential(new GrabberGrab());
-	addSequential(new RobotDriveTime(-0.75, 3.5)); // TODO
+	addSequential(new RobotDriveTime(-0.75, 3.5)); // TODO - Move constants to dashboard
 	addSequential(new ProceedIfSwitchIsCorrect(position == RobotPosition.RIGHT ? SwitchPosition.RIGHT : SwitchPosition.LEFT));
         //addSequential(new RobotDriveDistance(FieldConstants.WALL_TO_FENCE - (FieldConstants.AUTO_LINE_DIST + FieldConstants.ROBOT_LENGTH)));
 	addSequential(new GrabberTilt(20));

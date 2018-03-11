@@ -73,36 +73,36 @@ public class RobotMap {
 
     // ====== Motor Controllers ======
     // Chassis
-    public static final int CHASSIS_FRONT_RIGHT_MOTOR = 1; // TODO
-    public static final int CHASSIS_FRONT_LEFT_MOTOR  = 0; // TODO
-    public static final int CHASSIS_MID_RIGHT_MOTOR   = 3; // TODO
-    public static final int CHASSIS_MID_LEFT_MOTOR    = 2; // TODO
-    public static final int CHASSIS_REAR_RIGHT_MOTOR  = 5; // TODO
-    public static final int CHASSIS_REAR_LEFT_MOTOR   = 4; // TODO
+    public static final int CHASSIS_FRONT_RIGHT_MOTOR = 1; // TODO Verify L/R Motor
+    public static final int CHASSIS_FRONT_LEFT_MOTOR  = 0; // TODO Verify L/R Motor
+    public static final int CHASSIS_MID_RIGHT_MOTOR   = 3; // TODO Verify L/R Motor
+    public static final int CHASSIS_MID_LEFT_MOTOR    = 2; // TODO Verify L/R Motor
+    public static final int CHASSIS_REAR_RIGHT_MOTOR  = 5; // TODO Verify L/R Motor
+    public static final int CHASSIS_REAR_LEFT_MOTOR   = 4; // TODO Verify L/R Motor
     // Climber
-    public static final int CLIMBER_RIGHT_MOTOR	= 6; // TODO
-    public static final int CLIMBER_LEFT_MOTOR	= 7; // TODO
+    public static final int CLIMBER_RIGHT_MOTOR	= 6;
+    public static final int CLIMBER_LEFT_MOTOR	= 7;
     public static final int CLIMBER_HOOK_MOTOR	= 12;
     // Grabber
-    public static final int GRABBER_LEFT_MOTOR	= 8;  // TODO
-    public static final int GRABBER_RIGHT_MOTOR	= 9;  // TODO
-    public static final int GRABBER_TILT_MOTOR	= 10; // TODO
+    public static final int GRABBER_LEFT_MOTOR	= 8;
+    public static final int GRABBER_RIGHT_MOTOR	= 9;
+    public static final int GRABBER_TILT_MOTOR	= 10;
     // Shooter
     public static final int SHOOTER_WIND_MOTOR = 11;
 
     // ====== Solenoids ======
     // Chassis
-    public static final int SHIFTER_HI_SOLENOID	= 0; // TODO
-    public static final int SHIFTER_LO_SOLENOID	= 1; // TODO
+    public static final int SHIFTER_HI_SOLENOID	= 0;
+    public static final int SHIFTER_LO_SOLENOID	= 1;
     // Lifter
-    public static final int LIFTER_UP_SOLENOID	 = 2; // TODO
-    public static final int LIFTER_DOWN_SOLENOID = 3; // TODO
+    public static final int LIFTER_UP_SOLENOID	 = 2;
+    public static final int LIFTER_DOWN_SOLENOID = 3;
     // Grabber
-    public static final int GRABBER_GRIP_SOLENOID    = 4; // TODO
-    public static final int GRABBER_RELEASE_SOLENOID = 5; // TODO
+    public static final int GRABBER_GRIP_SOLENOID    = 4;
+    public static final int GRABBER_RELEASE_SOLENOID = 5;
     // Shooter
-    public static final int SHOOTER_LATCH_SOLENOID   = 6; // TODO
-    public static final int SHOOTER_RELEASE_SOLENOID = 7; // TODO
+    public static final int SHOOTER_LATCH_SOLENOID   = 6;
+    public static final int SHOOTER_RELEASE_SOLENOID = 7;
 
     // ====== Analog Inputs ======
     // Pressure Sensor
