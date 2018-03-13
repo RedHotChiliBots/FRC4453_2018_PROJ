@@ -5,6 +5,7 @@ import org.usfirst.frc.team4453.robot.RobotMap;
 import org.usfirst.frc.team4453.robot.commands.TeleopDrive;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.*;
@@ -77,14 +78,14 @@ public class Chassis extends PIDSubsystem {
     private PIDController distancePID = new PIDController(1, 0, 0, distancePIDInput, distancePIDOutput); // TODO: PID Values
     
     public Chassis() {
-	super("Chassis", 0.075, 0.1, 0.5); // TODO: PID Values
+	super("Chassis", 0.05, 0.003, 0.3); // TODO: PID Values
 	System.out.println("Entering Chassis...");
 	
 	System.out.println("Configuring Distance PID...");
-	getPIDController().setInputRange(0, 360);
+	getPIDController().setInputRange(-180, 180);
 	getPIDController().setContinuous();
 	getPIDController().setAbsoluteTolerance(0.2); // TODO
-	getPIDController().setOutputRange(-.5, .5);
+	//getPIDController().setOutputRange(-.5, .5);
 	distancePID.setAbsoluteTolerance(50); // TODO
 	distancePID.setOutputRange(-.5, .5);
 	System.out.println("Distance PID configured!");
@@ -93,9 +94,12 @@ public class Chassis extends PIDSubsystem {
 	leftFront.setSubsystem("Chassis");
 	leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
 	leftFront.setSensorPhase(false);
+	leftFront.setNeutralMode(NeutralMode.Brake);
 	leftMid.follow(leftFront);
+	leftMid.setNeutralMode(NeutralMode.Brake);
 	leftMid.setSubsystem("Chassis");
 	leftBack.follow(leftFront);
+	leftBack.setNeutralMode(NeutralMode.Brake);
 	leftBack.setSubsystem("Chassis");
 	System.out.println("Left motors configured!");
 
@@ -103,9 +107,12 @@ public class Chassis extends PIDSubsystem {
 	rightFront.setSubsystem("Chassis");
 	rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
 	rightFront.setSensorPhase(false);
+	rightFront.setNeutralMode(NeutralMode.Brake);
 	rightMid.follow(rightFront);
+	rightMid.setNeutralMode(NeutralMode.Brake);
 	rightMid.setSubsystem("Chassis");
 	rightBack.follow(rightFront);
+	rightBack.setNeutralMode(NeutralMode.Brake);
 	rightBack.setSubsystem("Chassis");
 	System.out.println("Right motors configured!");
 
@@ -188,6 +195,7 @@ public class Chassis extends PIDSubsystem {
     }
     
     public void driveWithHeading(double speed, double angle) {
+	Robot.ahrs.zeroYaw();
 	getPIDController().reset();
 	getPIDController().enable();
 	setSetpoint(angle);
@@ -196,6 +204,7 @@ public class Chassis extends PIDSubsystem {
     
     public void driveDistanceWithHeading(double distance, double angle)
     {
+	Robot.ahrs.zeroYaw();
 	leftFront.getSensorCollection().setPulseWidthPosition(0, 100);
 	rightFront.getSensorCollection().setPulseWidthPosition(0, 100);
 	distancePID.setSetpoint(distance * CHASSIS_TICKS_PER_INCH);
@@ -207,6 +216,7 @@ public class Chassis extends PIDSubsystem {
     
     public void driveDistance(double distance)
     {
+	Robot.ahrs.zeroYaw();
 	leftFront.getSensorCollection().setPulseWidthPosition(0, 100);
 	rightFront.getSensorCollection().setPulseWidthPosition(0, 100);
 	distancePID.setSetpoint(distance * CHASSIS_TICKS_PER_INCH);
@@ -216,8 +226,22 @@ public class Chassis extends PIDSubsystem {
 	distancePID.enable();
     }
     
+    public double angleError() {
+	return Math.abs(getPIDController().getError());
+    }
+    
     public boolean distanceOnTarget() {
 	return Math.abs(distancePID.getSetpoint() - distancePIDInput.pidGet()) < 1.0*CHASSIS_TICKS_PER_INCH;
+    }
+    
+    public void turnCoarse() {
+	getPIDController().setPID(0.02, 0, -0.02);
+	getPIDController().setOutputRange(-.75, .75);
+    }
+    
+    public void turnFine() {
+	getPIDController().setPID(0.001, 0.005, 0);
+	getPIDController().setOutputRange(-1, 1);
     }
     
     public int getLeftEncoder()
@@ -231,7 +255,7 @@ public class Chassis extends PIDSubsystem {
     }
     
     public boolean angleOnTarget() {
-	return getPIDController().onTarget() && Math.abs(Robot.ahrs.getRate()) < .5;
+	return getPIDController().onTarget() && Math.abs(Robot.ahrs.getRate()) < 1.5;
     }
     
     @Override

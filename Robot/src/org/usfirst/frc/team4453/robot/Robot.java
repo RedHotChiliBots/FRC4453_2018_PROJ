@@ -106,12 +106,13 @@ public class Robot extends TimedRobot {
 	autoChooser.addObject("Place Cube (Simple)", makeAutoChooserEntry(new ApproachAndPlaceCube(RobotPosition.LEFT), new ApproachAndPlaceCube(RobotPosition.RIGHT)));
 	autoChooser.addObject("Any-positions Auto", makeAutoChooserEntry(new AutoAnyPosition(RobotPosition.LEFT), new AutoAnyPosition(RobotPosition.RIGHT)));
 	autoChooser.addObject("Test", makeAutoChooserEntry(new AutoTest(), new AutoTest()));
-	autoChooser.setName("Auto Command");
+	autoChooser.setName("Robot", "Auto Command");
+	SmartDashboard.putData(autoChooser);
 	
 	positionChooser.addObject("Right", RobotPosition.RIGHT);
 	positionChooser.addDefault("Left", RobotPosition.LEFT);
-	positionChooser.setName("Robot Starting Position");
-
+	positionChooser.setName("Robot", "Robot Starting Position");
+	SmartDashboard.putData(positionChooser);
     }
 
     @Override

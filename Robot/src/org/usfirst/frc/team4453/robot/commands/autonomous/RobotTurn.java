@@ -20,6 +20,16 @@ public class RobotTurn extends Command {
     protected void initialize() {
 	Robot.chassis.turn(angle);
     }
+    
+    protected void execute() {
+	if(Robot.chassis.angleError() > 25.0) {
+	    Robot.chassis.turnCoarse();
+	}
+	else
+	{
+	    Robot.chassis.turnFine();
+	}
+    }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
