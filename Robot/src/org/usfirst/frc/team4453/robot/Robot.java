@@ -46,15 +46,17 @@ public class Robot extends TimedRobot {
 
     public enum RobotPosition {
 	LEFT,
-	RIGHT
+	RIGHT,
+	CENTER
     }
     
     private SendableChooser<HashMap<RobotPosition, Command>> autoChooser = new SendableChooser<>();
     
-    private HashMap<RobotPosition, Command> makeAutoChooserEntry(Command l, Command r)
+    private HashMap<RobotPosition, Command> makeAutoChooserEntry(Command l, Command c, Command r)
     {
 	HashMap<RobotPosition, Command> ret = new HashMap<RobotPosition, Command>();
 	ret.put(RobotPosition.LEFT, l);
+	ret.put(RobotPosition.CENTER, c);
 	ret.put(RobotPosition.RIGHT, r);
 	return ret;
     }
@@ -101,17 +103,18 @@ public class Robot extends TimedRobot {
 	System.out.println("Robot started!");
 
 	
-	autoChooser.addDefault("No-Op", makeAutoChooserEntry(new NoOp(), new NoOp()));
-	autoChooser.addObject("Cross Auto Line", makeAutoChooserEntry(new CrossAutoLine(), new CrossAutoLine()));
-	autoChooser.addObject("Place Cube (Simple)", makeAutoChooserEntry(new ApproachAndPlaceCube(RobotPosition.LEFT), new ApproachAndPlaceCube(RobotPosition.RIGHT)));
-	autoChooser.addObject("Any-positions Auto", makeAutoChooserEntry(new AutoAnyPosition(RobotPosition.LEFT), new AutoAnyPosition(RobotPosition.RIGHT)));
-	autoChooser.addObject("Test", makeAutoChooserEntry(new AutoTest(), new AutoTest()));
-	autoChooser.addObject("Coord", makeAutoChooserEntry(new AutoCoord(), new AutoCoord()));
+	autoChooser.addDefault("No-Op", makeAutoChooserEntry(new NoOp(), new NoOp(), new NoOp()));
+	autoChooser.addObject("Cross Auto Line", makeAutoChooserEntry(new CrossAutoLine(), new CrossAutoLine(), new CrossAutoLine()));
+	autoChooser.addObject("Place Cube (Simple)", makeAutoChooserEntry(new ApproachAndPlaceCube(RobotPosition.LEFT), new ApproachAndPlaceCube(RobotPosition.CENTER), new ApproachAndPlaceCube(RobotPosition.RIGHT)));
+	autoChooser.addObject("Any-positions Auto", makeAutoChooserEntry(new AutoAnyPosition(RobotPosition.LEFT), new AutoAnyPosition(RobotPosition.CENTER), new AutoAnyPosition(RobotPosition.RIGHT)));
+	autoChooser.addObject("Test", makeAutoChooserEntry(new AutoTest(), new AutoTest(), new AutoTest()));
+	autoChooser.addObject("Coord", makeAutoChooserEntry(new AutoCoord(), new AutoCoord(), new AutoCoord()));
 	autoChooser.setName("Auto Command");
 	SmartDashboard.putData(autoChooser);
 	
 	positionChooser.addObject("Right", RobotPosition.RIGHT);
-	positionChooser.addDefault("Left", RobotPosition.LEFT);
+	positionChooser.addDefault("Center", RobotPosition.CENTER);
+	positionChooser.addObject("Left", RobotPosition.LEFT);
 	positionChooser.setName("Robot Starting Position");
 	SmartDashboard.putData(positionChooser);
 	
