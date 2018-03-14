@@ -51,6 +51,10 @@ public class Chassis extends PIDSubsystem {
 
     private Compressor		    compressor			 = new Compressor();
 
+    private double heading = 90.0;
+    private double xPos = 0.0;
+    private double yPos = 0.0;
+    
     private double PIDSpeed = 0;
     
     private PIDSource distancePIDInput = new PIDSource() {
@@ -167,6 +171,36 @@ public class Chassis extends PIDSubsystem {
 	getPIDController().reset();
 	distancePID.reset();
 	drive.stopMotor();
+    }
+
+    public double getHeading() {
+	return heading;
+    }
+    
+    public void setHeading(double h) {
+	heading = h;
+    }
+    
+    public double getXPos() {
+	return xPos;
+    }
+    
+    public void setXPos(double x) {
+	xPos = x;
+    }
+    
+    public double getYPos() {
+	return yPos;
+    }
+    
+    public void setYPos(double y) {
+	yPos = y;
+    }
+    
+    public void resetNavigation() {
+	xPos = 0;
+	yPos = 0;
+	heading = 90;
     }
 
     public double getLoPressure() {
