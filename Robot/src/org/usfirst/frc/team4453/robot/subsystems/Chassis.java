@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -17,9 +18,12 @@ import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 public class Chassis extends PIDSubsystem {
     private static final double CHASSIS_3RD_GEAR_RATIO = 2.5; // Vex 3CIM Ball Shifter 3rd Stage 24:60
     private static final double CHASSIS_ENCODER_RATIO = 3.0; // Encoder gear ratio 1:3
-    private static final double CHASSIS_ENCODER_TICKS_PER_REVOLUTION = 4096;	// SRX Mag Encoder 1024cpr Quadrature
-    private static final double CHASSIS_GEARBOX2ENCODER_RATIO = CHASSIS_3RD_GEAR_RATIO * CHASSIS_ENCODER_RATIO * CHASSIS_ENCODER_TICKS_PER_REVOLUTION;
-    private static final double CHASSIS_WHEEL_DIAMETER = 6; // inches
+    //private static final double CHASSIS_ENCODER_TICKS_PER_REVOLUTION = 4096;	// SRX Mag Encoder 1024cpr Quadrature
+    private static final double CHASSIS_ENCODER_TICKS_PER_REVOLUTION = 1440;
+    //private static final double CHASSIS_GEARBOX2ENCODER_RATIO = CHASSIS_3RD_GEAR_RATIO * CHASSIS_ENCODER_RATIO * CHASSIS_ENCODER_TICKS_PER_REVOLUTION;
+    private static final double CHASSIS_GEARBOX2ENCODER_RATIO = CHASSIS_ENCODER_TICKS_PER_REVOLUTION;
+    //private static final double CHASSIS_WHEEL_DIAMETER = 6; // inches
+    private static final double CHASSIS_WHEEL_DIAMETER = 8; // inches
     private static final double CHASSIS_TICKS_PER_INCH = CHASSIS_GEARBOX2ENCODER_RATIO / (CHASSIS_WHEEL_DIAMETER * Math.PI);
     
     private final WPI_TalonSRX	    leftFront			 = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_LEFT_MOTOR);
@@ -62,7 +66,7 @@ public class Chassis extends PIDSubsystem {
 
 	@Override
 	public double pidGet() {
-	    return (leftFront.getSensorCollection().getQuadraturePosition() + rightFront.getSensorCollection().getQuadraturePosition()) / 2.0;
+	    return (leftFront.getSelectedSensorPosition(0) + rightFront.getSelectedSensorPosition(0)) / 2.0;
 	}
 	
     };
@@ -74,25 +78,27 @@ public class Chassis extends PIDSubsystem {
 	}
     };
     
-    private PIDController distancePID = new PIDController(1, 0, 0, distancePIDInput, distancePIDOutput); // TODO: PID Values
+    private PIDController distancePID = new PIDController(0.05, 0.0001, 0.1, distancePIDInput, distancePIDOutput); // TODO: PID Values
     
     public Chassis() {
-	super("Chassis", 0.075, 0.1, 0.5); // TODO: PID Values
+	super("Chassis", 0.075, 0.1, 0.6); // TODO: PID Values
 	System.out.println("Entering Chassis...");
 	
 	System.out.println("Configuring Distance PID...");
 	getPIDController().setInputRange(0, 360);
 	getPIDController().setContinuous();
 	getPIDController().setAbsoluteTolerance(0.2); // TODO
-	getPIDController().setOutputRange(-.5, .5);
+	getPIDController().setOutputRange(-.6, .6);
 	distancePID.setAbsoluteTolerance(50); // TODO
-	distancePID.setOutputRange(-.5, .5);
+	distancePID.setOutputRange(-.6, .6);
+	distancePID.setName("Chassis", "Distance PID");
+	SmartDashboard.putData(distancePID);
 	System.out.println("Distance PID configured!");
 	
 	System.out.println("Configuring left motors...");
 	leftFront.setSubsystem("Chassis");
-	leftFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
-	leftFront.setSensorPhase(false);
+	leftFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 100);
+	leftFront.setSensorPhase(true);
 	leftMid.follow(leftFront);
 	leftMid.setSubsystem("Chassis");
 	leftBack.follow(leftFront);
@@ -101,7 +107,7 @@ public class Chassis extends PIDSubsystem {
 
 	System.out.println("Configuring right motors...");
 	rightFront.setSubsystem("Chassis");
-	rightFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 100);
+	rightFront.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 100);
 	rightFront.setSensorPhase(false);
 	rightMid.follow(rightFront);
 	rightMid.setSubsystem("Chassis");
@@ -159,6 +165,7 @@ public class Chassis extends PIDSubsystem {
     public void stop() {
 	PIDSpeed = 0;
 	getPIDController().reset();
+	distancePID.reset();
 	drive.stopMotor();
     }
 
@@ -188,46 +195,56 @@ public class Chassis extends PIDSubsystem {
     }
     
     public void driveWithHeading(double speed, double angle) {
+	Robot.ahrs.zeroYaw();
 	getPIDController().reset();
 	getPIDController().enable();
+	distancePID.disable();
 	setSetpoint(angle);
 	PIDSpeed = speed;
     }
     
     public void driveDistanceWithHeading(double distance, double angle)
     {
-	leftFront.getSensorCollection().setPulseWidthPosition(0, 100);
-	rightFront.getSensorCollection().setPulseWidthPosition(0, 100);
+	Robot.ahrs.zeroYaw();
+	leftFront.setSelectedSensorPosition(0, 0, 100);
+	rightFront.setSelectedSensorPosition(0, 0, 100);
 	distancePID.setSetpoint(distance * CHASSIS_TICKS_PER_INCH);
 	setSetpoint(angle);
 	getPIDController().reset();
 	getPIDController().enable();
+	distancePID.reset();
 	distancePID.enable();
     }
     
     public void driveDistance(double distance)
     {
-	leftFront.getSensorCollection().setPulseWidthPosition(0, 100);
-	rightFront.getSensorCollection().setPulseWidthPosition(0, 100);
+	Robot.ahrs.zeroYaw();
+	leftFront.setSelectedSensorPosition(0, 0, 100);
+	rightFront.setSelectedSensorPosition(0, 0, 100);
 	distancePID.setSetpoint(distance * CHASSIS_TICKS_PER_INCH);
-	setSetpoint(Robot.ahrs.getYaw());
+	setSetpoint(0.0);
 	getPIDController().reset();
 	getPIDController().enable();
+	distancePID.reset();
 	distancePID.enable();
     }
     
     public boolean distanceOnTarget() {
-	return Math.abs(distancePID.getSetpoint() - distancePIDInput.pidGet()) < 1.0*CHASSIS_TICKS_PER_INCH;
+	return Math.abs(distancePID.getSetpoint() - distancePIDInput.pidGet()) < 1.0*CHASSIS_TICKS_PER_INCH && Math.abs(chassisSpeed()) < .5;
     }
     
-    public int getLeftEncoder()
-    {
-	return leftFront.getSelectedSensorPosition(0);
+    public double chassisSpeed() {
+	return (leftFront.getSelectedSensorVelocity(0) + rightFront.getSelectedSensorVelocity(0)) * 10.0 / (2.0 * CHASSIS_TICKS_PER_INCH);
     }
     
-    public int getRightEncoder()
+    public double getLeftEncoder()
     {
-	return rightFront.getSelectedSensorPosition(0);
+	return leftFront.getSelectedSensorPosition(0) / CHASSIS_TICKS_PER_INCH;
+    }
+    
+    public double getRightEncoder()
+    {
+	return rightFront.getSelectedSensorPosition(0) / CHASSIS_TICKS_PER_INCH;
     }
     
     public boolean angleOnTarget() {
