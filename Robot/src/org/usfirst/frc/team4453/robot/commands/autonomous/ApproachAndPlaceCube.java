@@ -30,6 +30,7 @@ public class ApproachAndPlaceCube extends CommandGroup {
     }
     
     public ApproachAndPlaceCube(Robot.RobotPosition position) {
+	requires(Robot.chassis);
 	addSequential(Robot.grabber.new Init());
 	Robot.chassis.resetNavigation();
 	
@@ -44,6 +45,7 @@ public class ApproachAndPlaceCube extends CommandGroup {
 	else if(position == Robot.RobotPosition.CENTER) {
 	    Robot.chassis.setXPos(0);
 	    addParallel(new CenterLeft());
+	    Robot.chassis.resetNavigation();
 	    addSequential(new CenterRight());
 	}
 	
