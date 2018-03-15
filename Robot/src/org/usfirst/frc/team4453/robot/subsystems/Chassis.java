@@ -51,7 +51,7 @@ public class Chassis extends PIDSubsystem {
 
     private Compressor		    compressor			 = new Compressor();
 
-    private double heading = 90.0;
+    private double heading = 0.0;
     private double xPos = 0.0;
     private double yPos = 0.0;
     
@@ -200,7 +200,7 @@ public class Chassis extends PIDSubsystem {
     public void resetNavigation() {
 	xPos = 0;
 	yPos = 0;
-	heading = 90;
+	heading = 0;
     }
 
     public double getLoPressure() {

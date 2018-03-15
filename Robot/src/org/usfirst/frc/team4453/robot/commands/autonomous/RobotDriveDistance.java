@@ -12,7 +12,7 @@ public class RobotDriveDistance extends Command {
     private double distance;
     
     public RobotDriveDistance(double d) {
-        requires(Robot.chassis);
+        //requires(Robot.chassis);
         distance = d;
     }
 

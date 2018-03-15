@@ -12,7 +12,7 @@ public class RobotTurn extends Command {
     private double angle;
     
     public RobotTurn(double a) {
-        requires(Robot.chassis);
+        //requires(Robot.chassis);
         angle = a;
     }
 

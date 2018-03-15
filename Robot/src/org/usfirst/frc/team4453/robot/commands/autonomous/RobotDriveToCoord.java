@@ -21,12 +21,11 @@ public class RobotDriveToCoord extends CommandGroup {
 	deltaY = y - Robot.chassis.getYPos();
 	heading = Robot.chassis.getHeading();
 	
-	System.out.print("dX = " + deltaX + "; dY=" + deltaY);
+	System.out.print("dX = " + deltaX + "; dY=" + deltaY + "; h=" + heading);
 	
 	// Calculate turn angle and drive distance to next position
 	dist = Math.sqrt(Math.pow(deltaX, 2) + Math.pow(deltaY, 2));
-	angle = heading - Math.toDegrees(Math.atan2(deltaY, deltaX));
-	System.out.println("; a=" + angle);
+	angle = (90 - Math.toDegrees(Math.atan2(deltaY, deltaX))) - heading;
 	if (angle>180.0) {
 	    angle -= 360.0;
 	}
@@ -34,8 +33,10 @@ public class RobotDriveToCoord extends CommandGroup {
 	    angle += 360.0;
 	}
 	
+	System.out.println("dist = " + dist + "; a=" + angle);
+	
 	// Save next position for next command
-	Robot.chassis.setHeading(heading - angle);
+	Robot.chassis.setHeading(heading + angle);
 	Robot.chassis.setXPos(x);
 	Robot.chassis.setYPos(y);
 	
