@@ -18,12 +18,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Chassis extends PIDSubsystem {
     private static final double CHASSIS_3RD_GEAR_RATIO = 2.5; // Vex 3CIM Ball Shifter 3rd Stage 24:60
     private static final double CHASSIS_ENCODER_RATIO = 3.0; // Encoder gear ratio 1:3
-    //private static final double CHASSIS_ENCODER_TICKS_PER_REVOLUTION = 4096;	// SRX Mag Encoder 1024cpr Quadrature
-    private static final double CHASSIS_ENCODER_TICKS_PER_REVOLUTION = 1440;
-    //private static final double CHASSIS_GEARBOX2ENCODER_RATIO = CHASSIS_3RD_GEAR_RATIO * CHASSIS_ENCODER_RATIO * CHASSIS_ENCODER_TICKS_PER_REVOLUTION;
-    private static final double CHASSIS_GEARBOX2ENCODER_RATIO = CHASSIS_ENCODER_TICKS_PER_REVOLUTION;
-    //private static final double CHASSIS_WHEEL_DIAMETER = 6; // inches
-    private static final double CHASSIS_WHEEL_DIAMETER = 8; // inches
+    private static final double CHASSIS_ENCODER_TICKS_PER_REVOLUTION = 4096;	// SRX Mag Encoder 1024cpr Quadrature
+    private static final double CHASSIS_GEARBOX2ENCODER_RATIO = CHASSIS_3RD_GEAR_RATIO * CHASSIS_ENCODER_RATIO * CHASSIS_ENCODER_TICKS_PER_REVOLUTION;
+    private static final double CHASSIS_WHEEL_DIAMETER = 6; // inches
     private static final double CHASSIS_TICKS_PER_INCH = CHASSIS_GEARBOX2ENCODER_RATIO / (CHASSIS_WHEEL_DIAMETER * Math.PI);
     
     private final WPI_TalonSRX	    leftFront			 = new WPI_TalonSRX(RobotMap.CHASSIS_FRONT_LEFT_MOTOR);
@@ -70,7 +67,7 @@ public class Chassis extends PIDSubsystem {
 
 	@Override
 	public double pidGet() {
-	    return (leftFront.getSelectedSensorPosition(0) + rightFront.getSelectedSensorPosition(0)) / 2.0;
+	    return leftFront.getSelectedSensorPosition(0);
 	}
 	
     };

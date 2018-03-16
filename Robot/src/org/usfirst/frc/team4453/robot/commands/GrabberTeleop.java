@@ -29,7 +29,7 @@ public class GrabberTeleop extends Command {
     protected void execute() {
 	if(Math.abs(Robot.oi.getTiltAxis()) > 0.1)
 	{
-	    angle = Robot.grabber.getTilt() + Robot.oi.getTiltAxis() * 4;
+	    angle = Robot.grabber.getTilt() + Robot.oi.getTiltAxis() * 6;
 	    Robot.grabber.tilt(angle);
 	}
 	speed = Robot.oi.getGrabSpeedAxis();

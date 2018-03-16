@@ -21,6 +21,7 @@ public class ApproachAndPlaceCube2 extends CommandGroup {
 	    addSequential(new RobotDriveDistance(82.556));
 	    addSequential(new RobotTurn(45.368));
 	    addSequential(new RobotDriveDistance(70.0));
+	    addSequential(new GrabberThrow());
 	}
     }
     
@@ -32,6 +33,7 @@ public class ApproachAndPlaceCube2 extends CommandGroup {
 	    addSequential(new RobotDriveDistance(82.556));
 	    addSequential(new RobotTurn(-45.368));
 	    addSequential(new RobotDriveDistance(70.0));
+	    addSequential(new GrabberThrow());
 	}
     }
     
@@ -41,6 +43,7 @@ public class ApproachAndPlaceCube2 extends CommandGroup {
 	    addSequential(new RobotDriveDistance(168.0));
 	    addSequential(new RobotTurn(90.0));
 	    addSequential(new RobotDriveDistance(42.25));
+	    addSequential(new GrabberThrow());
 	}
     }
     
@@ -52,32 +55,39 @@ public class ApproachAndPlaceCube2 extends CommandGroup {
 	    addSequential(new RobotDriveDistance(177.75));
 	    addSequential(new RobotTurn(90.0));
 	    addSequential(new RobotDriveDistance(14.0));
+	    addSequential(new GrabberThrow());
 	}
     }
     private class RightLeft extends CommandGroup {
 	public RightLeft () {
-	    addSequential(new ProceedIfSwitchIsCorrect(SwitchPosition.RIGHT));
+	    addSequential(new ProceedIfSwitchIsCorrect(SwitchPosition.LEFT));
 	    addSequential(new RobotDriveDistance(210.0));
 	    addSequential(new RobotTurn(-90.0));
 	    addSequential(new RobotDriveDistance(177.75));
 	    addSequential(new RobotTurn(-90.0));
 	    addSequential(new RobotDriveDistance(14.0));
+	    addSequential(new GrabberThrow());
+	   
 	}
     }
     
     private class RightRight extends CommandGroup {
 	public RightRight () {
-	    addSequential(new ProceedIfSwitchIsCorrect(SwitchPosition.LEFT));
+	    addSequential(new ProceedIfSwitchIsCorrect(SwitchPosition.RIGHT));
 	    addSequential(new RobotDriveDistance(168.0));
 	    addSequential(new RobotTurn(-90.0));
 	    addSequential(new RobotDriveDistance(42.25));
+	    addSequential(new GrabberThrow());
 	}
     }
     
     public ApproachAndPlaceCube2(Robot.RobotPosition position) {
 	requires(Robot.chassis);
+	addSequential(new GrabberGrab());
 	addSequential(Robot.grabber.new Init());
 	Robot.chassis.resetNavigation();
+	
+	
 	
 	if(position == Robot.RobotPosition.LEFT) {
 	    Robot.chassis.setXPos(0);
@@ -97,6 +107,7 @@ public class ApproachAndPlaceCube2 extends CommandGroup {
 	    Robot.chassis.resetNavigation();
 	    addSequential(new CenterRight());
 	}
+	
 	
 	
 //        //addParallel(new TiltForSwitch());

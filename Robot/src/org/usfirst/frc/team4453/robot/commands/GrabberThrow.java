@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.TimedCommand;
 public class GrabberThrow extends TimedCommand {
 
     public GrabberThrow() {
-	super(.5);
+	super(1.5);
 	requires(Robot.grabber);
     }
     

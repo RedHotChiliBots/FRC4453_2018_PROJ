@@ -28,7 +28,7 @@ public class Grabber extends Subsystem {
 
     private static final double MAX_ANGLE = 175; // TODO: Determine mechanically
     
-    private static final double kF = 0, kP = 40, kI= 0, kD = 0;
+    private static final double kF = 0, kP = 60, kI= 0, kD = 0;
     
     private WPI_TalonSRX     left		    = new WPI_TalonSRX(RobotMap.GRABBER_LEFT_MOTOR);
     private WPI_TalonSRX     right		    = new WPI_TalonSRX(RobotMap.GRABBER_RIGHT_MOTOR);
@@ -63,7 +63,7 @@ public class Grabber extends Subsystem {
 	    left.neutralOutput();
 	    right.neutralOutput();
 
-	    grip.set(Value.kReverse);
+	    //grip.set(Value.kReverse);
 
 	    tilt.setNeutralMode(NeutralMode.Brake);
 	    tilt.set(ControlMode.PercentOutput, -.3); // TODO: Verify correct direction?
@@ -89,7 +89,7 @@ public class Grabber extends Subsystem {
 	tilt.configForwardSoftLimitThreshold((int) (MAX_ANGLE * TICKS_PER_DEGREE), 100);
 	tilt.configForwardSoftLimitEnable(true, 100);
 	tilt.configClosedloopRamp(0.1, 100);
-	tilt.configPeakOutputForward(0.5, 100);
+	tilt.configPeakOutputForward(1, 100);
 	tilt.configPeakOutputReverse(0.5, 100);
 	tilt.config_kF(0, kF, 100);
 	tilt.config_kP(0, kP, 100);
@@ -120,8 +120,8 @@ public class Grabber extends Subsystem {
     }
 
     public void toss() {
-	left.set(ControlMode.PercentOutput, 1);
-	right.set(ControlMode.PercentOutput, -1);
+	left.set(ControlMode.PercentOutput, .75);
+	right.set(ControlMode.PercentOutput, -.75);
 	grip.set(Value.kForward);
     }
 
