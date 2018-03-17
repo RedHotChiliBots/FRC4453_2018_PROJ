@@ -82,13 +82,13 @@ public class RobotMap {
     // Climber
     public static final int CLIMBER_RIGHT_MOTOR	= 6;
     public static final int CLIMBER_LEFT_MOTOR	= 7;
-    public static final int CLIMBER_HOOK_MOTOR	= 12;
+    public static final int CLIMBER_HOOK_MOTOR	= 11;
     // Grabber
     public static final int GRABBER_LEFT_MOTOR	= 8;
     public static final int GRABBER_RIGHT_MOTOR	= 9;
     public static final int GRABBER_TILT_MOTOR	= 10;
     // Shooter
-    public static final int SHOOTER_WIND_MOTOR = 11;
+    public static final int SHOOTER_WIND_MOTOR = 99;
 
     // ====== Solenoids ======
     // Chassis

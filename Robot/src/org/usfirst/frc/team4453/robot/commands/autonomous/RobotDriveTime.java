@@ -19,9 +19,14 @@ public class RobotDriveTime extends TimedCommand {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-	Robot.chassis.driveWithHeading(speed, Robot.ahrs.getYaw());
+	Robot.chassis.arcadeDrive(speed, .0);
     }
 
+    protected void execute()
+    {
+	Robot.chassis.arcadeDrive(speed, .0);
+    }
+    
     // Called once after isFinished returns true
     protected void end() {
 	Robot.chassis.stop();

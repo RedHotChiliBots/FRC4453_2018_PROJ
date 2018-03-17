@@ -7,6 +7,7 @@ import org.usfirst.frc.team4453.robot.commands.autonomous.FieldConstants.SwitchP
 import org.usfirst.frc.team4453.robot.subsystems.Grabber.Init;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
+import edu.wpi.first.wpilibj.command.TimedCommand;
 
 /**
  *
@@ -85,6 +86,8 @@ public class ApproachAndPlaceCube2 extends CommandGroup {
 	requires(Robot.chassis);
 	addSequential(new GrabberGrab());
 	addSequential(Robot.grabber.new Init());
+	addSequential(new TimedCommand(5));
+	addSequential(new GrabberTilt(20));
 	Robot.chassis.resetNavigation();
 	
 	

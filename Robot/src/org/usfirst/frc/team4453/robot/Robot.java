@@ -109,7 +109,7 @@ public class Robot extends TimedRobot {
 	autoChooser.addObject("Any-positions Auto", makeAutoChooserEntry(new AutoAnyPosition(RobotPosition.LEFT), new AutoAnyPosition(RobotPosition.CENTER), new AutoAnyPosition(RobotPosition.RIGHT)));
 	autoChooser.addObject("Test", makeAutoChooserEntry(new AutoTest(), new AutoTest(), new AutoTest()));
 	autoChooser.addObject("Coord", makeAutoChooserEntry(new AutoCoord(), new AutoCoord(), new AutoCoord()));
-	autoChooser.addObject("Place Cube (Complex)", makeAutoChooserEntry(new ApproachAndPlaceCube2(RobotPosition.LEFT), new ApproachAndPlaceCube2(RobotPosition.CENTER), new ApproachAndPlaceCube(RobotPosition.RIGHT)));
+	autoChooser.addObject("Place Cube (Complex)", makeAutoChooserEntry(new ApproachAndPlaceCube2(RobotPosition.LEFT), new ApproachAndPlaceCube2(RobotPosition.CENTER), new ApproachAndPlaceCube2(RobotPosition.RIGHT)));
 	autoChooser.setName("Auto Command");
 	SmartDashboard.putData(autoChooser);
 	
@@ -127,7 +127,7 @@ public class Robot extends TimedRobot {
 	    autoCommand.cancel();
 	}
 	grabber.init();
-	hook.init();
+	//hook.init();
     }
 
     /**
@@ -155,7 +155,7 @@ public class Robot extends TimedRobot {
     public void autonomousInit() {
 	ahrs.zeroYaw();
 	//grabber.init();
-	hook.init();
+	//hook.init();
 	autoCommand = autoChooser.getSelected().get(getRobotStartingPosition());
 
 	// String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -222,7 +222,7 @@ public class Robot extends TimedRobot {
 	SmartDashboard.putBoolean("Shooter Limit Hit", shooter.isLimitHit());
 	SmartDashboard.putBoolean("Hook Limit Hit", hook.isLimitHit());
 	SmartDashboard.putNumber("Tilt Angle", grabber.getTilt());
-	SmartDashboard.putNumber("Hook Height", hook.getDistance());
+	//SmartDashboard.putNumber("Hook Height", hook.getDistance());
 	SmartDashboard.putNumber("Left Chassis encoder", chassis.getLeftEncoder());
 	SmartDashboard.putNumber("Right Chassis encoder", chassis.getRightEncoder());
     }

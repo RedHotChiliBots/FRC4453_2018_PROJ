@@ -151,7 +151,7 @@ public class Chassis extends PIDSubsystem {
 
     public void curveDrive(double spdCmd, double rotCmd, boolean quickTurn) {
 	getPIDController().disable();
-	drive.curvatureDrive(-spdCmd, rotCmd, quickTurn);
+	drive.curvatureDrive(spdCmd, rotCmd, quickTurn);
     }
 
     @Override

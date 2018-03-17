@@ -29,11 +29,12 @@ public class OI {
     private JoystickButton shiftHigh  = new JoystickButton(drive, RobotMap.BUTTON_3);
     private JoystickButton shiftLow   = new JoystickButton(drive, RobotMap.BUTTON_2);
 
-    private JoystickButton shooterShoot = new JoystickButton(operator, RobotMap.Y_BUTTON);
+    //private JoystickButton shooterShoot = new JoystickButton(operator, RobotMap.Y_BUTTON);
 
     private JoystickButton grabberGrab	  = new JoystickButton(operator, RobotMap.A_BUTTON);
     private JoystickButton grabberRelease = new JoystickButton(operator, RobotMap.B_BUTTON);
     private JoystickButton grabberThrow	  = new JoystickButton(operator, RobotMap.X_BUTTON);
+    private JoystickButton grabberPull 	  = new JoystickButton(operator, RobotMap.Y_BUTTON);
 
     private JoystickButton wingsLift = new JoystickButton(operator, RobotMap.LEFT_BUMPER);
     private JoystickButton wingsDrop = new JoystickButton(operator, RobotMap.RIGHT_BUMPER);
@@ -45,10 +46,16 @@ public class OI {
     private Trigger hookRaise = new Trigger() {
 				  @Override
 				  public boolean get() {
-				      return Math.abs(operator.getTriggerAxis(Hand.kLeft) + operator.getTriggerAxis(Hand.kRight)) > 0.1;
+				      return Math.abs(operator.getTriggerAxis(Hand.kLeft)) > 0.1;
 				  }
 			      };
-			      
+	
+    private Trigger hookLower = new Trigger() {
+				  @Override
+				  public boolean get() {
+				      return Math.abs(operator.getTriggerAxis(Hand.kRight)) > 0.1;
+				  }
+			      };
 
     public OI() {
 	shiftHigh.whenPressed(new ChassisShiftHigh());
@@ -59,13 +66,16 @@ public class OI {
 	grabberRelease.whileHeld(new GrabberRelease());
 	grabberThrow.whileHeld(new GrabberThrow());
 	grabberThrow.whenReleased(new GrabberHold());
-
+	grabberPull.whileHeld(new GrabberPull());
+	grabberPull.whenReleased(new GrabberHold());
+	
 	wingsLift.whenPressed(new WingsLift());
 	wingsDrop.whenPressed(new WingsDrop());
 
-	hookRaise.whileActive(new HookTeleop());
-
-	shooterShoot.whenPressed(new ShooterFire());
+	//hookRaise.whileActive(new HookTeleop());
+	hookRaise.whileActive(new HookRaise());
+	hookLower.whileActive(new HookLower());
+	//shooterShoot.whenPressed(new ShooterFire());
 	
 	climberClimb.whileHeld(new ClimberClimb());
 	
@@ -73,11 +83,11 @@ public class OI {
     }
 
     public double getSpdAxis() {
-	return drive.getY();
+	return -drive.getY();
     }
 
     public double getTurnAxis() {
-	return drive.getX();
+	return -drive.getX();
     }
 
     public double getTiltAxis() {

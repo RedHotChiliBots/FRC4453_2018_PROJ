@@ -13,6 +13,6 @@ public class CrossAutoLine extends CommandGroup {
     public CrossAutoLine() {
 //		addSequential(Robot.grabber.new Init());
 //	       addSequential(new RobotDriveDistance(FieldConstants.AUTO_LINE_DIST));	// 5 inches
-	       addSequential(new RobotDriveTime(-0.5, 6));
+	       addSequential(new RobotDriveTime(0.7, 4));
     }
 }

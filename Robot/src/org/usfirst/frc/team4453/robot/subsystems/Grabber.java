@@ -57,16 +57,22 @@ public class Grabber extends Subsystem {
 
 	@Override
 	protected void initialize() {
+	    //System.out.println("Grabber Init initializing...");
 	    isInitialized=false;
 	    left.setNeutralMode(NeutralMode.Brake);
 	    right.setNeutralMode(NeutralMode.Brake);
 	    left.neutralOutput();
 	    right.neutralOutput();
 
-	    //grip.set(Value.kReverse);
+	    grip.set(Value.kForward);
 
 	    tilt.setNeutralMode(NeutralMode.Brake);
-	    tilt.set(ControlMode.PercentOutput, -.3); // TODO: Verify correct direction?
+	    tilt.set(ControlMode.PercentOutput, -.5); // TODO: Verify correct direction?
+	}
+	
+	protected void execute() {
+	    //System.out.println("Grabber Init execute");
+	    tilt.set(ControlMode.PercentOutput, -.5);
 	}
 
 	@Override
@@ -76,6 +82,7 @@ public class Grabber extends Subsystem {
 
 	@Override
 	protected void end() {
+	    //System.out.println("Grabber Init end");
 	    tilt.neutralOutput();
 	    tilt.getSensorCollection().setQuadraturePosition(0, 100);
 	    tilt.set(ControlMode.Position, 0);
@@ -87,10 +94,10 @@ public class Grabber extends Subsystem {
 	tilt.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 100);
 	tilt.setSensorPhase(true);
 	tilt.configForwardSoftLimitThreshold((int) (MAX_ANGLE * TICKS_PER_DEGREE), 100);
-	tilt.configForwardSoftLimitEnable(true, 100);
+	tilt.configForwardSoftLimitEnable(false, 100);
 	tilt.configClosedloopRamp(0.1, 100);
 	tilt.configPeakOutputForward(1, 100);
-	tilt.configPeakOutputReverse(0.5, 100);
+	tilt.configPeakOutputReverse(-0.5, 100);
 	tilt.config_kF(0, kF, 100);
 	tilt.config_kP(0, kP, 100);
 	tilt.config_kI(0, kI, 100);
@@ -105,6 +112,12 @@ public class Grabber extends Subsystem {
 
     public void init() {
 	new Init().start();
+    }
+    
+    public void pull() {
+	left.set(ControlMode.PercentOutput, -.5);
+	right.set(ControlMode.PercentOutput, .5);
+	grip.set(Value.kReverse);
     }
 
     public void grab() {

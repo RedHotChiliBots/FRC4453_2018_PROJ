@@ -26,7 +26,7 @@ public class GrabberTilt extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Math.abs(Robot.grabber.getTilt() - angle) < 1 && Math.abs(Robot.grabber.getTiltSpeed()) < 1.0;
+        return Math.abs(Robot.grabber.getTilt() - angle) < 1; //&& Math.abs(Robot.grabber.getTiltSpeed()) < 1.0;
     }
 
     // Called once after isFinished returns true
