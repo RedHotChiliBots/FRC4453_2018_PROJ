@@ -50,7 +50,7 @@ public class OI {
 				  }
 			      };
 	
-    private Trigger hookLower = new Trigger() {
+   private Trigger hookLower = new Trigger() {
 				  @Override
 				  public boolean get() {
 				      return Math.abs(operator.getTriggerAxis(Hand.kRight)) > 0.1;
@@ -74,12 +74,14 @@ public class OI {
 
 	//hookRaise.whileActive(new HookTeleop());
 	hookRaise.whileActive(new HookRaise());
-	hookLower.whileActive(new HookLower());
+	//hookLower.whenInactive(new HookLower());
+	hookLower.whileActive(new HookLowerFast());
 	//shooterShoot.whenPressed(new ShooterFire());
 	
 	climberClimb.whileHeld(new ClimberClimb());
 	
-	climberControl.whileHeld(new ClimberControl());
+	climberControl.whileActive(new ClimberControl());;
+	
     }
 
     public double getSpdAxis() {
@@ -124,6 +126,19 @@ public class OI {
     }
     
     public int getDPad() {
-	return operator.getPOV();
+	int p = operator.getPOV();
+	if(p < 0)
+	{
+	    p+=360;
+	}
+	return p;
+    }
+    
+    public boolean climbControlLeft() {
+	return drive.getRawButton(8);
+    }
+    
+    public boolean climbControlRight() {
+	return drive.getRawButton(9);
     }
 };

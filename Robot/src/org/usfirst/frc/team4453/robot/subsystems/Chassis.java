@@ -67,7 +67,7 @@ public class Chassis extends PIDSubsystem {
 
 	@Override
 	public double pidGet() {
-	    return leftFront.getSelectedSensorPosition(0);
+	    return (leftFront.getSelectedSensorPosition(0) + rightFront.getSelectedSensorPosition(0))/2.0; 
 	}
 	
     };
@@ -79,10 +79,10 @@ public class Chassis extends PIDSubsystem {
 	}
     };
     
-    private PIDController distancePID = new PIDController(0.05, 0.0001, 0.1, distancePIDInput, distancePIDOutput); // TODO: PID Values
+    private PIDController distancePID = new PIDController(0.00025, 0.0, 0.0004, distancePIDInput, distancePIDOutput); // TODO: PID Values
     
     public Chassis() {
-	super("Chassis", 0.075, 0.1, 0.6); // TODO: PID Values
+	super("Chassis", 0.1, 0.0, 0.0); // TODO: PID Values
 	System.out.println("Entering Chassis...");
 	
 	System.out.println("Configuring Distance PID...");
@@ -90,7 +90,7 @@ public class Chassis extends PIDSubsystem {
 	getPIDController().setContinuous();
 	getPIDController().setAbsoluteTolerance(0.2); // TODO
 	getPIDController().setOutputRange(-.6, .6);
-	distancePID.setAbsoluteTolerance(50); // TODO
+	distancePID.setAbsoluteTolerance(400); // TODO
 	distancePID.setOutputRange(-.6, .6);
 	distancePID.setName("Chassis", "Distance PID");
 	SmartDashboard.putData(distancePID);
@@ -217,12 +217,13 @@ public class Chassis extends PIDSubsystem {
     }
 
     public void arcadeDrive(double spdAxis, double turnAxis) {
-	getPIDController().disable();
+//	getPIDController().disable();
 	drive.arcadeDrive(spdAxis, turnAxis);
     }
 
     public void turn(double angle) {
-	driveWithHeading(0, angle);
+	driveWithHeading(1.0, angle);	//testing Larsen from 0 to 1
+	//TODO Larsen
     }
     
     public void driveWithHeading(double speed, double angle) {
@@ -291,5 +292,6 @@ public class Chassis extends PIDSubsystem {
     protected void usePIDOutput(double output) {
 //	System.out.println("Chassis pid output speed=" + PIDSpeed + ", angle=" + output);
 	drive.arcadeDrive(PIDSpeed, output);
+//	drive.arcadeDrive(PIDSpeed, 0.0);
     }
 }

@@ -1,6 +1,7 @@
 package org.usfirst.frc.team4453.robot.subsystems;
 
 import org.usfirst.frc.team4453.robot.RobotMap;
+import org.usfirst.frc.team4453.robot.commands.HookLower;
 import org.usfirst.frc.team4453.robot.commands.HookStop;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -101,7 +102,7 @@ public class Hook extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-	setDefaultCommand(new HookStop());
+	setDefaultCommand(new HookLower());
     }
     
     public void init() {
@@ -113,11 +114,15 @@ public class Hook extends Subsystem {
    // }
     
     public void raise() {
-	hookLift.set(ControlMode.PercentOutput, .5); //TODO
+	hookLift.set(ControlMode.PercentOutput, .1); //TODO
     }
     
     public void lower() {
-	hookLift.set(ControlMode.PercentOutput, -.5); //TODO
+	hookLift.set(ControlMode.PercentOutput, -.1); //TODO
+    }
+    
+    public void lowerFast() {
+	hookLift.set(ControlMode.PercentOutput, -.3); //TODO
     }
 
     public void stop() {

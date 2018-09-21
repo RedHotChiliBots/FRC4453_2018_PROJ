@@ -16,10 +16,10 @@ public class ClimberControl extends InstantCommand {
 
     // Called once when the command executes
     protected void initialize() {
-	if(Robot.oi.getDPad() >= 45 && Robot.oi.getDPad() >= 135) {
+	if(Robot.oi.climbControlRight()) {
 	    Robot.climber.setRightPower(Robot.oi.getClimbControl());
 	}
-	if(Robot.oi.getDPad() >= 225 && Robot.oi.getDPad() >= 315) {
+	if(Robot.oi.climbControlLeft()) {
 	    Robot.climber.setLeftPower(-Robot.oi.getClimbControl());
 	}
     }

@@ -15,5 +15,6 @@
 	<classpathentry kind="var" path="USERLIBS_DIR/commons-math3-3.6.1-sources.jar"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar" sourcepath="/navx_source"/>
 	<classpathentry kind="var" path="USERLIBS_DIR/mqtt-client-1.7-uber.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

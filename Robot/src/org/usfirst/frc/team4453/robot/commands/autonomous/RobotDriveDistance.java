@@ -23,7 +23,8 @@ public class RobotDriveDistance extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Robot.chassis.distanceOnTarget();
+//        return Robot.chassis.distanceOnTarget();
+	return (false);
     }
 
     // Called once after isFinished returns true
